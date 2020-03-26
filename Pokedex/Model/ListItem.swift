@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Resource Item
-public struct ListItem: Codable {
+public struct ListItem: Codable, Equatable {
     let count: Int
     let next: String
     let previous: String?
@@ -17,7 +17,7 @@ public struct ListItem: Codable {
 }
 
 // MARK: - Result
-public struct ResultItem: Codable {
+public struct ResultItem: Codable, Equatable {
     let name: String
     let url: String
 }

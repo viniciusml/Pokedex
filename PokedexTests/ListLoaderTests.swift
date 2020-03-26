@@ -76,12 +76,12 @@ class ListLoaderTests: XCTestCase {
     }
     
     private func expect(_ sut: ListLoader, toCompleteWithError error: ListLoader.Error, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedErrors = [ListLoader.Error]()
+        var capturedErrors = [ListLoader.ListResult]()
         sut.loadResourceList { capturedErrors.append($0) }
 
         action()
 
-        XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+        XCTAssertEqual(capturedErrors, [.failure(error)], file: file, line: line)
     }
     
     private class HTTPClientSpy: NetworkAdapter {
