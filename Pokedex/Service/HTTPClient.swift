@@ -7,11 +7,25 @@
 //
 
 import Foundation
+import Alamofire
 
-private class HTTPClient {
-    var requestedURL: URL?
+public class HTTPClient: NetworkAdapter {
     
-    func load() {
+    public func load(from url: URL, completion: @escaping (HTTPResult) -> Void) {
         
+        AF.request(url).responseData { result in
+            
+            guard let response = result.response else {
+                completion(.failure(ListLoader.Error.connectivity))
+                return
+            }
+            
+            guard let data = result.data else {
+                completion(.failure(ListLoader.Error.connectivity))
+                return
+            }
+            
+            completion(.success((data, response)))
+        }
     }
 }
