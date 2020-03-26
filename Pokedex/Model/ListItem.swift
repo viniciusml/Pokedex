@@ -14,10 +14,22 @@ public struct ListItem: Codable, Equatable {
     let next: String
     let previous: String?
     let results: [ResultItem]
+    
+    public init(count: Int, next: String, previous: String?, results: [ResultItem]) {
+        self.count = count
+        self.next = next
+        self.previous = previous
+        self.results = results
+    }
 }
 
 // MARK: - Result
 public struct ResultItem: Codable, Equatable {
     let name: String
     let url: String
+    
+    public init(name: String, url: String) {
+        self.name = name
+        self.url = url
+    }
 }

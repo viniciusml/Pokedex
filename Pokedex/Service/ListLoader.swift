@@ -27,8 +27,12 @@ public class ListLoader {
     public func loadResourceList(completion: @escaping (ListResult) -> Void) {
         client.load(from: url) { result in
             switch result {
-            case .success:
-                completion(.failure(.invalidData))
+            case let .success(data, _):
+                if let item = try? JSONDecoder().decode(ListItem.self, from: data) {
+                    completion(.success(item))
+                } else {
+                    completion(.failure(.invalidData))
+                }
             case .failure:
                 completion(.failure(.connectivity))
             }

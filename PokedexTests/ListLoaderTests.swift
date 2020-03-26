@@ -67,6 +67,32 @@ class ListLoaderTests: XCTestCase {
         })
     }
     
+    func test_load_deliversItemsOn200HTTPResponse() {
+        let (sut, client) = makeSUT()
+        
+        let item = ListItem(count: 964, next: "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20", previous: nil, results: [ResultItem(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")])
+        
+        let itemJSON: [String: Any?] = [
+            "count": 964,
+            "next": "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20",
+            "previous": nil,
+            "results": [
+                [
+                    "name": "bulbasaur",
+                    "url": "https://pokeapi.co/api/v2/pokemon/1/"
+                ]
+            ]
+        ]
+
+        var capturedResults = [ListLoader.ListResult]()
+        sut.loadResourceList { capturedResults.append($0) }
+
+        let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
+        client.complete(withStatusCode: 200, data: jsonData)
+
+        XCTAssertEqual(capturedResults, [.success(item)])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "https://pokeapi.co/api/v2/pokemon/")!) -> (sut: ListLoader, client: HTTPClientSpy) {
