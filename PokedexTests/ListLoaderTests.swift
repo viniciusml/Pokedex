@@ -11,6 +11,18 @@ import Pokedex
 
 class ListLoaderTests: XCTestCase {
     
+    private let itemJSON: [String: Any?] = [
+        "count": 964,
+        "next": "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20",
+        "previous": nil,
+        "results": [
+            [
+                "name": "bulbasaur",
+                "url": "https://pokeapi.co/api/v2/pokemon/1/"
+            ]
+        ]
+    ]
+    
     func test_init_doesNotRequestDataFromURL() {
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
         let (_, client) = makeSUT(url: url)
@@ -51,18 +63,6 @@ class ListLoaderTests: XCTestCase {
 
         let samples = [199, 201, 400, 300, 500]
 
-        let itemJSON: [String: Any?] = [
-            "count": 964,
-            "next": "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20",
-            "previous": nil,
-            "results": [
-                [
-                    "name": "bulbasaur",
-                    "url": "https://pokeapi.co/api/v2/pokemon/1/"
-                ]
-            ]
-        ]
-        
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: .failure(.invalidData), when: {
                 let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
@@ -84,18 +84,6 @@ class ListLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         
         let item = ListItem(count: 964, next: "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20", previous: nil, results: [ResultItem(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")])
-        
-        let itemJSON: [String: Any?] = [
-            "count": 964,
-            "next": "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20",
-            "previous": nil,
-            "results": [
-                [
-                    "name": "bulbasaur",
-                    "url": "https://pokeapi.co/api/v2/pokemon/1/"
-                ]
-            ]
-        ]
 
         expect(sut, toCompleteWith: .success(item), when: {
             let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
