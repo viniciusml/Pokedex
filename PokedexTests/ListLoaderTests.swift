@@ -44,7 +44,7 @@ class ListLoaderTests: XCTestCase {
         sut.loadResourceList { capturedErrors.append($0) }
         
         let clientError = NSError(domain: "Test", code: 0)
-        client.completions[0](.failure(clientError))
+        client.complete(with: clientError)
         
         XCTAssertEqual(capturedErrors, [.connectivity])
     }
@@ -65,6 +65,10 @@ class ListLoaderTests: XCTestCase {
         func load(from url: URL, completion: @escaping (RequestResult) -> Void) {
             completions.append(completion)
             requestedURLs.append(url)
+        }
+        
+        func complete(with error: Error, at index: Int = 0) {
+            completions[index](.failure(error))
         }
     }
 }
