@@ -8,8 +8,8 @@
 
 import Foundation
 
-public typealias RequestResult = Result<[ResultItem], Error>
+public typealias RequestResult = Result<HTTPURLResponse, Error>
 
 public protocol NetworkAdapter {
-    func load(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void)
+    func load(from url: URL, completion: @escaping (RequestResult) -> Void)
 }
