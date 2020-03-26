@@ -14,6 +14,7 @@ public class ListLoader {
     
     public enum Error: Swift.Error {
         case connectivity
+        case invalidData
     }
     
     public init(url: URL, client: NetworkAdapter) {
@@ -22,8 +23,12 @@ public class ListLoader {
     }
     
     public func loadResourceList(completion: @escaping (Error) -> Void) {
-        client.load(from: url) { error in
-            completion(.connectivity)
+        client.load(from: url) { error, response in
+            if response != nil {
+                completion(.invalidData)
+            } else {
+                completion(.connectivity)
+            }
         }
     }
 }

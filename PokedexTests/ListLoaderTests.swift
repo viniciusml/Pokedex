@@ -49,6 +49,17 @@ class ListLoaderTests: XCTestCase {
         XCTAssertEqual(capturedErrors, [.connectivity])
     }
     
+    func test_load_deliversErrorOnNon200HTTPResponse() {
+        let (sut, client) = makeSUT()
+
+        var capturedErrors = [ListLoader.Error]()
+        sut.loadResourceList { capturedErrors.append($0) }
+
+        client.complete(withStatusCode: 400)
+
+        XCTAssertEqual(capturedErrors, [.invalidData])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "https://pokeapi.co/api/v2/pokemon/")!) -> (sut: ListLoader, client: HTTPClientSpy) {
@@ -59,17 +70,22 @@ class ListLoaderTests: XCTestCase {
     
     private class HTTPClientSpy: NetworkAdapter {
 
-        private var messages = [(url: URL, completion: (RequestResult) -> Void)]()
+        private var messages = [(url: URL, completion: (Error?, HTTPURLResponse?) -> Void)]()
         var requestedURLs: [URL] {
             return messages.map { $0.url }
         }
         
-        func load(from url: URL, completion: @escaping (RequestResult) -> Void) {
+        func load(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void) {
             messages.append((url, completion))
         }
         
         func complete(with error: Error, at index: Int = 0) {
-            messages[index].completion(.failure(error))
+            messages[index].completion(error, nil)
+        }
+        
+        func complete(withStatusCode code: Int, at index: Int = 0) {
+            let response = HTTPURLResponse(url: requestedURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)
+            messages[index].completion(nil, response)
         }
     }
 }
