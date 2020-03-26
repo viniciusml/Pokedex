@@ -15,7 +15,7 @@ class ListLoaderTests: XCTestCase {
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
         let (_, client) = makeSUT(url: url)
         
-        XCTAssertNil(client.requestedURL)
+        XCTAssertTrue(client.requestedURLs.isEmpty)
     }
     
     func test_load_requestDataFromURL() {
@@ -24,7 +24,7 @@ class ListLoaderTests: XCTestCase {
         
         sut.loadResourceList()
         
-        XCTAssertNotNil(client.requestedURL)
+        XCTAssertEqual(client.requestedURLs, [url])
     }
     
     func test_loadsTwice_requestsDataFromURLTwice() {
@@ -47,11 +47,9 @@ class ListLoaderTests: XCTestCase {
     
     private class HTTPClientSpy: NetworkAdapter {
 
-        var requestedURL: URL?
         var requestedURLs = [URL]()
         
         func load(from url: URL, completion: @escaping (RequestResult) -> Void) {
-            requestedURL = url
             requestedURLs.append(url)
         }
     }
