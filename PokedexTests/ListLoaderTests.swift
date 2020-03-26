@@ -41,12 +41,10 @@ class ListLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         client.error = NSError(domain: "Test", code: 0)
         
-        var capturedError: ListLoader.Error?
-        sut.loadResourceList { error in
-            capturedError = error
-        }
+        var capturedErrors = [ListLoader.Error]()
+        sut.loadResourceList { capturedErrors.append($0) }
         
-        XCTAssertEqual(capturedError, .connectivity)
+        XCTAssertEqual(capturedErrors, [.connectivity])
     }
     
     // MARK: - Helpers
