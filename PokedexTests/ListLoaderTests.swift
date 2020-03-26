@@ -22,7 +22,7 @@ class ListLoaderTests: XCTestCase {
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
         let (sut, client) = makeSUT(url: url)
         
-        sut.loadResourceList()
+        sut.loadResourceList() { _ in }
         
         XCTAssertEqual(client.requestedURLs, [url])
     }
@@ -31,8 +31,8 @@ class ListLoaderTests: XCTestCase {
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
         let (sut, client) = makeSUT(url: url)
         
-        sut.loadResourceList()
-        sut.loadResourceList()
+        sut.loadResourceList() { _ in }
+        sut.loadResourceList() { _ in }
         
         XCTAssertEqual(client.requestedURLs, [url, url])
     }

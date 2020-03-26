@@ -21,7 +21,7 @@ public class ListLoader {
         self.url = url
     }
     
-    public func loadResourceList(completion: @escaping (Error) -> Void = { _ in }) {
+    public func loadResourceList(completion: @escaping (Error) -> Void) {
         client.load(from: url) { error in
             completion(.connectivity)
         }
