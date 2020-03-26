@@ -40,7 +40,7 @@ class ListLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWithError: .connectivity, when: {
+        expect(sut, toCompleteWith: .failure(.connectivity), when: {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         })
@@ -52,7 +52,7 @@ class ListLoaderTests: XCTestCase {
         let samples = [199, 201, 400, 300, 500]
 
         samples.enumerated().forEach { index, code in
-            expect(sut, toCompleteWithError: .invalidData, when: {
+            expect(sut, toCompleteWith: .failure(.invalidData), when: {
                 client.complete(withStatusCode: code, at: index)
             })
         }
@@ -61,7 +61,7 @@ class ListLoaderTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWithError: .invalidData, when: {
+        expect(sut, toCompleteWith: .failure(.invalidData), when: {
             let invalidJSON = Data("Invalid Json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         })
@@ -84,13 +84,10 @@ class ListLoaderTests: XCTestCase {
             ]
         ]
 
-        var capturedResults = [ListLoader.ListResult]()
-        sut.loadResourceList { capturedResults.append($0) }
-
-        let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
-        client.complete(withStatusCode: 200, data: jsonData)
-
-        XCTAssertEqual(capturedResults, [.success(item)])
+        expect(sut, toCompleteWith: .success(item), when: {
+            let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
+            client.complete(withStatusCode: 200, data: jsonData)
+        })
     }
     
     // MARK: - Helpers
@@ -101,13 +98,13 @@ class ListLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func expect(_ sut: ListLoader, toCompleteWithError error: ListLoader.Error, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: ListLoader, toCompleteWith result: ListLoader.ListResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         var capturedErrors = [ListLoader.ListResult]()
         sut.loadResourceList { capturedErrors.append($0) }
 
         action()
 
-        XCTAssertEqual(capturedErrors, [.failure(error)], file: file, line: line)
+        XCTAssertEqual(capturedErrors, [result], file: file, line: line)
     }
     
     private class HTTPClientSpy: NetworkAdapter {
