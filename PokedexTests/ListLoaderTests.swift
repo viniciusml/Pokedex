@@ -9,28 +9,6 @@
 import XCTest
 import Pokedex
 
-class ListLoader {
-    let client: NetworkAdapter
-    let url: URL
-    
-    init(url: URL, client: NetworkAdapter) {
-        self.client = client
-        self.url = url
-    }
-    
-    func loadResourceList() {
-        client.load(from: url) { _ in }
-    }
-}
-
-class HTTPClient {
-    var requestedURL: URL?
-    
-    func load() {
-        
-    }
-}
-
 class ListLoaderTests: XCTestCase {
     
     func test_init_doesNotRequestDataFromURL() {
