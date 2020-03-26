@@ -12,12 +12,18 @@ public class ListLoader {
     let client: NetworkAdapter
     let url: URL
     
+    public enum Error: Swift.Error {
+        case connectivity
+    }
+    
     public init(url: URL, client: NetworkAdapter) {
         self.client = client
         self.url = url
     }
     
-    public func loadResourceList() {
-        client.load(from: url) { _ in }
+    public func loadResourceList(completion: @escaping (Error) -> Void = { _ in }) {
+        client.load(from: url) { error in
+            completion(.connectivity)
+        }
     }
 }
