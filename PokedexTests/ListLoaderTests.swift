@@ -52,12 +52,16 @@ class ListLoaderTests: XCTestCase {
     func test_load_deliversErrorOnNon200HTTPResponse() {
         let (sut, client) = makeSUT()
 
-        var capturedErrors = [ListLoader.Error]()
-        sut.loadResourceList { capturedErrors.append($0) }
+        let samples = [199, 201, 400, 300, 500]
 
-        client.complete(withStatusCode: 400)
+        samples.enumerated().forEach { index, code in
+            var capturedErrors = [ListLoader.Error]()
+            sut.loadResourceList { capturedErrors.append($0) }
 
-        XCTAssertEqual(capturedErrors, [.invalidData])
+            client.complete(withStatusCode: code, at: index)
+
+            XCTAssertEqual(capturedErrors, [.invalidData])
+        }
     }
     
     // MARK: - Helpers
