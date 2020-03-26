@@ -51,9 +51,22 @@ class ListLoaderTests: XCTestCase {
 
         let samples = [199, 201, 400, 300, 500]
 
+        let itemJSON: [String: Any?] = [
+            "count": 964,
+            "next": "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20",
+            "previous": nil,
+            "results": [
+                [
+                    "name": "bulbasaur",
+                    "url": "https://pokeapi.co/api/v2/pokemon/1/"
+                ]
+            ]
+        ]
+        
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: .failure(.invalidData), when: {
-                client.complete(withStatusCode: code, at: index)
+                let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
+                client.complete(withStatusCode: code, data: jsonData, at: index)
             })
         }
     }
@@ -122,7 +135,7 @@ class ListLoaderTests: XCTestCase {
             messages[index].completion(.failure(error))
         }
         
-        func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
+        func complete(withStatusCode code: Int, data: Data, at index: Int = 0) {
             let response = HTTPURLResponse(url: requestedURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)!
             messages[index].completion(.success((data, response)))
         }

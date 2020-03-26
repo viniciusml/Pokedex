@@ -27,8 +27,8 @@ public class ListLoader {
     public func loadResourceList(completion: @escaping (ListResult) -> Void) {
         client.load(from: url) { result in
             switch result {
-            case let .success(data, _):
-                if let item = try? JSONDecoder().decode(ListItem.self, from: data) {
+            case let .success(data, response):
+            if response.statusCode == 200, let item = try? JSONDecoder().decode(ListItem.self, from: data) {
                     completion(.success(item))
                 } else {
                     completion(.failure(.invalidData))
