@@ -11,13 +11,15 @@ import Pokedex
 
 class ListLoader {
     let client: NetworkAdapter
+    let url: URL
     
-    init(client: NetworkAdapter) {
+    init(url: URL, client: NetworkAdapter) {
         self.client = client
+        self.url = url
     }
     
     func loadResourceList() {
-        client.load(from: URL(string: "http:a-given-url.com")!) { _ in }
+        client.load(from: url) { _ in }
     }
 }
 
@@ -41,15 +43,17 @@ class HTTPClientSpy: NetworkAdapter {
 class ListLoaderTests: XCTestCase {
     
     func test_init_doesNotRequestDataFromURL() {
+        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
         let client = HTTPClientSpy()
-        _ = ListLoader(client: client)
+        _ = ListLoader(url: url, client: client)
         
         XCTAssertNil(client.requestedURL)
     }
     
     func test_load_requestDataFromURL() {
+        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
         let client = HTTPClientSpy()
-        let sut = ListLoader(client: client)
+        let sut = ListLoader(url: url, client: client)
         
         sut.loadResourceList()
         
