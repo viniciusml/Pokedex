@@ -13,8 +13,7 @@
 		8F3E9656242BF6F100DCD62D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F3E9654242BF6F100DCD62D /* LaunchScreen.storyboard */; };
 		8F3E966D242C03DA00DCD62D /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E966C242C03DA00DCD62D /* ListItem.swift */; };
 		8F3E966F242C045600DCD62D /* PokemonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E966E242C045600DCD62D /* PokemonItem.swift */; };
-		8F3E9672242C056A00DCD62D /* PokemonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E9671242C056A00DCD62D /* PokemonLoader.swift */; };
-		8F3E9674242C06BF00DCD62D /* ListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E9673242C06BF00DCD62D /* ListLoader.swift */; };
+		8F3E9674242C06BF00DCD62D /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E9673242C06BF00DCD62D /* NetworkAdapter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +37,7 @@
 		8F3E9662242BF6F200DCD62D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F3E966C242C03DA00DCD62D /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		8F3E966E242C045600DCD62D /* PokemonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonItem.swift; sourceTree = "<group>"; };
-		8F3E9671242C056A00DCD62D /* PokemonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLoader.swift; sourceTree = "<group>"; };
-		8F3E9673242C06BF00DCD62D /* ListLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLoader.swift; sourceTree = "<group>"; };
+		8F3E9673242C06BF00DCD62D /* NetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAdapter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,8 +110,7 @@
 		8F3E9670242C053400DCD62D /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				8F3E9673242C06BF00DCD62D /* ListLoader.swift */,
-				8F3E9671242C056A00DCD62D /* PokemonLoader.swift */,
+				8F3E9673242C06BF00DCD62D /* NetworkAdapter.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -220,9 +217,8 @@
 			files = (
 				8F3E966F242C045600DCD62D /* PokemonItem.swift in Sources */,
 				8F3E964E242BF6ED00DCD62D /* ViewController.swift in Sources */,
-				8F3E9674242C06BF00DCD62D /* ListLoader.swift in Sources */,
+				8F3E9674242C06BF00DCD62D /* NetworkAdapter.swift in Sources */,
 				8F3E966D242C03DA00DCD62D /* ListItem.swift in Sources */,
-				8F3E9672242C056A00DCD62D /* PokemonLoader.swift in Sources */,
 				8F3E964A242BF6ED00DCD62D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

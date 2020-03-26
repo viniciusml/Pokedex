@@ -8,8 +8,8 @@
 
 import Foundation
 
-typealias ListResult = Result<[ResultItem], Error>
+typealias RequestResult = Result<[ResultItem], Error>
 
-protocol ListLoader {
-    func load(completion: @escaping (ListResult) -> Void)
+protocol NetworkAdapter {
+    func load(completion: @escaping (RequestResult) -> Void)
 }
