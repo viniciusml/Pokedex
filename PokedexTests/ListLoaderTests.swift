@@ -86,12 +86,12 @@ class ListLoaderTests: XCTestCase {
     
     private class HTTPClientSpy: NetworkAdapter {
 
-        private var messages = [(url: URL, completion: (RequestResult) -> Void)]()
+        private var messages = [(url: URL, completion: (HTTPResult) -> Void)]()
         var requestedURLs: [URL] {
             return messages.map { $0.url }
         }
         
-        func load(from url: URL, completion: @escaping (RequestResult) -> Void) {
+        func load(from url: URL, completion: @escaping (HTTPResult) -> Void) {
             messages.append((url, completion))
         }
         
