@@ -16,12 +16,12 @@ public class HTTPClient: NetworkAdapter {
         AF.request(url).responseData { result in
             
             guard let response = result.response else {
-                completion(.failure(ListLoader.Error.connectivity))
+                completion(.failure(RemoteLoader.Error.connectivity))
                 return
             }
             
             guard let data = result.data else {
-                completion(.failure(ListLoader.Error.connectivity))
+                completion(.failure(RemoteLoader.Error.connectivity))
                 return
             }
             

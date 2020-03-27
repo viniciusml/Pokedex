@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,7 +17,7 @@
 		8F3E9674242C06BF00DCD62D /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E9673242C06BF00DCD62D /* NetworkAdapter.swift */; };
 		8FE2C911242D4A0A00CDAD9F /* ListLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C910242D4A0A00CDAD9F /* ListLoaderTests.swift */; };
 		8FE2C913242D4F2F00CDAD9F /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C912242D4F2F00CDAD9F /* HTTPClient.swift */; };
-		8FE2C915242D4F6600CDAD9F /* ListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C914242D4F6600CDAD9F /* ListLoader.swift */; };
+		8FE2C915242D4F6600CDAD9F /* RemoteLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */; };
 		C4BEF6B9A7138E71A388F8D4 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +50,7 @@
 		8F3E9673242C06BF00DCD62D /* NetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAdapter.swift; sourceTree = "<group>"; };
 		8FE2C910242D4A0A00CDAD9F /* ListLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLoaderTests.swift; sourceTree = "<group>"; };
 		8FE2C912242D4F2F00CDAD9F /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
-		8FE2C914242D4F6600CDAD9F /* ListLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLoader.swift; sourceTree = "<group>"; };
+		8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoader.swift; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,7 +82,6 @@
 				43D83CE7AF6E079A1B6506EF /* Pods-PokedexTests.debug.xcconfig */,
 				63BE6E9B4C20DAB65776FE33 /* Pods-PokedexTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -143,7 +142,7 @@
 			children = (
 				8F3E9673242C06BF00DCD62D /* NetworkAdapter.swift */,
 				8FE2C912242D4F2F00CDAD9F /* HTTPClient.swift */,
-				8FE2C914242D4F6600CDAD9F /* ListLoader.swift */,
+				8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -328,7 +327,7 @@
 				8F3E966F242C045600DCD62D /* PokemonItem.swift in Sources */,
 				8F3E964E242BF6ED00DCD62D /* ViewController.swift in Sources */,
 				8FE2C913242D4F2F00CDAD9F /* HTTPClient.swift in Sources */,
-				8FE2C915242D4F6600CDAD9F /* ListLoader.swift in Sources */,
+				8FE2C915242D4F6600CDAD9F /* RemoteLoader.swift in Sources */,
 				8F3E9674242C06BF00DCD62D /* NetworkAdapter.swift in Sources */,
 				8F3E966D242C03DA00DCD62D /* ListItem.swift in Sources */,
 				8F3E964A242BF6ED00DCD62D /* AppDelegate.swift in Sources */,

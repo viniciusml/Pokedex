@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ListLoader {
+public class RemoteLoader {
     let client: NetworkAdapter
     let url: URL
     

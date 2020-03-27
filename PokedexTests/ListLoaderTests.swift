@@ -93,14 +93,14 @@ class ListLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(url: URL = URL(string: "https://pokeapi.co/api/v2/pokemon/")!) -> (sut: ListLoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "https://pokeapi.co/api/v2/pokemon/")!) -> (sut: RemoteLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = ListLoader(url: url, client: client)
+        let sut = RemoteLoader(url: url, client: client)
         return (sut, client)
     }
     
-    private func expect(_ sut: ListLoader, toCompleteWith result: ListLoader.ListResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedErrors = [ListLoader.ListResult]()
+    private func expect(_ sut: RemoteLoader, toCompleteWith result: RemoteLoader.ListResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        var capturedErrors = [RemoteLoader.ListResult]()
         sut.loadResourceList { capturedErrors.append($0) }
 
         action()
