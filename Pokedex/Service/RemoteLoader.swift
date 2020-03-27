@@ -9,8 +9,8 @@
 import Foundation
 
 public class RemoteLoader {
+    
     let client: NetworkAdapter
-    let url: URL
     
     public enum Error: Swift.Error {
         case connectivity
@@ -19,12 +19,14 @@ public class RemoteLoader {
     
     public typealias RequestResult<T: Decodable> = Result<T, Error>
     
-    public init(url: URL, client: NetworkAdapter) {
+    public init(client: NetworkAdapter) {
         self.client = client
-        self.url = url
     }
     
     public func load<U: Decodable>(completion: @escaping (RequestResult<U>) -> Void) {
+        
+        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
+        
         client.load(from: url) { result in
             switch result {
             case let .success(data, response):

@@ -24,15 +24,14 @@ class RemoteLoaderTests: XCTestCase {
     ]
     
     func test_init_doesNotRequestDataFromURL() {
-        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
-        let (_, client) = makeSUT(url: url)
+        let (_, client) = makeSUT()
         
         XCTAssertTrue(client.requestedURLs.isEmpty)
     }
     
     func test_load_requestDataFromURL() {
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
-        let (sut, client) = makeSUT(url: url)
+        let (sut, client) = makeSUT()
         
         sut.loadResourceList() { _ in }
         
@@ -41,7 +40,7 @@ class RemoteLoaderTests: XCTestCase {
     
     func test_loadsTwice_requestsDataFromURLTwice() {
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
-        let (sut, client) = makeSUT(url: url)
+        let (sut, client) = makeSUT()
         
         sut.loadResourceList() { _ in }
         sut.loadResourceList() { _ in }
@@ -93,9 +92,9 @@ class RemoteLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(url: URL = URL(string: "https://pokeapi.co/api/v2/pokemon/")!) -> (sut: RemoteLoader, client: HTTPClientSpy) {
+    private func makeSUT() -> (sut: RemoteLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = RemoteLoader(url: url, client: client)
+        let sut = RemoteLoader(client: client)
         return (sut, client)
     }
     
