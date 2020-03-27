@@ -99,8 +99,8 @@ class ListLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func expect(_ sut: RemoteLoader, toCompleteWith result: RemoteLoader.ListResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedErrors = [RemoteLoader.ListResult]()
+    private func expect(_ sut: RemoteLoader, toCompleteWith result: RemoteLoader.RequestResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        var capturedErrors = [RemoteLoader.RequestResult]()
         sut.loadResourceList { capturedErrors.append($0) }
 
         action()

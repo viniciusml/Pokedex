@@ -17,14 +17,14 @@ public class RemoteLoader {
         case invalidData
     }
     
-    public typealias ListResult = Result<ListItem, Error>
+    public typealias RequestResult = Result<ListItem, Error>
     
     public init(url: URL, client: NetworkAdapter) {
         self.client = client
         self.url = url
     }
     
-    public func loadResourceList(completion: @escaping (ListResult) -> Void) {
+    public func loadResourceList(completion: @escaping (RequestResult) -> Void) {
         client.load(from: url) { result in
             switch result {
             case let .success(data, response):
