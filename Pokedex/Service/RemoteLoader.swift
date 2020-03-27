@@ -17,18 +17,18 @@ public class RemoteLoader {
         case invalidData
     }
     
-    public typealias RequestResult = Result<ListItem, Error>
+    public typealias RequestResult<T: Decodable> = Result<T, Error>
     
     public init(url: URL, client: NetworkAdapter) {
         self.client = client
         self.url = url
     }
     
-    public func loadResourceList(completion: @escaping (RequestResult) -> Void) {
+    public func load<U: Decodable>(completion: @escaping (RequestResult<U>) -> Void) {
         client.load(from: url) { result in
             switch result {
             case let .success(data, response):
-            if response.statusCode == 200, let item = try? JSONDecoder().decode(ListItem.self, from: data) {
+            if response.statusCode == 200, let item = try? JSONDecoder().decode(U.self, from: data) {
                     completion(.success(item))
                 } else {
                     completion(.failure(.invalidData))
@@ -37,5 +37,9 @@ public class RemoteLoader {
                 completion(.failure(.connectivity))
             }
         }
+    }
+    
+    public func loadResourceList(completion: @escaping (RequestResult<ListItem>) -> Void) {
+        load(completion: completion)
     }
 }

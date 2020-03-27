@@ -99,13 +99,13 @@ class ListLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func expect(_ sut: RemoteLoader, toCompleteWith result: RemoteLoader.RequestResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedErrors = [RemoteLoader.RequestResult]()
-        sut.loadResourceList { capturedErrors.append($0) }
+    private func expect(_ sut: RemoteLoader, toCompleteWith result: RemoteLoader.RequestResult<ListItem>, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        var capturedResult = [RemoteLoader.RequestResult<ListItem>]()
+        sut.loadResourceList { capturedResult.append($0) }
 
         action()
 
-        XCTAssertEqual(capturedErrors, [result], file: file, line: line)
+        XCTAssertEqual(capturedResult, [result], file: file, line: line)
     }
     
     private class HTTPClientSpy: NetworkAdapter {
