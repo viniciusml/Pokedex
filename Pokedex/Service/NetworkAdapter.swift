@@ -11,5 +11,5 @@ import Foundation
 public typealias HTTPResult = Result<(Data, HTTPURLResponse), Error>
 
 public protocol NetworkAdapter {
-    func load(from url: URL, completion: @escaping (HTTPResult) -> Void)
+    func load(from url: String, completion: @escaping (HTTPResult) -> Void)
 }

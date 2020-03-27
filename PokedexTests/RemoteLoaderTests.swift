@@ -30,7 +30,7 @@ class RemoteLoaderTests: XCTestCase {
     }
     
     func test_load_requestDataFromURL() {
-        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
+        let url = "https://pokeapi.co/api/v2/pokemon/"
         let (sut, client) = makeSUT()
         
         sut.loadResourceList() { _ in }
@@ -39,7 +39,7 @@ class RemoteLoaderTests: XCTestCase {
     }
     
     func test_loadsTwice_requestsDataFromURLTwice() {
-        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
+        let url = "https://pokeapi.co/api/v2/pokemon/"
         let (sut, client) = makeSUT()
         
         sut.loadResourceList() { _ in }
@@ -109,12 +109,12 @@ class RemoteLoaderTests: XCTestCase {
     
     private class HTTPClientSpy: NetworkAdapter {
 
-        private var messages = [(url: URL, completion: (HTTPResult) -> Void)]()
-        var requestedURLs: [URL] {
+        private var messages = [(url: String, completion: (HTTPResult) -> Void)]()
+        var requestedURLs: [String] {
             return messages.map { $0.url }
         }
         
-        func load(from url: URL, completion: @escaping (HTTPResult) -> Void) {
+        func load(from url: String, completion: @escaping (HTTPResult) -> Void) {
             messages.append((url, completion))
         }
         
@@ -123,7 +123,7 @@ class RemoteLoaderTests: XCTestCase {
         }
         
         func complete(withStatusCode code: Int, data: Data, at index: Int = 0) {
-            let response = HTTPURLResponse(url: requestedURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)!
+            let response = HTTPURLResponse(url: URL(string: requestedURLs[index])!, statusCode: code, httpVersion: nil, headerFields: nil)!
             messages[index].completion(.success((data, response)))
         }
     }

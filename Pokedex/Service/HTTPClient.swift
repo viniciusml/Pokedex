@@ -11,7 +11,7 @@ import Alamofire
 
 public class HTTPClient: NetworkAdapter {
     
-    public func load(from url: URL, completion: @escaping (HTTPResult) -> Void) {
+    public func load(from url: String, completion: @escaping (HTTPResult) -> Void) {
         
         AF.request(url).responseData { result in
             

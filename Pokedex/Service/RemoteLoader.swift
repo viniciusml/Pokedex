@@ -25,9 +25,9 @@ public class RemoteLoader {
     
     public func load<U: Decodable>(completion: @escaping (RequestResult<U>) -> Void) {
         
-        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
+        let urlString = "https://pokeapi.co/api/v2/pokemon/"
         
-        client.load(from: url) { result in
+        client.load(from: urlString) { result in
             switch result {
             case let .success(data, response):
             if response.statusCode == 200, let item = try? JSONDecoder().decode(U.self, from: data) {
