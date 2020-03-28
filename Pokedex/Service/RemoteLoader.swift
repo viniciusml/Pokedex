@@ -45,7 +45,7 @@ public class RemoteLoader {
         load(parameter: page, completion: completion)
     }
     
-    public func loadPokemon(completion: @escaping (RequestResult<PokemonItem>) -> Void) {
-        load(parameter: "", completion: completion)
+    public func loadPokemon(pokemonId: String = "", completion: @escaping (RequestResult<PokemonItem>) -> Void) {
+        load(parameter: pokemonId, completion: completion)
     }
 }

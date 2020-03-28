@@ -157,8 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */,
-				8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */,
 				8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */,
+				8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */,
 				8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */,
 			);
 			path = Service;

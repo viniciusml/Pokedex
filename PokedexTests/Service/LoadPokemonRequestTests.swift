@@ -160,6 +160,15 @@ class LoadPokemonRequestTests: XCTestCase {
         })
     }
     
+    func test_load_usesPageParameter() {
+        let (sut, client) = makeSUT()
+        let id = "1"
+        
+        sut.loadPokemon(pokemonId: id) { _ in }
+        
+        XCTAssertEqual(client.requestedURLs, [baseURL() + id])
+    }
+    
     // MARK: - Helpers
     
     private func expect(_ sut: RemoteLoader, toCompleteWith result: RemoteLoader.RequestResult<PokemonItem>, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
