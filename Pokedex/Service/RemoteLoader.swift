@@ -44,4 +44,8 @@ public class RemoteLoader {
     public func loadResourceList(page: String = "", completion: @escaping (RequestResult<ListItem>) -> Void) {
         load(parameter: page, completion: completion)
     }
+    
+    public func loadPokemon(completion: @escaping (RequestResult<PokemonItem>) -> Void) {
+        load(parameter: "", completion: completion)
+    }
 }

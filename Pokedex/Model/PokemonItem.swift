@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Pokemon Item
-struct PokemonItem: Codable {
+public struct PokemonItem: Decodable {
     let id: Int
     let name: String
     let baseExperience, height: Int
@@ -33,7 +33,7 @@ struct PokemonItem: Codable {
 }
 
 // MARK: - Ability
-struct Ability: Codable {
+public struct Ability: Decodable {
     let isHidden: Bool
     let slot: Int
     let ability: Species
@@ -45,13 +45,13 @@ struct Ability: Codable {
 }
 
 // MARK: - Species
-struct Species: Codable {
+public struct Species: Decodable {
     let name: String
     let url: String
 }
 
 // MARK: - Sprites
-struct Sprites: Codable {
+public struct Sprites: Decodable {
     let backFemale, backShinyFemale, backDefault, frontFemale: String
     let frontShinyFemale, backShiny, frontDefault, frontShiny: String
 
@@ -68,7 +68,7 @@ struct Sprites: Codable {
 }
 
 // MARK: - Stat
-struct Stat: Codable {
+public struct Stat: Decodable {
     let baseStat, effort: Int
     let stat: Species
 
@@ -79,7 +79,7 @@ struct Stat: Codable {
 }
 
 // MARK: - TypeElement
-struct TypeElement: Codable {
+public struct TypeElement: Decodable {
     let slot: Int
     let type: Species
 }

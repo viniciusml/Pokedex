@@ -17,6 +17,7 @@
 		8F3E9674242C06BF00DCD62D /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E9673242C06BF00DCD62D /* NetworkAdapter.swift */; };
 		8FB4642B242F96B400C1FE8A /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */; };
 		8FB4642D242F96F300C1FE8A /* LoadPokemonRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */; };
+		8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */; };
 		8FE2C911242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */; };
 		8FE2C913242D4F2F00CDAD9F /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C912242D4F2F00CDAD9F /* HTTPClient.swift */; };
 		8FE2C915242D4F6600CDAD9F /* RemoteLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */; };
@@ -52,6 +53,7 @@
 		8F3E9673242C06BF00DCD62D /* NetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAdapter.swift; sourceTree = "<group>"; };
 		8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadPokemonRequestTests.swift; sourceTree = "<group>"; };
+		8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHelpers.swift; sourceTree = "<group>"; };
 		8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadResourceListRequestTests.swift; sourceTree = "<group>"; };
 		8FE2C912242D4F2F00CDAD9F /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoader.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */,
 				8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */,
 				8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */,
+				8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				8FE2C911242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift in Sources */,
 				8FB4642B242F96B400C1FE8A /* HTTPClientSpy.swift in Sources */,
 				8FB4642D242F96F300C1FE8A /* LoadPokemonRequestTests.swift in Sources */,
+				8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
