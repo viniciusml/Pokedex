@@ -30,16 +30,15 @@ class LoadResourceListRequestTests: XCTestCase {
     }
     
     func test_load_requestDataFromURL() {
-        let url = "https://pokeapi.co/api/v2/pokemon/"
         let (sut, client) = makeSUT()
         
         sut.loadResourceList() { _ in }
         
-        XCTAssertEqual(client.requestedURLs, [url])
+        XCTAssertEqual(client.requestedURLs, [baseURL()])
     }
     
     func test_loadsTwice_requestsDataFromURLTwice() {
-        let url = "https://pokeapi.co/api/v2/pokemon/"
+        let url = baseURL()
         let (sut, client) = makeSUT()
         
         sut.loadResourceList() { _ in }
@@ -92,12 +91,11 @@ class LoadResourceListRequestTests: XCTestCase {
     
     func test_load_usesPageParameter() {
         let (sut, client) = makeSUT()
-        let baseUrl = "https://pokeapi.co/api/v2/pokemon/"
         let page = "?offset=0&limit=20"
         
         sut.loadResourceList(page: page) { _ in }
         
-        XCTAssertEqual(client.requestedURLs, [baseUrl + page])
+        XCTAssertEqual(client.requestedURLs, [baseURL() + page])
     }
     
     // MARK: - Helpers

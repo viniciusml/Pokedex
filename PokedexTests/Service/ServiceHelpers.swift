@@ -16,4 +16,8 @@ extension XCTestCase {
         let sut = RemoteLoader(client: client)
         return (sut, client)
     }
+    
+    func baseURL() -> String {
+        return "https://pokeapi.co/api/v2/pokemon/"
+    }
 }

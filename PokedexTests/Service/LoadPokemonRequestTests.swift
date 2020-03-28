@@ -12,11 +12,10 @@ import Pokedex
 class LoadPokemonRequestTests: XCTestCase {
     
     func test_load_requestDataFromURL() {
-        let url = "https://pokeapi.co/api/v2/pokemon/"
         let (sut, client) = makeSUT()
         
         sut.loadPokemon() { _ in }
         
-        XCTAssertEqual(client.requestedURLs, [url])
+        XCTAssertEqual(client.requestedURLs, [baseURL()])
     }
 }
