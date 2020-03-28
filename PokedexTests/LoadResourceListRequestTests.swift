@@ -9,7 +9,7 @@
 import XCTest
 import Pokedex
 
-class RemoteLoaderTests: XCTestCase {
+class LoadResourceListRequestTests: XCTestCase {
     
     private let itemJSON: [String: Any?] = [
         "count": 964,
