@@ -23,9 +23,9 @@ public class RemoteLoader {
         self.client = client
     }
     
-    public func load<U: Decodable>(completion: @escaping (RequestResult<U>) -> Void) {
+    private func load<U: Decodable>(parameter: String, completion: @escaping (RequestResult<U>) -> Void) {
         
-        let urlString = "https://pokeapi.co/api/v2/pokemon/"
+        let urlString = "https://pokeapi.co/api/v2/pokemon/\(parameter)"
         
         client.load(from: urlString) { result in
             switch result {
@@ -41,7 +41,7 @@ public class RemoteLoader {
         }
     }
     
-    public func loadResourceList(completion: @escaping (RequestResult<ListItem>) -> Void) {
-        load(completion: completion)
+    public func loadResourceList(page: String = "", completion: @escaping (RequestResult<ListItem>) -> Void) {
+        load(parameter: page, completion: completion)
     }
 }

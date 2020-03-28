@@ -90,6 +90,16 @@ class RemoteLoaderTests: XCTestCase {
         })
     }
     
+    func test_load_usesPageParameter() {
+        let (sut, client) = makeSUT()
+        let baseUrl = "https://pokeapi.co/api/v2/pokemon/"
+        let page = "?offset=0&limit=20"
+        
+        sut.loadResourceList(page: page) { _ in }
+        
+        XCTAssertEqual(client.requestedURLs, [baseUrl + page])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT() -> (sut: RemoteLoader, client: HTTPClientSpy) {
