@@ -44,7 +44,7 @@ public enum PokeType: Int {
         case .fire: return .red
         case .water: return .blue
         case .grass: return .green
-        case .electric: return .yellow
+        case .electric: return .orange
         case .psychic: return .purple
         case .ice: return .cyan
         case .dragon: return .orange
