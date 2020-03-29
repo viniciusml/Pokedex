@@ -28,7 +28,7 @@ class RemoteLoaderEndToEndTests: XCTestCase {
         switch receivedResult {
         case let .success(item):
             XCTAssertEqual(item.count, 964)
-            XCTAssertEqual(item.next, "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20")
+            XCTAssertEqual(item.next, "https://pokeapi.co/api/v2/pokemon/?offset=40&limit=40")
             XCTAssertEqual(item.previous, nil)
             XCTAssertEqual(item.results, [ResultItem(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"),
                                           ResultItem(name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon/2/"),
@@ -49,7 +49,27 @@ class RemoteLoaderEndToEndTests: XCTestCase {
                                           ResultItem(name: "pidgeotto", url: "https://pokeapi.co/api/v2/pokemon/17/"),
                                           ResultItem(name: "pidgeot", url: "https://pokeapi.co/api/v2/pokemon/18/"),
                                           ResultItem(name: "rattata", url: "https://pokeapi.co/api/v2/pokemon/19/"),
-                                          ResultItem(name: "raticate", url: "https://pokeapi.co/api/v2/pokemon/20/")])
+                                          ResultItem(name: "raticate", url: "https://pokeapi.co/api/v2/pokemon/20/"),
+                                          ResultItem(name: "spearow", url: "https://pokeapi.co/api/v2/pokemon/21/"),
+                                          ResultItem(name: "fearow", url: "https://pokeapi.co/api/v2/pokemon/22/"),
+                                          ResultItem(name: "ekans", url: "https://pokeapi.co/api/v2/pokemon/23/"),
+                                          ResultItem(name: "arbok", url: "https://pokeapi.co/api/v2/pokemon/24/"),
+                                          ResultItem(name: "pikachu", url: "https://pokeapi.co/api/v2/pokemon/25/"),
+                                          ResultItem(name: "raichu", url: "https://pokeapi.co/api/v2/pokemon/26/"),
+                                          ResultItem(name: "sandshrew", url: "https://pokeapi.co/api/v2/pokemon/27/"),
+                                          ResultItem(name: "sandslash", url: "https://pokeapi.co/api/v2/pokemon/28/"),
+                                          ResultItem(name: "nidoran-f", url: "https://pokeapi.co/api/v2/pokemon/29/"),
+                                          ResultItem(name: "nidorina", url: "https://pokeapi.co/api/v2/pokemon/30/"),
+                                          ResultItem(name: "nidoqueen", url: "https://pokeapi.co/api/v2/pokemon/31/"),
+                                          ResultItem(name: "nidoran-m", url: "https://pokeapi.co/api/v2/pokemon/32/"),
+                                          ResultItem(name: "nidorino", url: "https://pokeapi.co/api/v2/pokemon/33/"),
+                                          ResultItem(name: "nidoking", url: "https://pokeapi.co/api/v2/pokemon/34/"),
+                                          ResultItem(name: "clefairy", url: "https://pokeapi.co/api/v2/pokemon/35/"),
+                                          ResultItem(name: "clefable", url: "https://pokeapi.co/api/v2/pokemon/36/"),
+                                          ResultItem(name: "vulpix", url: "https://pokeapi.co/api/v2/pokemon/37/"),
+                                          ResultItem(name: "ninetales", url: "https://pokeapi.co/api/v2/pokemon/38/"),
+                                          ResultItem(name: "jigglypuff", url: "https://pokeapi.co/api/v2/pokemon/39/"),
+                                          ResultItem(name: "wigglytuff", url: "https://pokeapi.co/api/v2/pokemon/40/")])
 
         case let .failure(error):
             XCTFail("Expected successful list result, got \(error) instead")
