@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Enum representing possible Pokémon Types returned by the API, and a color according to each case.
 public enum PokeType: Int {
     case normal = 1
     case fighting = 2

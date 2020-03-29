@@ -10,12 +10,17 @@ import UIKit
 
 class PokemonViewController: UIViewController {
     
+    // MARK: - Properties
+    
     var id = ""
     
     var pokemonViewModel: PokemonViewModel!
     
     let mainView = PokemonMainView()
         
+    
+    // MARK: - Initializer
+    
     convenience init(id: String) {
         self.init()
         self.id = id
@@ -29,6 +34,8 @@ class PokemonViewController: UIViewController {
     }
 }
 
+// MARK: - Pokemon ViewModel Delegate
+
 extension PokemonViewController: PokemonViewModelDelegate {
     
     func onFetchCompleted(pokemon: PokemonItem) {
@@ -37,6 +44,7 @@ extension PokemonViewController: PokemonViewModelDelegate {
     }
     
     func onFetchFailed(with reason: String) {
-        debugPrint("🛑⚠️ \(reason) ⚠️🛑")
+        
+        showBasicAlert(title: "Error", message: reason)
     }
 }

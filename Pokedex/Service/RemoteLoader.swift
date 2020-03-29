@@ -8,7 +8,10 @@
 
 import Foundation
 
+/// Network Service.
 public class RemoteLoader {
+    
+    //    MARK: - Properties
     
     let client: NetworkAdapter
     
@@ -17,12 +20,20 @@ public class RemoteLoader {
         case invalidData
     }
     
+    // MARK: - Generic Request Result
+    /// Result received from a request.
+    ///
+    /// When request and mapping are successful, delivers a Generic Decodable type.
+    /// When request or mapping are unsuccessful, delivers an Error type.
     public typealias RequestResult<T: Decodable> = Result<T, Error>
+    
+    // MARK: - Initializer
     
     public init(client: NetworkAdapter) {
         self.client = client
     }
     
+    // Generic 'Load' function.
     private func load<U: Decodable>(parameter: String, completion: @escaping (RequestResult<U>) -> Void) {
         
         let urlString = "https://pokeapi.co/api/v2/pokemon/\(parameter)"

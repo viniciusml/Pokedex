@@ -132,6 +132,8 @@ public struct TypeElement: Decodable, Equatable {
         self.type = type
     }
     
+    /// Maps the 'id' returned in the last component of the url string into a PokeType.
+    /// In case the url convertion to Int fails, a default '10001' value is presented, which represents 'unkown' enum case.
     public func typeID() -> PokeType? {
         let url = URL(fileURLWithPath: type.url).pathComponents.dropFirst()
         if let id = Int(url.last ?? "10001") {

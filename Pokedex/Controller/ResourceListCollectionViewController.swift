@@ -10,7 +10,11 @@ import UIKit
 
 public class ResourceListCollectionViewController: UICollectionViewController {
     
+    // MARK: - Properties
+    
     public var listViewModel: ListViewModel!
+    
+    // MARK: - Initializers
     
     public init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -20,25 +24,36 @@ public class ResourceListCollectionViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - View Controller Life Cycle
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
     
         title = "Pokédex"
         
         listViewModel = ListViewModel(delegate: self)
-        collectionView.prefetchDataSource = self
         listViewModel.fetchResourceList()
         
+        setupCollectionView()
+    }
+    
+    // MARK: - Helpers
+    
+    private func setupCollectionView() {
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.identifier)
+        collectionView.prefetchDataSource = self
         collectionView.backgroundColor = .white
         collectionView.isPrefetchingEnabled = true
     }
     
+    // Checks if the cell at at -15 items from the last one received is being displayed.
     func isDisplayingCell(for indexPath: IndexPath) -> Bool {
         
         return indexPath.item >= listViewModel.resources.count - 15
     }
 }
+
+// MARK: - Collection View Data Source and Delegate
 
 extension ResourceListCollectionViewController: UICollectionViewDelegateFlowLayout {
     
@@ -76,6 +91,8 @@ extension ResourceListCollectionViewController: UICollectionViewDelegateFlowLayo
     }
 }
 
+// MARK: - Collection View Data Source Prefetching
+
 extension ResourceListCollectionViewController: UICollectionViewDataSourcePrefetching {
     
     public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
@@ -86,6 +103,8 @@ extension ResourceListCollectionViewController: UICollectionViewDataSourcePrefet
         }
     }
 }
+
+// MARK: - List ViewModel Delegate
 
 extension ResourceListCollectionViewController: ListViewModelDelegate {
     

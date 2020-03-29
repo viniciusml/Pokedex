@@ -8,8 +8,13 @@
 
 import UIKit
 
+/// A view that displays a horizontal series of cells, each of which presents to an image, creating a carousel effect.
+///
+/// Creates an effect very simmilar to UIPageViewController, but with no need of creating a controller.
 class PhotoCarousel: UIView {
         
+    // MARK: - Properties
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -22,6 +27,8 @@ class PhotoCarousel: UIView {
     
     var imagesAvailable = [String]()
         
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -34,6 +41,8 @@ class PhotoCarousel: UIView {
         fatalError("init(coder:) has not been implemented")
     }
         
+    // MARK: - Helpers
+    
     func setupCollectionView() {
         
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.identifier)

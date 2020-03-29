@@ -8,8 +8,13 @@
 
 import UIKit
 
+/// Cell to be used as indicator for photo cell being presented in PhotoCarousel.
+///
+/// Similar to UIPageControl in appearence.
 class IndicatorCell: BaseCell {
-        
+    
+    // MARK: - Properties
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -27,7 +32,9 @@ class IndicatorCell: BaseCell {
             indicatorView.backgroundColor = isSelected ? .black : .lightGray
         }
     }
-        
+    
+    // MARK: - Helpers
+    
     override func setupViews() {
         super.setupViews()
         

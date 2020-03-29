@@ -83,6 +83,7 @@ class PhotoIndicator: UIView {
 }
 
 // MARK: - Collection View Delegate
+
 extension PhotoIndicator: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

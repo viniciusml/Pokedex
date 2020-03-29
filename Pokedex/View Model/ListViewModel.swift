@@ -30,7 +30,7 @@ public class ListViewModel {
     var currentPage = 0
     
     var isFetchInProgress = false
-        
+    
     init(delegate: ListViewModelDelegate) {
         
         self.resourcesDelegate = delegate
@@ -45,7 +45,7 @@ public class ListViewModel {
         }
         
         isFetchInProgress = true
-
+        
         loader.loadResourceList(page: currentPage.toOffset()) { result in
             switch result {
             case .success(let item):
@@ -58,11 +58,13 @@ public class ListViewModel {
                     
                     if self.currentPage > 1 {
                         
+                        // Index paths to update collection.
                         let indexPathsToReload = self.calculateIndexPathsToReload(from: item.results)
                         
+                        // Inform delegate there's new data available to load.
                         self.resourcesDelegate?.onFetchCompleted(with: indexPathsToReload)
                     } else {
-                        
+                        // Inform delegate there's first amount of data to load
                         self.resourcesDelegate?.onFetchCompleted(with: .none)
                     }
                     
@@ -73,17 +75,22 @@ public class ListViewModel {
                 DispatchQueue.main.async {
                     self.isFetchInProgress = false
                     
+                    // Inform delegate the motive of failure
                     self.resourcesDelegate?.onFetchFailed(with: error.localizedDescription)
                 }
             }
         }
     }
-        
-    func item(at index: Int) -> ResultItem {
+    
+    // MARK: - Helper Functions
+    
+    // Returns a List Item for a specific index. Used to configure cell.
+    private func item(at index: Int) -> ResultItem {
         return resources[index]
     }
     
-    func calculateIndexPathsToReload(from newResources: [ResultItem]) -> [IndexPath] {
+    // Calculates the index paths for the last page of resources received from the API.
+    private func calculateIndexPathsToReload(from newResources: [ResultItem]) -> [IndexPath] {
         
         let startIndex = resources.count - newResources.count
         
@@ -94,6 +101,8 @@ public class ListViewModel {
 }
 
 private extension Int {
+    
+    /// Converts page into offset, to be used as parameter for the API call.
     func toOffset() -> String {
         let offset = self * 20
         return String(offset)

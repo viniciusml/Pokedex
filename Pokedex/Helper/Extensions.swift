@@ -8,9 +8,10 @@
 
 import UIKit
 
-//Programatic constraints
+// Programatic Constraints
 extension UIView {
     
+    /// Anchors a view, with the possibility to add padding and specify a size.
     @discardableResult
     func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero) -> AnchoredConstraints {
         
@@ -46,6 +47,7 @@ extension UIView {
         return anchoredConstraints
     }
     
+    // Fills a view's superview with it. Possible to add padding.
     func fillSuperview(padding: UIEdgeInsets = .zero) {
         translatesAutoresizingMaskIntoConstraints = false
         if let superviewTopAnchor = superview?.topAnchor {
@@ -65,6 +67,7 @@ extension UIView {
         }
     }
     
+    // Center view in superview, for both x and y coordinate.
     func centerInSuperview(size: CGSize = .zero) {
         translatesAutoresizingMaskIntoConstraints = false
         if let superviewCenterXAnchor = superview?.centerXAnchor {
@@ -84,6 +87,7 @@ extension UIView {
         }
     }
     
+    // Center view in superview, for x coordinate.
     func centerXInSuperview() {
         translatesAutoresizingMaskIntoConstraints = false
         if let superViewCenterXAnchor = superview?.centerXAnchor {
@@ -91,6 +95,7 @@ extension UIView {
         }
     }
     
+    // Center view in superview, for y coordinate.
     func centerYInSuperview() {
         translatesAutoresizingMaskIntoConstraints = false
         if let centerY = superview?.centerYAnchor {
@@ -98,11 +103,13 @@ extension UIView {
         }
     }
     
+    // Adds a width constrain for the view.
     func constrainWidth(constant: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalToConstant: constant).isActive = true
     }
     
+    // Adds a height constrain for the view.
     func constrainHeight(constant: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: constant).isActive = true
@@ -120,7 +127,7 @@ extension Notification.Name {
     static let saveImagesUrlAvailable = Notification.Name("imagesUrlAvailable")
 }
 
-//Stack Views
+/// Vertical stack View.
 class VerticalStackView: UIStackView {
     
     init(arrangedSubviews: [UIView], spacing: CGFloat = 0) {

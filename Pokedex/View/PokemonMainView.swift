@@ -10,6 +10,8 @@ import UIKit
 
 class PokemonMainView: UIView {
     
+    //    MARK: - Properties
+    
     var pokemonNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Font.bold, size: 34)!
@@ -43,6 +45,8 @@ class PokemonMainView: UIView {
     
     let photoIndicator = PhotoIndicator()
     
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -52,6 +56,8 @@ class PokemonMainView: UIView {
         super.init(coder: aDecoder)
         setupViews()
     }
+    
+    // MARK: - Helpers
     
     private func setupViews() {
         addSubview(pokemonNameLabel)

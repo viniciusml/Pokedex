@@ -10,6 +10,8 @@ import UIKit
 
 public class ListCell: BaseCell {
 
+    //    MARK: - Properties
+    
     var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Font.medium, size: 16)!
@@ -34,6 +36,8 @@ public class ListCell: BaseCell {
         }
     }
         
+    // MARK: - Helpers
+    
     override func setupViews() {
         backgroundColor = .cellColor
         layer.cornerRadius = 10

@@ -15,6 +15,8 @@ protocol PokemonViewModelDelegate: class {
 
 class PokemonViewModel {
     
+    // MARK: - Properties
+    
     let pokemonID: String
     
     let client = HTTPClient()
@@ -25,12 +27,15 @@ class PokemonViewModel {
     
     var imagesAvailable = [String]() {
         didSet {
+            // Post notification for 'PhotoCarousel' and 'PhotoIndicator'
             NotificationCenter.default.post(name: .saveImagesUrlAvailable, object: self)
         }
     }
     
     weak var pokemonDelegate: PokemonViewModelDelegate?
             
+    // MARK: - Initializer
+    
     init(pokemonID: String, delegate: PokemonViewModelDelegate) {
         self.pokemonID = pokemonID
         self.pokemonDelegate = delegate
@@ -63,6 +68,7 @@ class PokemonViewModel {
         }
     }
     
+    // Removes 'nil' properties from the array.
     private func checkForAvailableImages(_ sprite: Sprites) -> [String] {
         let sprites = [sprite.frontDefault, sprite.frontFemale, sprite.frontShiny, sprite.frontShinyFemale, sprite.backDefault, sprite.backFemale, sprite.backShiny, sprite.backShinyFemale]
         return sprites.compactMap { $0 }

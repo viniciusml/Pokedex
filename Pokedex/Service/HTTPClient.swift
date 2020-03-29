@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 
+/// Network Client (Alamofire) abstraction to structure Network Adapter's methods and handle response cases.
+///
 public class HTTPClient: NetworkAdapter {
     
     public init() {}

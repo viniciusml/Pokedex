@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Parent class for cells with initializers.
 public class BaseCell: UICollectionViewCell {
     
     override init(frame: CGRect) {

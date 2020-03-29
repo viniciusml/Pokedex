@@ -10,6 +10,8 @@ import UIKit
 
 class PokemonInfoView: UIView {
     
+    //    MARK: - Properties
+    
     var abilitiesTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Abilities"
@@ -40,6 +42,8 @@ class PokemonInfoView: UIView {
         return label
     }()
     
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -49,6 +53,8 @@ class PokemonInfoView: UIView {
         super.init(coder: aDecoder)
         setupViews()
     }
+    
+    // MARK: - Helpers
     
     private func setupViews() {
         backgroundColor = .white
