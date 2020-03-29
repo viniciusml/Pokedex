@@ -7,9 +7,18 @@
 //
 
 import XCTest
-import Pokedex
+@testable import Pokedex
 
 class ResourceListCollectionViewControllerTests: XCTestCase {
+    
+    func test_viewDidLoad_registersListCollectionViewCell() {
+        let sut = ResourceListCollectionViewController()
+        
+        let cell = sut.collectionView.dequeueReusableCell(withReuseIdentifier: ListCell.identifier, for: IndexPath(item: 0, section: 0))
+        
+        // then
+        XCTAssertTrue(cell is ListCell)
+    }
     
     func test_viewDidLoad_rendersResourceList() {
         let sut = ResourceListCollectionViewController()

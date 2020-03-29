@@ -66,6 +66,10 @@ extension ResourceListCollectionViewController: UICollectionViewDelegateFlowLayo
         let height = width * 0.8
         return CGSize(width: width, height: height)
     }
+    
+    public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
 }
 
 extension ResourceListCollectionViewController: UICollectionViewDataSourcePrefetching {

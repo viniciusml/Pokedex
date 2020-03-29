@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ListCell: UICollectionViewCell {
-    
+public class ListCell: UICollectionViewCell {
+
     var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Font.medium, size: 16)!
@@ -33,8 +33,8 @@ class ListCell: UICollectionViewCell {
             nameLabel.text = item?.name.capitalized
         }
     }
-    
-    override init(frame: CGRect) {
+        
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .cellColor
@@ -42,7 +42,7 @@ class ListCell: UICollectionViewCell {
         setupViews()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
