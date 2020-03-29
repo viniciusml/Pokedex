@@ -17,7 +17,11 @@ extension XCTestCase {
         return (sut, client)
     }
     
-    func baseURL() -> String {
-        return "https://pokeapi.co/api/v2/pokemon/"
+    func baseURL(_ offset: String? = nil) -> String {
+        if let offset = offset {
+            return "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=20"
+        } else {
+            return "https://pokeapi.co/api/v2/pokemon/"
+        }
     }
 }

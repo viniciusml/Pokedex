@@ -34,11 +34,11 @@ class LoadResourceListRequestTests: XCTestCase {
         
         sut.loadResourceList() { _ in }
         
-        XCTAssertEqual(client.requestedURLs, [baseURL()])
+        XCTAssertEqual(client.requestedURLs, [baseURL("0")])
     }
     
     func test_loadsTwice_requestsDataFromURLTwice() {
-        let url = baseURL()
+        let url = baseURL("0")
         let (sut, client) = makeSUT()
         
         sut.loadResourceList() { _ in }
@@ -91,11 +91,11 @@ class LoadResourceListRequestTests: XCTestCase {
     
     func test_load_usesPageParameter() {
         let (sut, client) = makeSUT()
-        let page = "?offset=0&limit=20"
+        let page = "20"
         
         sut.loadResourceList(page: page) { _ in }
         
-        XCTAssertEqual(client.requestedURLs, [baseURL() + page])
+        XCTAssertEqual(client.requestedURLs, [baseURL("20")])
     }
     
     // MARK: - Helpers

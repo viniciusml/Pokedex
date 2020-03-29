@@ -10,10 +10,10 @@ import Foundation
 
 // MARK: - Resource Item
 public struct ListItem: Decodable, Equatable {
-    let count: Int
-    let next: String
-    let previous: String?
-    let results: [ResultItem]
+    public let count: Int
+    public let next: String
+    public let previous: String?
+    public let results: [ResultItem]
     
     public init(count: Int, next: String, previous: String?, results: [ResultItem]) {
         self.count = count
@@ -25,8 +25,8 @@ public struct ListItem: Decodable, Equatable {
 
 // MARK: - Result
 public struct ResultItem: Decodable, Equatable {
-    let name: String
-    let url: String
+    public let name: String
+    public let url: String
     
     public init(name: String, url: String) {
         self.name = name

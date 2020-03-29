@@ -13,4 +13,9 @@ target 'Pokedex' do
     # Pods for testing
   end
 
+  target 'PokedexEndToEndTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
 end
