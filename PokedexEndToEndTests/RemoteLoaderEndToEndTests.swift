@@ -59,4 +59,35 @@ class RemoteLoaderEndToEndTests: XCTestCase {
         }
     }
     
+    func test_endToEndLoadPokemon_matchesFixedTestData() {
+        let client = HTTPClient()
+        let loader = RemoteLoader(client: client)
+
+        let exp = expectation(description: "Wait for load completion")
+
+        var receivedResult: RemoteLoader.RequestResult<PokemonItem>?
+
+        loader.loadPokemon(pokemonId: "1") { result in
+            receivedResult = result
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 5.0)
+
+        switch receivedResult {
+        case let .success(item):
+            XCTAssertEqual(item.id, 1)
+            XCTAssertEqual(item.baseExperience, 64)
+            XCTAssertEqual(item.height, 7)
+            XCTAssertEqual(item.isDefault, true)
+            XCTAssertEqual(item.weight, 69)
+
+        case let .failure(error):
+            XCTFail("Expected successful pokemon result, got \(error) instead")
+
+        default:
+            XCTFail("Expected successful pokemon result, got no instead")
+        }
+    }
+    
 }
+

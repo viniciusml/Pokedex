@@ -10,17 +10,17 @@ import Foundation
 
 // MARK: - Pokemon Item
 public struct PokemonItem: Decodable, Equatable {
-    let id: Int
-    let name: String
-    let baseExperience, height: Int
-    let isDefault: Bool
-    let order, weight: Int
-    let abilities: [Ability]
-    let forms: [Species]
-    let species: Species
-    let sprites: Sprites
-    let stats: [Stat]
-    let types: [TypeElement]
+    public let id: Int
+    public let name: String
+    public let baseExperience, height: Int
+    public let isDefault: Bool
+    public let order, weight: Int
+    public let abilities: [Ability]
+    public let forms: [Species]
+    public let species: Species
+    public let sprites: Sprites
+    public let stats: [Stat]
+    public let types: [TypeElement]
     
     public init(id: Int, name: String, baseExperience: Int, height: Int, isDefault: Bool, order: Int, weight: Int, abilities: [Ability], forms: [Species], species: Species, sprites: Sprites, stats: [Stat], types: [TypeElement]) {
         self.id = id
@@ -50,9 +50,9 @@ public struct PokemonItem: Decodable, Equatable {
 
 // MARK: - Ability
 public struct Ability: Decodable, Equatable {
-    let isHidden: Bool
-    let slot: Int
-    let ability: Species
+    public let isHidden: Bool
+    public let slot: Int
+    public let ability: Species
     
     public init(isHidden: Bool, slot: Int, ability: Species) {
         self.isHidden = isHidden
@@ -68,8 +68,8 @@ public struct Ability: Decodable, Equatable {
 
 // MARK: - Species
 public struct Species: Decodable, Equatable {
-    let name: String
-    let url: String
+    public let name: String
+    public let url: String
     
     public init(name: String, url: String) {
         self.name = name
@@ -79,8 +79,8 @@ public struct Species: Decodable, Equatable {
 
 // MARK: - Sprites
 public struct Sprites: Decodable, Equatable {
-    let backFemale, backShinyFemale, backDefault, frontFemale: String?
-    let frontShinyFemale, backShiny, frontDefault, frontShiny: String?
+    public let backFemale, backShinyFemale, backDefault, frontFemale: String?
+    public let frontShinyFemale, backShiny, frontDefault, frontShiny: String?
     
     public init(backFemale: String?, backShinyFemale: String?, backDefault: String?, frontFemale: String?, frontShinyFemale: String?, backShiny: String?, frontDefault: String?, frontShiny: String?) {
         self.backFemale = backFemale
