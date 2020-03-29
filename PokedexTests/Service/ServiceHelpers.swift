@@ -19,7 +19,7 @@ extension XCTestCase {
     
     func baseURL(_ offset: String? = nil) -> String {
         if let offset = offset {
-            return "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=20"
+            return "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=40"
         } else {
             return "https://pokeapi.co/api/v2/pokemon/"
         }

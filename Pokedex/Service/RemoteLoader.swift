@@ -42,7 +42,7 @@ public class RemoteLoader {
     }
     
     public func loadResourceList(page: String = "0", completion: @escaping (RequestResult<ListItem>) -> Void) {
-        let offset = "?offset=\(page)&limit=20"
+        let offset = "?offset=\(page)&limit=40"
         load(parameter: offset, completion: completion)
     }
     

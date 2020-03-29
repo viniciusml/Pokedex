@@ -16,6 +16,6 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         
         _ = sut.view
         
-        XCTAssertEqual(sut.collectionView.numberOfItems(inSection: 0), sut.list.count)
+        XCTAssertEqual(sut.collectionView.numberOfItems(inSection: 0), sut.listViewModel.resources.count)
     }
 }

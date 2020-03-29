@@ -21,6 +21,7 @@
 		8F7B09EF2430BA54003377F0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B09EE2430BA54003377F0 /* Extensions.swift */; };
 		8F7B09F12430C04A003377F0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B09F02430C04A003377F0 /* Constants.swift */; };
 		8F7B09F32430C978003377F0 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B09F22430C978003377F0 /* ListCell.swift */; };
+		8F7B09F82430CB62003377F0 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B09F72430CB62003377F0 /* ListViewModel.swift */; };
 		8FB4642B242F96B400C1FE8A /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */; };
 		8FB4642D242F96F300C1FE8A /* LoadPokemonRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */; };
 		8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */; };
@@ -73,6 +74,7 @@
 		8F7B09EE2430BA54003377F0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8F7B09F02430C04A003377F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8F7B09F22430C978003377F0 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
+		8F7B09F72430CB62003377F0 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadPokemonRequestTests.swift; sourceTree = "<group>"; };
 		8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHelpers.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				8F7B09F62430C9E2003377F0 /* Helper */,
 				8F3E9657242BF6F200DCD62D /* Info.plist */,
 				8F3E9654242BF6F100DCD62D /* LaunchScreen.storyboard */,
+				8F7B09F72430CB62003377F0 /* ListViewModel.swift */,
 			);
 			path = Pokedex;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				8F3E966D242C03DA00DCD62D /* ListItem.swift in Sources */,
 				8F3E964A242BF6ED00DCD62D /* AppDelegate.swift in Sources */,
 				8F7B09F12430C04A003377F0 /* Constants.swift in Sources */,
+				8F7B09F82430CB62003377F0 /* ListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

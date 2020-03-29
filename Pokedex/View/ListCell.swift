@@ -14,6 +14,7 @@ class ListCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont(name: Font.medium, size: 16)!
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     

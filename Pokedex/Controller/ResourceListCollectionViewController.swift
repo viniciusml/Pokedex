@@ -10,17 +10,7 @@ import UIKit
 
 public class ResourceListCollectionViewController: UICollectionViewController {
     
-    let client = HTTPClient()
-    
-    var loader: RemoteLoader {
-        RemoteLoader(client: client)
-    }
-    
-    public var list = [ResultItem]() {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    public var listViewModel: ListViewModel!
     
     public init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -32,37 +22,32 @@ public class ResourceListCollectionViewController: UICollectionViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         title = "Pokédex"
+        
+        listViewModel = ListViewModel(delegate: self)
+        collectionView.prefetchDataSource = self
+        listViewModel.fetchResourceList()
+        
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.identifier)
         collectionView.backgroundColor = .white
-        
-        fetchResourceList()
+        collectionView.isPrefetchingEnabled = true
     }
     
-    private func fetchResourceList() {
+    func isDisplayingCell(for indexPath: IndexPath) -> Bool {
         
-        loader.loadResourceList(page: "0") { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case let .success(item):
-                self.list = item.results
-            case .failure:
-                break
-            }
-        }
+        return indexPath.item >= listViewModel.resources.count - 15
     }
 }
 
 extension ResourceListCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     public override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        return listViewModel.resources.count
     }
     
     public override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = list[indexPath.item]
+        let item = listViewModel.resources[indexPath.item]
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCell.identifier, for: indexPath) as? ListCell {
             cell.item = item
@@ -83,32 +68,31 @@ extension ResourceListCollectionViewController: UICollectionViewDelegateFlowLayo
     }
 }
 
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-struct ResourceListViewRepresentable: UIViewRepresentable {
-    func makeUIView(context: Context) -> UIView {
-        let vc = ResourceListCollectionViewController()
-        vc.list = makeFakeList()
-        return vc.view
-    }
+extension ResourceListCollectionViewController: UICollectionViewDataSourcePrefetching {
     
-    func makeFakeList() -> [ResultItem] {
-        var list = [ResultItem]()
-        for i in 0...20 {
-            list.append(ResultItem(name: "Name \(i)", url: ""))
-        }
-        return list
-    }
-    
-    func updateUIView(_ view: UIView, context: Context) {
+    public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         
+        // Prefetchs data
+        if indexPaths.contains(where: isDisplayingCell) {
+            listViewModel.fetchResourceList()
+        }
     }
 }
 
-@available(iOS 13.0, *)
-struct MyViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        ResourceListViewRepresentable()
+extension ResourceListCollectionViewController: ListViewModelDelegate {
+    
+    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+        
+        guard let newIndexPathsToReload = newIndexPathsToReload else {
+            collectionView.reloadData()
+            return
+        }
+        
+        collectionView.insertItems(at: newIndexPathsToReload)
+        collectionView.reloadItems(at: newIndexPathsToReload)
+    }
+    
+    func onFetchFailed(with reason: String) {
+        debugPrint("🛑⚠️ \(reason) ⚠️🛑")
     }
 }
-#endif
