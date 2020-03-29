@@ -101,6 +101,7 @@ extension ResourceListCollectionViewController: ListViewModelDelegate {
     }
     
     func onFetchFailed(with reason: String) {
-        debugPrint("🛑⚠️ \(reason) ⚠️🛑")
+        
+        showBasicAlert(title: "Error", message: reason)
     }
 }
