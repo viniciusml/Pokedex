@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
-        //Set Navigation bar white
+        //Set Navigation bar transparent
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController.navigationBar.shadowImage = UIImage()
-        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.barTintColor = .white
         navigationController.navigationBar.tintColor = .tintColor
         

@@ -131,4 +131,13 @@ public struct TypeElement: Decodable, Equatable {
         self.slot = slot
         self.type = type
     }
+    
+    public func typeID() -> PokeType? {
+        let url = URL(fileURLWithPath: type.url).pathComponents.dropFirst()
+        if let id = Int(url.last ?? "10001") {
+            return PokeType(rawValue: id)
+        } else {
+            return PokeType(rawValue: 10001)
+        }
+    }
 }

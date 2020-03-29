@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ListCell: UICollectionViewCell {
+public class ListCell: BaseCell {
 
     var nameLabel: UILabel = {
         let label = UILabel()
@@ -34,19 +34,10 @@ public class ListCell: UICollectionViewCell {
         }
     }
         
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    override func setupViews() {
         backgroundColor = .cellColor
         layer.cornerRadius = 10
-        setupViews()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
+        
         addSubview(nameLabel)
         nameLabel.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 0))
         

@@ -70,7 +70,9 @@ extension ResourceListCollectionViewController: UICollectionViewDelegateFlowLayo
     public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = listViewModel.resources[indexPath.item]
         
-        let id = item.url.suffix(2).dropLast()
+        let url = URL(fileURLWithPath: item.url).pathComponents.dropFirst()
+        let controller = PokemonViewController(id: String(url.last ?? "1"))
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
