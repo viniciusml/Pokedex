@@ -8,6 +8,8 @@
 
 > Other patterns utilised: Delegate and Observer.
 
+- Target: iOS 10+
+
 ## List Loading
 
 ### Data (Input):
