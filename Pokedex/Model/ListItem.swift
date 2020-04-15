@@ -14,7 +14,7 @@ public struct ListItem: Decodable, Equatable {
     public let next: String
     public let previous: String?
     public let results: [ResultItem]
-    
+
     public init(count: Int, next: String, previous: String?, results: [ResultItem]) {
         self.count = count
         self.next = next
@@ -27,7 +27,7 @@ public struct ListItem: Decodable, Equatable {
 public struct ResultItem: Decodable, Equatable {
     public let name: String
     public let url: String
-    
+
     public init(name: String, url: String) {
         self.name = name
         self.url = url

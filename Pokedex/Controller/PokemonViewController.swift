@@ -9,26 +9,25 @@
 import UIKit
 
 class PokemonViewController: UIViewController {
-    
+
     // MARK: - Properties
-    
+
     var id = ""
-    
+
     var pokemonViewModel: PokemonViewModel!
-    
+
     let mainView = PokemonMainView()
-        
-    
+
     // MARK: - Initializer
-    
+
     convenience init(id: String) {
         self.init()
         self.id = id
-        
+
         pokemonViewModel = PokemonViewModel(pokemonID: id, delegate: self)
         pokemonViewModel.fetchPokemon()
     }
-    
+
     override func loadView() {
         view = mainView
     }
@@ -37,14 +36,14 @@ class PokemonViewController: UIViewController {
 // MARK: - Pokemon ViewModel Delegate
 
 extension PokemonViewController: PokemonViewModelDelegate {
-    
+
     func onFetchCompleted(pokemon: PokemonItem) {
 
         mainView.renderUI(with: pokemon)
     }
-    
+
     func onFetchFailed(with reason: String) {
-        
+
         showBasicAlert(title: "Error", message: reason)
     }
 }

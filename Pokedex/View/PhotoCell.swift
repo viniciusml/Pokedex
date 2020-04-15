@@ -12,23 +12,23 @@ import UIKit
 ///
 /// Similar to UIPageViewController in appearence.
 class PhotoCell: BaseCell {
-        
+
     // MARK: - Properties
-    
+
     static var identifier: String {
         return String(describing: self)
     }
-    
+
     let photoImageView: CachedImageView = {
         let photo = CachedImageView()
         return photo
     }()
-        
+
     // MARK: - Helper functions
-    
+
     override func setupViews() {
         super.setupViews()
-        
+
         addSubview(photoImageView)
         photoImageView.fillSuperview()
     }

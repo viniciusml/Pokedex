@@ -30,7 +30,7 @@ public enum PokeType: Int {
     case fairy = 18
     case unkown = 10001
     case shadow = 10002
-    
+
     var color: UIColor {
         switch self {
         case .normal: return .lightGray

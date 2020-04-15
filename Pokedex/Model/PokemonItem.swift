@@ -21,8 +21,11 @@ public struct PokemonItem: Decodable, Equatable {
     public let sprites: Sprites
     public let stats: [Stat]
     public let types: [TypeElement]
-    
-    public init(id: Int, name: String, baseExperience: Int, height: Int, isDefault: Bool, order: Int, weight: Int, abilities: [Ability], forms: [Species], species: Species, sprites: Sprites, stats: [Stat], types: [TypeElement]) {
+
+    public init(
+        id: Int, name: String, baseExperience: Int, height: Int, isDefault: Bool, order: Int, weight: Int, abilities: [Ability], forms: [Species], species: Species, sprites: Sprites,
+        stats: [Stat], types: [TypeElement]
+    ) {
         self.id = id
         self.name = name
         self.baseExperience = baseExperience
@@ -53,7 +56,7 @@ public struct Ability: Decodable, Equatable {
     public let isHidden: Bool
     public let slot: Int
     public let ability: Species
-    
+
     public init(isHidden: Bool, slot: Int, ability: Species) {
         self.isHidden = isHidden
         self.slot = slot
@@ -70,7 +73,7 @@ public struct Ability: Decodable, Equatable {
 public struct Species: Decodable, Equatable {
     public let name: String
     public let url: String
-    
+
     public init(name: String, url: String) {
         self.name = name
         self.url = url
@@ -81,8 +84,10 @@ public struct Species: Decodable, Equatable {
 public struct Sprites: Decodable, Equatable {
     public let backFemale, backShinyFemale, backDefault, frontFemale: String?
     public let frontShinyFemale, backShiny, frontDefault, frontShiny: String?
-    
-    public init(backFemale: String?, backShinyFemale: String?, backDefault: String?, frontFemale: String?, frontShinyFemale: String?, backShiny: String?, frontDefault: String?, frontShiny: String?) {
+
+    public init(
+        backFemale: String?, backShinyFemale: String?, backDefault: String?, frontFemale: String?, frontShinyFemale: String?, backShiny: String?, frontDefault: String?, frontShiny: String?
+    ) {
         self.backFemale = backFemale
         self.backShinyFemale = backShinyFemale
         self.backDefault = backDefault
@@ -115,7 +120,7 @@ public struct Stat: Decodable, Equatable {
         self.effort = effort
         self.stat = stat
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case baseStat = "base_stat"
         case effort, stat
@@ -126,12 +131,12 @@ public struct Stat: Decodable, Equatable {
 public struct TypeElement: Decodable, Equatable {
     let slot: Int
     let type: Species
-    
+
     public init(slot: Int, type: Species) {
         self.slot = slot
         self.type = type
     }
-    
+
     /// Maps the 'id' returned in the last component of the url string into a PokeType.
     /// In case the url convertion to Int fails, a default '10001' value is presented, which represents 'unkown' enum case.
     public func typeID() -> PokeType? {
