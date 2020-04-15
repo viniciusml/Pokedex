@@ -8,102 +8,104 @@
 
 import Foundation
 
-import Foundation
-
 protocol ListViewModelDelegate: class {
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
     func onFetchFailed(with reason: String)
 }
 
 public class ListViewModel {
-    
+
     let client = HTTPClient()
-    
+
     var loader: RemoteLoader {
         RemoteLoader(client: client)
     }
-    
+
     weak var resourcesDelegate: ListViewModelDelegate?
-    
+
     public var resources = [ResultItem]()
-    
+
     var currentPage = 0
-    
+
     var isFetchInProgress = false
-    
+
     init(delegate: ListViewModelDelegate) {
-        
+
         self.resourcesDelegate = delegate
     }
-    
-    
+
     func fetchResourceList() {
-        
+
         // Prevents multiple requests happening.
         guard !isFetchInProgress else {
             return
         }
-        
+
         isFetchInProgress = true
-        
+
         loader.loadResourceList(page: currentPage.toOffset()) { result in
             switch result {
             case .success(let item):
-                
+
                 DispatchQueue.main.async {
-                    
+
                     self.isFetchInProgress = false
-                    
+
                     self.resources.append(contentsOf: item.results)
-                    
+
                     if self.currentPage > 1 {
-                        
+
                         // Index paths to update collection.
-                        let indexPathsToReload = self.calculateIndexPathsToReload(from: item.results)
-                        
+                        let indexPathsToReload =
+                            self.calculateIndexPathsToReload(
+                                from: item.results)
+
                         // Inform delegate there's new data available to load.
-                        self.resourcesDelegate?.onFetchCompleted(with: indexPathsToReload)
+                        self.resourcesDelegate?.onFetchCompleted(
+                            with: indexPathsToReload)
                     } else {
                         // Inform delegate there's first amount of data to load
-                        self.resourcesDelegate?.onFetchCompleted(with: .none)
+                        self.resourcesDelegate?.onFetchCompleted(
+                            with: .none)
                     }
-                    
+
                     self.currentPage += 1
                 }
             case .failure(let error):
-                
+
                 DispatchQueue.main.async {
                     self.isFetchInProgress = false
-                    
+
                     // Inform delegate the motive of failure
-                    self.resourcesDelegate?.onFetchFailed(with: error.localizedDescription)
+                    self.resourcesDelegate?.onFetchFailed(
+                        with: error.localizedDescription)
                 }
             }
         }
     }
-    
+
     // MARK: - Helper Functions
-    
+
     // Returns a List Item for a specific index. Used to configure cell.
     private func item(at index: Int) -> ResultItem {
         return resources[index]
     }
-    
+
     // Calculates the index paths for the last page of resources received from the API.
     private func calculateIndexPathsToReload(from newResources: [ResultItem]) -> [IndexPath] {
-        
+
         let startIndex = resources.count - newResources.count
-        
+
         let endIndex = startIndex + newResources.count
-        
+
         return (startIndex..<endIndex).map { IndexPath(item: $0, section: 0) }
     }
 }
 
-private extension Int {
-    
+extension Int {
+
     /// Converts page into offset, to be used as parameter for the API call.
-    func toOffset() -> String {
+    fileprivate func toOffset() -> String {
         let offset = self * 20
         return String(offset)
     }

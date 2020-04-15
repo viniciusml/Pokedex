@@ -19,23 +19,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: ResourceListCollectionViewController())
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-        
+
         //Set Navigation bar transparent
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.barTintColor = .white
         navigationController.navigationBar.tintColor = .tintColor
-        
+
         //Set text from back button transparent
         let barButtonItemAppearance = UIBarButtonItem.appearance()
         barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
         barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .highlighted)
-        
+
         //Set title color and font
-        navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Font.bold, size: 20)!, NSAttributedString.Key.foregroundColor: UIColor.tintColor, NSAttributedString.Key.kern: NSNumber(floatLiteral: 1.3)]
-        
+        navigationController.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: Font.bold, size: 20)!, NSAttributedString.Key.foregroundColor: UIColor.tintColor,
+            NSAttributedString.Key.kern: NSNumber(floatLiteral: 1.3),
+        ]
+
         return true
     }
 }
-

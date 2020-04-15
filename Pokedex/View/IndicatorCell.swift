@@ -12,13 +12,13 @@ import UIKit
 ///
 /// Similar to UIPageControl in appearence.
 class IndicatorCell: BaseCell {
-    
+
     // MARK: - Properties
-    
+
     static var identifier: String {
         return String(describing: self)
     }
-    
+
     let indicatorView: UIView = {
         let iv = UIView()
         iv.layer.cornerRadius = 4
@@ -26,20 +26,20 @@ class IndicatorCell: BaseCell {
         iv.clipsToBounds = true
         return iv
     }()
-    
+
     override var isSelected: Bool {
         didSet {
             indicatorView.backgroundColor = isSelected ? .black : .lightGray
         }
     }
-    
+
     // MARK: - Helpers
-    
+
     override func setupViews() {
         super.setupViews()
-        
+
         isUserInteractionEnabled = false
-        
+
         addSubview(indicatorView)
         indicatorView.constrainHeight(constant: 8)
         indicatorView.constrainWidth(constant: 8)
