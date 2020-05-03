@@ -2,6 +2,8 @@
 
 > An application that displays a list of Pokémon from '[PokéAPI](https://pokeapi.co)'. When the user selects a Pokémon, the app shows image/s representing it and its type, stats and abilities.
 
+[![Build Status](https://travis-ci.com/viniciusml/Pokedex.svg?branch=master)](https://travis-ci.com/viniciusml/Pokedex)
+
 > Unit tests were written in TDD methodology for the Networking implementation.
 
 > MVVM was used as design pattern.
