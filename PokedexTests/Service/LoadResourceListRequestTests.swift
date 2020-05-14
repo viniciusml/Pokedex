@@ -10,18 +10,6 @@ import XCTest
 import Pokedex
 
 class LoadResourceListRequestTests: XCTestCase {
-    
-    private let itemJSON: [String: Any?] = [
-        "count": 964,
-        "next": "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20",
-        "previous": nil,
-        "results": [
-            [
-                "name": "bulbasaur",
-                "url": "https://pokeapi.co/api/v2/pokemon/1/"
-            ]
-        ]
-    ]
 
     let item = ListItem(count: 964, next: "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20", previous: nil, results: [ResultItem(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")])
     
