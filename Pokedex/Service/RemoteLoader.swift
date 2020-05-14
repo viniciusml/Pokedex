@@ -8,6 +8,13 @@
 
 import Foundation
 
+// MARK: - Generic Request Result
+/// Result received from a request.
+///
+/// When request and mapping are successful, delivers a Generic Decodable type.
+/// When request or mapping are unsuccessful, delivers an Error type.
+public typealias RequestResult<T: Decodable> = Result<T, Error>
+
 /// Network Service.
 public class RemoteLoader {
 
@@ -19,13 +26,6 @@ public class RemoteLoader {
         case connectivity
         case invalidData
     }
-
-    // MARK: - Generic Request Result
-    /// Result received from a request.
-    ///
-    /// When request and mapping are successful, delivers a Generic Decodable type.
-    /// When request or mapping are unsuccessful, delivers an Error type.
-    public typealias RequestResult<T: Decodable> = Result<T, Error>
 
     // MARK: - Initializer
 
