@@ -33,31 +33,31 @@ public class RemoteLoader {
         self.client = client
     }
 
-    // Generic 'Load' function.
-    private func load<U: Decodable>(parameter: String, completion: @escaping (RequestResult<U>) -> Void) {
+    public func loadResourceList(page: String = "0", completion: @escaping (RequestResult<ListItem>) -> Void) {
 
-        let urlString = "https://pokeapi.co/api/v2/pokemon/\(parameter)"
+        let offset = "https://pokeapi.co/api/v2/pokemon/?offset=\(page)&limit=40"
 
-        client.load(from: urlString) { result in
+        client.load(ListItem.self, from: offset) { result in
             switch result {
-            case let .success(data, response):
-                if response.statusCode == 200, let item = try? JSONDecoder().decode(U.self, from: data) {
-                    completion(.success(item))
-                } else {
-                    completion(.failure(.invalidData))
-                }
+            case let .success(listItem):
+                completion(.success(listItem))
             case .failure:
                 completion(.failure(.connectivity))
             }
         }
     }
 
-    public func loadResourceList(page: String = "0", completion: @escaping (RequestResult<ListItem>) -> Void) {
-        let offset = "?offset=\(page)&limit=40"
-        load(parameter: offset, completion: completion)
-    }
-
     public func loadPokemon(pokemonId: String = "", completion: @escaping (RequestResult<PokemonItem>) -> Void) {
-        load(parameter: pokemonId, completion: completion)
+
+        let urlString = "https://pokeapi.co/api/v2/pokemon/\(pokemonId)"
+
+        client.load(PokemonItem.self, from: urlString) { result in
+            switch result {
+            case let .success(pokemonItem):
+                completion(.success(pokemonItem))
+            case .failure:
+                completion(.failure(.connectivity))
+            }
+        }
     }
 }

@@ -15,21 +15,16 @@ public class HTTPClient: NetworkAdapter {
 
     public init() {}
 
-    public func load(from url: String, completion: @escaping (HTTPResult) -> Void) {
+    public func load<T: Decodable>(_ object: T.Type, from url: String, completion: @escaping (RequestResult<T>) -> Void) {
 
-        AF.request(url).responseData { result in
-
-            guard let response = result.response else {
-                completion(.failure(NetworkError.connectivity))
-                return
-            }
-
-            guard let data = result.data else {
-                completion(.failure(NetworkError.connectivity))
-                return
-            }
-
-            completion(.success((data, response)))
+        AF.request(url)
+            .validate()
+            .responseDecodable(of: T.self) { response in
+                if response.error != nil {
+                    response.error.map({ _ in completion(.failure(NetworkError.invalidData)) })
+                } else if let value = response.value {
+                    completion(.success(value))
+                }
         }
     }
 }

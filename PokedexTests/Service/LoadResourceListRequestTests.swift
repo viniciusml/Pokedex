@@ -22,6 +22,8 @@ class LoadResourceListRequestTests: XCTestCase {
             ]
         ]
     ]
+
+    let item = ListItem(count: 964, next: "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20", previous: nil, results: [ResultItem(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")])
     
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
@@ -51,41 +53,16 @@ class LoadResourceListRequestTests: XCTestCase {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleteWith: .failure(.connectivity), when: {
-            let clientError = NSError(domain: "Test", code: 0)
+            let clientError: NetworkError = .connectivity
             client.complete(with: clientError)
-        })
-    }
-    
-    func test_load_deliversErrorOnNon200HTTPResponse() {
-        let (sut, client) = makeSUT()
-
-        let samples = [199, 201, 400, 300, 500]
-
-        samples.enumerated().forEach { index, code in
-            expect(sut, toCompleteWith: .failure(.invalidData), when: {
-                let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
-                client.complete(withStatusCode: code, data: jsonData, at: index)
-            })
-        }
-    }
-    
-    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
-        let (sut, client) = makeSUT()
-
-        expect(sut, toCompleteWith: .failure(.invalidData), when: {
-            let invalidJSON = Data("Invalid Json".utf8)
-            client.complete(withStatusCode: 200, data: invalidJSON)
         })
     }
     
     func test_load_deliversItemsOn200HTTPResponse() {
         let (sut, client) = makeSUT()
-        
-        let item = ListItem(count: 964, next: "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20", previous: nil, results: [ResultItem(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")])
 
         expect(sut, toCompleteWith: .success(item), when: {
-            let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
-            client.complete(withStatusCode: 200, data: jsonData)
+            client.complete(withValue: item)
         })
     }
     
@@ -107,5 +84,11 @@ class LoadResourceListRequestTests: XCTestCase {
         action()
 
         XCTAssertEqual(capturedResult, [result], file: file, line: line)
+    }
+
+    func makeSUT() -> (sut: RemoteLoader, client: HTTPClientSpy<ListItem>) {
+        let client = HTTPClientSpy<ListItem>()
+        let sut = RemoteLoader(client: client)
+        return (sut, client)
     }
 }

@@ -11,12 +11,6 @@ import Pokedex
 
 extension XCTestCase {
     
-    func makeSUT() -> (sut: RemoteLoader, client: HTTPClientSpy) {
-        let client = HTTPClientSpy()
-        let sut = RemoteLoader(client: client)
-        return (sut, client)
-    }
-    
     func baseURL(_ offset: String? = nil) -> String {
         if let offset = offset {
             return "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=40"

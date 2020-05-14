@@ -155,8 +155,7 @@ class LoadPokemonRequestTests: XCTestCase {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleteWith: .success(item), when: {
-            let jsonData = try! JSONSerialization.data(withJSONObject: itemJSON)
-            client.complete(withStatusCode: 200, data: jsonData)
+            client.complete(withValue: item)
         })
     }
     
@@ -178,5 +177,11 @@ class LoadPokemonRequestTests: XCTestCase {
         action()
         
         XCTAssertEqual(capturedResult, [result], file: file, line: line)
+    }
+
+    func makeSUT() -> (sut: RemoteLoader, client: HTTPClientSpy<PokemonItem>) {
+        let client = HTTPClientSpy<PokemonItem>()
+        let sut = RemoteLoader(client: client)
+        return (sut, client)
     }
 }
