@@ -100,8 +100,8 @@ class LoadResourceListRequestTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func expect(_ sut: RemoteLoader, toCompleteWith result: RemoteLoader.RequestResult<ListItem>, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedResult = [RemoteLoader.RequestResult<ListItem>]()
+    private func expect(_ sut: RemoteLoader, toCompleteWith result: RequestResult<ListItem>, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        var capturedResult = [RequestResult<ListItem>]()
         sut.loadResourceList { capturedResult.append($0) }
 
         action()

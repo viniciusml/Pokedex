@@ -171,8 +171,8 @@ class LoadPokemonRequestTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func expect(_ sut: RemoteLoader, toCompleteWith result: RemoteLoader.RequestResult<PokemonItem>, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedResult = [RemoteLoader.RequestResult<PokemonItem>]()
+    private func expect(_ sut: RemoteLoader, toCompleteWith result: RequestResult<PokemonItem>, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        var capturedResult = [RequestResult<PokemonItem>]()
         sut.loadPokemon { capturedResult.append($0) }
         
         action()

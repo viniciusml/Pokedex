@@ -13,7 +13,12 @@ import Foundation
 ///
 /// When request and mapping are successful, delivers a Generic Decodable type.
 /// When request or mapping are unsuccessful, delivers an Error type.
-public typealias RequestResult<T: Decodable> = Result<T, Error>
+public typealias RequestResult<T: Decodable> = Result<T, NetworkError>
+
+public enum NetworkError: Error {
+    case connectivity
+    case invalidData
+}
 
 /// Network Service.
 public class RemoteLoader {
@@ -21,11 +26,6 @@ public class RemoteLoader {
     //    MARK: - Properties
 
     let client: NetworkAdapter
-
-    public enum Error: Swift.Error {
-        case connectivity
-        case invalidData
-    }
 
     // MARK: - Initializer
 
