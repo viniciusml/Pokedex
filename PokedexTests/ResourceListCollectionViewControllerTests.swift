@@ -23,6 +23,7 @@ class ResourceListCollectionViewController: UICollectionViewController {
 
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        collectionView.refreshControl?.beginRefreshing()
         load()
     }
 
@@ -56,6 +57,14 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
         sut.collectionView.refreshControl?.simulatePullToRefresh()
         XCTAssertEqual(loader.loadCallCount, 3)
+    }
+
+    func test_viewDidLoad_showsLoadingIndicator() {
+        let (sut, _) = makeSUT()
+
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, true)
     }
 
     // MARK: - Helpers
