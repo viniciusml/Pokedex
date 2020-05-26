@@ -28,15 +28,13 @@ class ResourceListCollectionViewController: UIViewController {
 class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_viewDidLoad_registersListCollectionViewCell() {
-        let loader = LoaderSpy()
-        _ = ResourceListCollectionViewController(loader: loader)
+        let (_, loader) = makeSUT()
 
         XCTAssertEqual(loader.loadCallCount, 0)
     }
 
     func test_viewDidLoad_loadsFeed() {
-        let loader = LoaderSpy()
-        let sut = ResourceListCollectionViewController(loader: loader)
+        let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
 
@@ -44,6 +42,14 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     // MARK: - Helpers
+
+    private func makeSUT(file: StaticString = #file, line: UInt = #line)  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy){
+        let loader = LoaderSpy()
+        let sut = ResourceListCollectionViewController(loader: loader)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return (sut, loader)
+    }
 
     class LoaderSpy: ListLoader {
         private(set) var loadCallCount: Int = 0
