@@ -7,10 +7,21 @@
 //
 
 import XCTest
+import Pokedex
 
-class ResourceListCollectionViewController {
-    init(loader: ResourceListCollectionViewControllerTests.LoaderSpy) {
+class ResourceListCollectionViewController: UIViewController {
 
+    private var loader: ListLoader?
+
+    convenience init(loader: ListLoader) {
+        self.init()
+        self.loader = loader
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        loader?.load { _ in }
     }
 }
 
@@ -23,9 +34,22 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 0)
     }
 
+    func test_viewDidLoad_loadsFeed() {
+        let loader = LoaderSpy()
+        let sut = ResourceListCollectionViewController(loader: loader)
+
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(loader.loadCallCount, 1)
+    }
+
     // MARK: - Helpers
 
-    class LoaderSpy {
+    class LoaderSpy: ListLoader {
         private(set) var loadCallCount: Int = 0
+
+        func load(completion: @escaping (RequestResult<ListItem>) -> Void) {
+            loadCallCount += 1
+        }
     }
 }

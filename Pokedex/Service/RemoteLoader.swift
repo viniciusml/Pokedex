@@ -8,6 +8,10 @@
 
 import Foundation
 
+public protocol ListLoader {
+    func load(completion: @escaping (RequestResult<ListItem>) -> Void)
+}
+
 // MARK: - Generic Request Result
 /// Result received from a request.
 ///
