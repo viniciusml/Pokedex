@@ -66,7 +66,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
         sut.loadViewIfNeeded()
 
-        XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, true)
+        XCTAssertTrue(sut.isShowingLoadingIndicator)
     }
 
     func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
@@ -75,7 +75,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         loader.completeListLoading()
 
-        XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, false)
+        XCTAssertFalse(sut.isShowingLoadingIndicator)
     }
 
     func test_userInitiatedReload_showsLoadingIndicator() {
@@ -83,7 +83,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
         sut.simulateUserInitiatedReload()
 
-        XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, true)
+        XCTAssertTrue(sut.isShowingLoadingIndicator)
     }
 
     func test_userInitiatedReload_hidesLoadingIndicatorOnLoaderCompletion() {
@@ -92,7 +92,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         sut.simulateUserInitiatedReload()
         loader.completeListLoading()
 
-        XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, false)
+        XCTAssertFalse(sut.isShowingLoadingIndicator)
     }
 
     // MARK: - Helpers
@@ -125,6 +125,10 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 private extension ResourceListCollectionViewController {
     func simulateUserInitiatedReload() {
         collectionView.refreshControl?.simulatePullToRefresh()
+    }
+
+    var isShowingLoadingIndicator: Bool {
+        collectionView.refreshControl?.isRefreshing == true
     }
 }
 
