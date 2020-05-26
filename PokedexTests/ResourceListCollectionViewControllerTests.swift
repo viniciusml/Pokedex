@@ -78,6 +78,23 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, false)
     }
 
+    func test_pullToRefresh_showsLoadingIndicator() {
+        let (sut, _) = makeSUT()
+
+        sut.collectionView.refreshControl?.simulatePullToRefresh()
+
+        XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, true)
+    }
+
+    func test_pullToRefresh_hidesLoadingIndicatorOnLoaderCompletion() {
+        let (sut, loader) = makeSUT()
+
+        sut.collectionView.refreshControl?.simulatePullToRefresh()
+        loader.completeListLoading()
+
+        XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, false)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line)  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy){
