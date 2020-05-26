@@ -28,7 +28,9 @@ class ResourceListCollectionViewController: UICollectionViewController {
     }
 
     @objc private func load() {
-        loader?.load { _ in }
+        loader?.load { [weak self] _ in
+            self?.collectionView.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -67,6 +69,15 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, true)
     }
 
+    func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
+        let (sut, loader) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        loader.completeListLoading()
+
+        XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, false)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line)  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy){
@@ -78,10 +89,18 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     class LoaderSpy: ListLoader {
-        private(set) var loadCallCount: Int = 0
+        private var completions = [(RequestResult<[ResultItem]>) -> Void]()
 
-        func load(completion: @escaping (RequestResult<ListItem>) -> Void) {
-            loadCallCount += 1
+        var loadCallCount: Int {
+            completions.count
+        }
+
+        func load(completion: @escaping (RequestResult<[ResultItem]>) -> Void) {
+            completions.append(completion)
+        }
+
+        func completeListLoading() {
+            completions[0](.success([]))
         }
     }
 }
