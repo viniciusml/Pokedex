@@ -50,14 +50,14 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 1)
     }
 
-    func test_pullToRefresh_loadsList() {
+    func test_userInitiatedReload_loadsList() {
         let (sut, loader) = makeSUT()
         sut.loadViewIfNeeded()
 
-        sut.collectionView.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadCallCount, 2)
 
-        sut.collectionView.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadCallCount, 3)
     }
 
@@ -78,18 +78,18 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, false)
     }
 
-    func test_pullToRefresh_showsLoadingIndicator() {
+    func test_userInitiatedReload_showsLoadingIndicator() {
         let (sut, _) = makeSUT()
 
-        sut.collectionView.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedReload()
 
         XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, true)
     }
 
-    func test_pullToRefresh_hidesLoadingIndicatorOnLoaderCompletion() {
+    func test_userInitiatedReload_hidesLoadingIndicatorOnLoaderCompletion() {
         let (sut, loader) = makeSUT()
 
-        sut.collectionView.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedReload()
         loader.completeListLoading()
 
         XCTAssertEqual(sut.collectionView.refreshControl?.isRefreshing, false)
@@ -119,6 +119,12 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         func completeListLoading() {
             completions[0](.success([]))
         }
+    }
+}
+
+private extension ResourceListCollectionViewController {
+    func simulateUserInitiatedReload() {
+        collectionView.refreshControl?.simulatePullToRefresh()
     }
 }
 
