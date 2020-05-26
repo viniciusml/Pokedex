@@ -17,7 +17,7 @@ class RemoteLoaderEndToEndTests: XCTestCase {
 
         let exp = expectation(description: "Wait for load completion")
 
-        var receivedResult: RemoteLoader.RequestResult<ListItem>?
+        var receivedResult: RequestResult<ListItem>?
 
         loader.loadResourceList(page: "0") { result in
             receivedResult = result
@@ -85,7 +85,7 @@ class RemoteLoaderEndToEndTests: XCTestCase {
 
         let exp = expectation(description: "Wait for load completion")
 
-        var receivedResult: RemoteLoader.RequestResult<PokemonItem>?
+        var receivedResult: RequestResult<PokemonItem>?
 
         loader.loadPokemon(pokemonId: "1") { result in
             receivedResult = result
