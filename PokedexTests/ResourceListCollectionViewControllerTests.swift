@@ -9,18 +9,24 @@
 import XCTest
 import Pokedex
 
-class ResourceListCollectionViewController: UIViewController {
+class ResourceListCollectionViewController: UICollectionViewController {
 
     private var loader: ListLoader?
 
     convenience init(loader: ListLoader) {
-        self.init()
+        self.init(collectionViewLayout: UICollectionViewLayout())
         self.loader = loader
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        load()
+    }
+
+    @objc private func load() {
         loader?.load { _ in }
     }
 }
@@ -41,6 +47,17 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 1)
     }
 
+    func test_pullToRefresh_loadsList() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+
+        sut.collectionView.refreshControl?.simulatePullToRefresh()
+        XCTAssertEqual(loader.loadCallCount, 2)
+
+        sut.collectionView.refreshControl?.simulatePullToRefresh()
+        XCTAssertEqual(loader.loadCallCount, 3)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line)  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy){
@@ -56,6 +73,16 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
         func load(completion: @escaping (RequestResult<ListItem>) -> Void) {
             loadCallCount += 1
+        }
+    }
+}
+
+private extension UIRefreshControl {
+    func simulatePullToRefresh() {
+        allTargets.forEach { target in
+            actions(forTarget: target, forControlEvent: .valueChanged)?.forEach {
+                (target as NSObject).perform(Selector($0))
+            }
         }
     }
 }
