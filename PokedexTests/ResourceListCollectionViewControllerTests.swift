@@ -31,13 +31,12 @@ class ResourceListCollectionViewController: UICollectionViewController {
         collectionView.refreshControl?.beginRefreshing()
 
         loader?.load { [weak self] result in
-            switch result {
-            case let .success(item):
+            if let item = try? result.get() {
                 self?.collectionModel = item
                 self?.collectionView.reloadData()
-                self?.collectionView.refreshControl?.endRefreshing()
-            case .failure: break
             }
+
+            self?.collectionView.refreshControl?.endRefreshing()
         }
     }
 
@@ -77,13 +76,13 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
 
         loader.completeListLoading(at: 0)
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completed")
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
 
         sut.simulateUserInitiatedReload()
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
 
-        loader.completeListLoading(at: 1)
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading is completed")
+        loader.completeListLoadingWithError(at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
     }
 
     func test_loadListCompletion_rendersSuccessfullyLoadedList() {
