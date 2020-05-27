@@ -31,9 +31,13 @@ class ResourceListCollectionViewController: UICollectionViewController {
         collectionView.refreshControl?.beginRefreshing()
 
         loader?.load { [weak self] result in
-            self?.collectionModel = (try? result.get()) ?? []
-            self?.collectionView.reloadData()
-            self?.collectionView.refreshControl?.endRefreshing()
+            switch result {
+            case let .success(item):
+                self?.collectionModel = item
+                self?.collectionView.reloadData()
+                self?.collectionView.refreshControl?.endRefreshing()
+            case .failure: break
+            }
         }
     }
 
@@ -101,6 +105,19 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [item0, item1, item2, item3])
     }
 
+    func test_loadListCompletion_doesNotAlterCurrentLoadingStateOnError() {
+        let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon-url.com")
+        let (sut, loader) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [item0], at: 0)
+        assertThat(sut, isRendering: [item0])
+
+        sut.simulateUserInitiatedReload()
+        loader.completeListLoadingWithError(at: 1)
+        assertThat(sut, isRendering: [item0])
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line)  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy){
@@ -149,6 +166,10 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
         func completeListLoading(with list: [ResultItem] = [], at index: Int = 0) {
             completions[index](.success(list))
+        }
+
+        func completeListLoadingWithError(at index: Int) {
+            completions[index](.failure(.connectivity))
         }
     }
 }
