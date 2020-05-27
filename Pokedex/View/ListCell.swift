@@ -20,7 +20,7 @@ public class ListCell: BaseCell {
         return label
     }()
 
-    var pokeImage: UIImageView = {
+    public var pokeImage: UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "pokeball")
         return iv

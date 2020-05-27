@@ -84,18 +84,21 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_loadListCompletion_rendersSuccessfullyLoadedList() {
         let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon-url.com")
+        let item1 = makeResourceItem(name: "Pokemon1", url: "http://pokemon-url.com")
+        let item2 = makeResourceItem(name: "Pokemon2", url: "http://pokemon-url.com")
+        let item3 = makeResourceItem(name: "Pokemon3", url: "http://pokemon-url.com")
 
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
-        XCTAssertEqual(sut.numberOfRenderedResourceItems(), 0)
+        assertThat(sut, isRendering: [])
 
         loader.completeListLoading(with: [item0], at: 0)
-        XCTAssertEqual(sut.numberOfRenderedResourceItems(), 1)
+        assertThat(sut, isRendering: [item0])
 
-        let view = sut.listItem(at: 0) as? ListCell
-        XCTAssertNotNil(view)
-        XCTAssertEqual(view?.pokemonName, item0.name)
+        sut.simulateUserInitiatedReload()
+        loader.completeListLoading(with: [item0, item1, item2, item3], at: 1)
+        assertThat(sut, isRendering: [item0, item1, item2, item3])
     }
 
     // MARK: - Helpers
@@ -106,6 +109,27 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
+    }
+
+    private func assertThat(_ sut: ResourceListCollectionViewController, isRendering list: [ResultItem], file: StaticString = #file, line: UInt = #line) {
+        guard sut.numberOfRenderedResourceItems() == list.count else {
+            return XCTFail("Expected \(list.count) items, got \(sut.numberOfRenderedResourceItems()) instead", file: file, line: line)
+        }
+
+        list.enumerated().forEach { index, item in
+            assertThat(sut, hasViewConfiguredFor: item, at: index)
+        }
+    }
+
+    private func assertThat(_ sut: ResourceListCollectionViewController, hasViewConfiguredFor item: ResultItem, at index: Int, file: StaticString = #file, line: UInt = #line) {
+        let view = sut.listItem(at: 0)
+
+        guard let cell = view as? ListCell else {
+            return XCTFail("Expected \(ListCell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
+        }
+
+        XCTAssertTrue(cell.pokeImage.superview == cell)
+        XCTAssertEqual(cell.nameLabel.text, item.name, "Expected name text to be \(String(describing: item.name)) for label at index \(index)", file: file, line: line)
     }
 
     private func makeResourceItem(name: String, url: String) -> ResultItem {
