@@ -23,11 +23,12 @@ class ResourceListCollectionViewController: UICollectionViewController {
 
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-        collectionView.refreshControl?.beginRefreshing()
         load()
     }
 
     @objc private func load() {
+        collectionView.refreshControl?.beginRefreshing()
+
         loader?.load { [weak self] _ in
             self?.collectionView.refreshControl?.endRefreshing()
         }
@@ -36,63 +37,35 @@ class ResourceListCollectionViewController: UICollectionViewController {
 
 class ResourceListCollectionViewControllerTests: XCTestCase {
 
-    func test_viewDidLoad_registersListCollectionViewCell() {
-        let (_, loader) = makeSUT()
+    func test_loadActions_requestsListFromLoader() {
+        let (sut, loader) = makeSUT()
 
-        XCTAssertEqual(loader.loadCallCount, 0)
+        XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading requests before the view is loaded")
+
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(loader.loadCallCount, 1, "Expected a loading request once the view is loaded")
+
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadCallCount, 2, "Expected another loading request once user initiates a load")
+
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadCallCount, 3, "Expected a third loading request once user initiates another load")
     }
 
-    func test_viewDidLoad_loadsFeed() {
+    func test_loadingFeedIndicator_isVisibleWhileLoadingList() {
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
 
-        XCTAssertEqual(loader.loadCallCount, 1)
-    }
-
-    func test_userInitiatedReload_loadsList() {
-        let (sut, loader) = makeSUT()
-        sut.loadViewIfNeeded()
+        loader.completeListLoading(at: 0)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completed")
 
         sut.simulateUserInitiatedReload()
-        XCTAssertEqual(loader.loadCallCount, 2)
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
 
-        sut.simulateUserInitiatedReload()
-        XCTAssertEqual(loader.loadCallCount, 3)
-    }
-
-    func test_viewDidLoad_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
-
-        sut.loadViewIfNeeded()
-
-        XCTAssertTrue(sut.isShowingLoadingIndicator)
-    }
-
-    func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
-        let (sut, loader) = makeSUT()
-
-        sut.loadViewIfNeeded()
-        loader.completeListLoading()
-
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
-    }
-
-    func test_userInitiatedReload_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
-
-        sut.simulateUserInitiatedReload()
-
-        XCTAssertTrue(sut.isShowingLoadingIndicator)
-    }
-
-    func test_userInitiatedReload_hidesLoadingIndicatorOnLoaderCompletion() {
-        let (sut, loader) = makeSUT()
-
-        sut.simulateUserInitiatedReload()
-        loader.completeListLoading()
-
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
+        loader.completeListLoading(at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading is completed")
     }
 
     // MARK: - Helpers
@@ -116,8 +89,8 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
             completions.append(completion)
         }
 
-        func completeListLoading() {
-            completions[0](.success([]))
+        func completeListLoading(at index: Int) {
+            completions[index](.success([]))
         }
     }
 }
