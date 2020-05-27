@@ -12,6 +12,7 @@ import Pokedex
 class ResourceListCollectionViewController: UICollectionViewController {
 
     private var loader: ListLoader?
+    private var collectionModel = [ResultItem]()
 
     convenience init(loader: ListLoader) {
         self.init(collectionViewLayout: UICollectionViewLayout())
@@ -29,9 +30,22 @@ class ResourceListCollectionViewController: UICollectionViewController {
     @objc private func load() {
         collectionView.refreshControl?.beginRefreshing()
 
-        loader?.load { [weak self] _ in
+        loader?.load { [weak self] result in
+            self?.collectionModel = (try? result.get()) ?? []
+            self?.collectionView.reloadData()
             self?.collectionView.refreshControl?.endRefreshing()
         }
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionModel.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellModel = collectionModel[indexPath.item]
+        let cell = ListCell()
+        cell.nameLabel.text = cellModel.name
+        return cell
     }
 }
 
@@ -68,6 +82,22 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading is completed")
     }
 
+    func test_loadListCompletion_rendersSuccessfullyLoadedList() {
+        let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon-url.com")
+
+        let (sut, loader) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(sut.numberOfRenderedResourceItems(), 0)
+
+        loader.completeListLoading(with: [item0], at: 0)
+        XCTAssertEqual(sut.numberOfRenderedResourceItems(), 1)
+
+        let view = sut.listItem(at: 0) as? ListCell
+        XCTAssertNotNil(view)
+        XCTAssertEqual(view?.pokemonName, item0.name)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line)  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy){
@@ -76,6 +106,10 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
+    }
+
+    private func makeResourceItem(name: String, url: String) -> ResultItem {
+        ResultItem(name: "Pokemon", url: "http://pokemon-url.com")
     }
 
     class LoaderSpy: ListLoader {
@@ -89,8 +123,8 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
             completions.append(completion)
         }
 
-        func completeListLoading(at index: Int) {
-            completions[index](.success([]))
+        func completeListLoading(with list: [ResultItem] = [], at index: Int = 0) {
+            completions[index](.success(list))
         }
     }
 }
@@ -102,6 +136,24 @@ private extension ResourceListCollectionViewController {
 
     var isShowingLoadingIndicator: Bool {
         collectionView.refreshControl?.isRefreshing == true
+    }
+
+    func numberOfRenderedResourceItems() -> Int {
+        collectionView.numberOfItems(inSection: resourceItemsSection)
+    }
+
+    private var resourceItemsSection: Int { 0 }
+
+    func listItem(at item: Int) -> UICollectionViewCell? {
+        let ds = collectionView.dataSource
+        let index = IndexPath(item: item, section: resourceItemsSection)
+        return ds?.collectionView(collectionView, cellForItemAt: index)
+    }
+}
+
+extension ListCell {
+    var pokemonName: String? {
+        nameLabel.text
     }
 }
 

@@ -12,7 +12,7 @@ public class ListCell: BaseCell {
 
     //    MARK: - Properties
 
-    var nameLabel: UILabel = {
+    public var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Font.medium, size: 16)!
         label.textAlignment = .center
