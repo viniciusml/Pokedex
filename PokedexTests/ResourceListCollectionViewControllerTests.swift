@@ -14,6 +14,10 @@ class ResourceListCollectionViewController: UICollectionViewController, UICollec
     private var loader: ListLoader?
     private var collectionModel = [ResultItem]()
 
+    private var prefetchTriggerCount: Int {
+        collectionModel.count - 6
+    }
+
     convenience init(loader: ListLoader) {
         self.init(collectionViewLayout: UICollectionViewLayout())
         self.loader = loader
@@ -53,7 +57,13 @@ class ResourceListCollectionViewController: UICollectionViewController, UICollec
     }
 
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        loader?.load { _ in }
+        if indexPaths.contains(where: isDisplayingCell) {
+            loader?.load { _ in }
+        }
+    }
+
+    func isDisplayingCell(for indexPath: IndexPath) -> Bool {
+        indexPath.item >= prefetchTriggerCount
     }
 }
 
@@ -122,20 +132,24 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [item0])
     }
 
-    func test_loadActions_preloadsNewDataWhenNearVisible() {
-        let item0 = makeResourceItem(name: "Pokemon")
-        let item1 = makeResourceItem(name: "Pokemon1")
+    func test_loadActions_preloadsNewDataWhenLastModelItemNearVisible() {
+
+        var items = [ResultItem]()
+        for i in 0...11 {
+            items.append(makeResourceItem(name: "Pokemon\(i)"))
+        }
+
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
-        loader.completeListLoading(with: [item0, item1])
-        XCTAssertEqual(loader.loadCallCount, 1, "Expected no additional requests until view is near visible")
+        loader.completeListLoading(with: items)
+        XCTAssertEqual(loader.loadCallCount, 1, "Expected no additional requests until last model item is near visible")
 
         sut.simulateResourceItemViewNearVisible(at: 0)
-        XCTAssertEqual(loader.loadCallCount, 2, "Expected additional request once first item is near visible")
+        XCTAssertEqual(loader.loadCallCount, 1, "Expected no additional requests until last model item is near visible")
 
-        sut.simulateResourceItemViewNearVisible(at: 1)
-        XCTAssertEqual(loader.loadCallCount, 3, "Expected second additional request once second item is near visible")
+        sut.simulateResourceItemViewNearVisible(at: 6)
+        XCTAssertEqual(loader.loadCallCount, 2, "Expected additional request once last model item is near visible")
     }
 
     // MARK: - Helpers
