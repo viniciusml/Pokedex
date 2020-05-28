@@ -9,7 +9,7 @@
 import XCTest
 import Pokedex
 
-class ResourceListCollectionViewController: UICollectionViewController {
+class ResourceListCollectionViewController: UICollectionViewController, UICollectionViewDataSourcePrefetching {
 
     private var loader: ListLoader?
     private var collectionModel = [ResultItem]()
@@ -24,6 +24,7 @@ class ResourceListCollectionViewController: UICollectionViewController {
 
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        collectionView.prefetchDataSource = self
         load()
     }
 
@@ -49,6 +50,10 @@ class ResourceListCollectionViewController: UICollectionViewController {
         let cell = ListCell()
         cell.nameLabel.text = cellModel.name
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        loader?.load { _ in }
     }
 }
 
@@ -115,6 +120,22 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         sut.simulateUserInitiatedReload()
         loader.completeListLoadingWithError(at: 1)
         assertThat(sut, isRendering: [item0])
+    }
+
+    func test_loadActions_preloadsNewDataWhenNearVisible() {
+        let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon-url.com")
+        let item1 = makeResourceItem(name: "Pokemon1", url: "http://pokemon-url.com")
+        let (sut, loader) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [item0, item1])
+        XCTAssertEqual(loader.loadCallCount, 1, "Expected no additional requests until view is near visible")
+
+        sut.simulateResourceItemViewNearVisible(at: 0)
+        XCTAssertEqual(loader.loadCallCount, 2, "Expected additional request once first item is near visible")
+
+        sut.simulateResourceItemViewNearVisible(at: 1)
+        XCTAssertEqual(loader.loadCallCount, 3, "Expected second additional request once second item is near visible")
     }
 
     // MARK: - Helpers
@@ -192,6 +213,12 @@ private extension ResourceListCollectionViewController {
         let ds = collectionView.dataSource
         let index = IndexPath(item: item, section: resourceItemsSection)
         return ds?.collectionView(collectionView, cellForItemAt: index)
+    }
+
+    func simulateResourceItemViewNearVisible(at item: Int) {
+        let ds = collectionView.prefetchDataSource
+        let index = IndexPath(item: item, section: resourceItemsSection)
+        ds?.collectionView(collectionView, prefetchItemsAt: [index])
     }
 }
 
