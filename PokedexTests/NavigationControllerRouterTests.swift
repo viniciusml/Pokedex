@@ -29,21 +29,29 @@ class NavigationControllerRouter: Router {
 
 class NavigationControllerRouterTests: XCTestCase {
 
-    func test_routToPokemon_presentViewController() {
-        let navigationController = UINavigationController()
-        let sut = NavigationControllerRouter(navigationController)
+    let navigationController = NonAnimatedNavigationController()
 
+    lazy var sut: NavigationControllerRouter = {
+        return NavigationControllerRouter(navigationController)
+    }()
+
+    func test_routToPokemon_presentViewController() {
         sut.routeTo(pokemon: "http://pokemon1.com")
 
         XCTAssertEqual(navigationController.viewControllers.count, 1)
     }
 
     func test_routToPokemon_presentPokemonViewController() {
-        let navigationController = UINavigationController()
-        let sut = NavigationControllerRouter(navigationController)
-
         sut.routeTo(pokemon: "http://pokemon1.com")
 
         XCTAssertTrue(navigationController.viewControllers.first is PokemonViewController)
+    }
+
+    // MARK: - Helpers
+
+    class NonAnimatedNavigationController: UINavigationController {
+        override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+            super.pushViewController(viewController, animated: false)
+        }
     }
 }
