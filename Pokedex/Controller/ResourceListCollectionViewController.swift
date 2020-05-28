@@ -11,6 +11,7 @@ import UIKit
 public class ResourceListCollectionViewController: UICollectionViewController {
 
     private var loader: ListLoader?
+    private var alertPresenter: AlertPresenter?
     private var collectionModel = [ResultItem]()
 
     private var prefetchTriggerCount: Int {
@@ -19,9 +20,10 @@ public class ResourceListCollectionViewController: UICollectionViewController {
 
     private var selection: ((String) -> Void)? = nil
 
-    public convenience init(loader: ListLoader, selection: @escaping (String) -> Void) {
+    public convenience init(loader: ListLoader, alertPresenter: AlertPresenter, selection: @escaping (String) -> Void) {
         self.init(collectionViewLayout: UICollectionViewLayout())
         self.loader = loader
+        self.alertPresenter = alertPresenter
         self.selection = selection
     }
 
@@ -45,12 +47,17 @@ public class ResourceListCollectionViewController: UICollectionViewController {
         collectionView.refreshControl?.beginRefreshing()
 
         loader?.load { [weak self] result in
-            if let items = try? result.get() {
-                self?.collectionModel = items
-                self?.collectionView.reloadData()
+            guard let self = self else { return }
+
+            switch result {
+            case let .success(items):
+                self.collectionModel = items
+                self.collectionView.reloadData()
+            case .failure:
+                self.alertPresenter?.presentAlert(title: "Alert", message: "An error ocurred. Please try again")
             }
 
-            self?.collectionView.refreshControl?.endRefreshing()
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
 
@@ -109,12 +116,15 @@ extension ResourceListCollectionViewController: UICollectionViewDataSourcePrefet
             loader?.load { [weak self] result in
                 guard let self = self else { return }
 
-                if let items = try? result.get() {
+                switch result {
+                case let .success(items):
                     self.collectionModel.append(contentsOf: items)
 
                     let indexesToReload = self.calculateIndexPathsToReload(from: items)
                     self.collectionView.insertItems(at: indexesToReload)
                     self.collectionView.reloadItems(at: indexesToReload)
+                case .failure:
+                    self.alertPresenter?.presentAlert(title: "Alert", message: "An error ocurred. Please try again")
                 }
             }
         }

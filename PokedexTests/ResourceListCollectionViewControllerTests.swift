@@ -12,7 +12,7 @@ import Pokedex
 class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_resourceListView_hasTitle() {
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
 
         sut.loadViewIfNeeded()
 
@@ -20,7 +20,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_loadActions_requestsListFromLoader() {
-        let (sut, loader) = makeSUT()
+        let (sut, loader, _) = makeSUT()
 
         XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading requests before the view is loaded")
 
@@ -35,7 +35,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_loadingFeedIndicator_isVisibleWhileLoadingList() {
-        let (sut, loader) = makeSUT()
+        let (sut, loader, _) = makeSUT()
 
         sut.loadViewIfNeeded()
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
@@ -56,7 +56,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let item2 = makeResourceItem(name: "Pokemon2")
         let item3 = makeResourceItem(name: "Pokemon3")
 
-        let (sut, loader) = makeSUT()
+        let (sut, loader, _) = makeSUT()
 
         sut.loadViewIfNeeded()
         assertThat(sut, isRendering: [])
@@ -71,7 +71,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_loadListCompletion_doesNotAlterCurrentLoadingStateOnError() {
         let item0 = makeResourceItem(name: "Pokemon")
-        let (sut, loader) = makeSUT()
+        let (sut, loader, _) = makeSUT()
 
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: [item0], at: 0)
@@ -84,7 +84,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_loadActions_preloadsNewDataWhenLastModelItemNearVisible() {
         let items = makeResourceItems(10)
-        let (sut, loader) = makeSUT()
+        let (sut, loader, _) = makeSUT()
 
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: items)
@@ -101,7 +101,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let firstPageItems = makeResourceItems(10)
         let secondPageItems = makeResourceItems(10)
 
-        let (sut, loader) = makeSUT()
+        let (sut, loader, _) = makeSUT()
         sut.loadViewIfNeeded()
 
         loader.completeListLoading(with: firstPageItems, at: 0)
@@ -118,7 +118,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let item2 = makeResourceItem(name: "Pokemon2", url: "http://pokemon2.com")
 
         var receivedPokemonURL = String()
-        let (sut, loader) = makeSUT { receivedPokemonURL = $0 }
+        let (sut, loader, _) = makeSUT { receivedPokemonURL = $0 }
         sut.loadViewIfNeeded()
 
         loader.completeListLoading(with: [item0, item1, item2])
@@ -128,14 +128,43 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(receivedPokemonURL, "http://pokemon.com")
     }
 
+    func test_loadAction_displaysAlertOnError() {
+        let item0 = makeResourceItem(name: "Pokemon")
+        let item1 = makeResourceItem(name: "Pokemon1")
+        let item2 = makeResourceItem(name: "Pokemon2")
+
+        let (sut, loader, alertPresenter) = makeSUT()
+        sut.loadViewIfNeeded()
+
+        loader.completeListLoadingWithError(at: 0)
+        XCTAssertEqual(alertPresenter.alertsPresented.count, 1)
+
+        sut.simulateUserInitiatedReload()
+        loader.completeListLoading(with: [item0, item1, item2], at: 1)
+
+        sut.simulateResourceItemViewNearVisible(at: 0)
+        loader.completeListLoadingWithError(at: 2)
+        XCTAssertEqual(alertPresenter.alertsPresented.count, 2)
+    }
+
     // MARK: - Helpers
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line, selection: @escaping (String) -> Void = { _ in })  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line, selection: @escaping (String) -> Void = { _ in })  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy, alerPresenter: AlertPresenterSpy) {
         let loader = LoaderSpy()
-        let sut = ResourceListCollectionViewController(loader: loader, selection: selection)
+        let alertPresenter = AlertPresenterSpy()
+        let sut = ResourceListCollectionViewController(loader: loader, alertPresenter: alertPresenter, selection: selection)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
-        return (sut, loader)
+        return (sut, loader, alertPresenter)
+    }
+
+    private class AlertPresenterSpy: AlertPresenter {
+
+        var alertsPresented = [(title: String, message: String)]()
+
+        func presentAlert(title: String, message: String) {
+            alertsPresented.append((title, message))
+        }
     }
 
     private func assertThat(_ sut: ResourceListCollectionViewController, isRendering list: [ResultItem], file: StaticString = #file, line: UInt = #line) {
