@@ -172,7 +172,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 2, "Expected additional request once last model item is near visible")
     }
 
-    func test_listPrefetchCompletion_rendersSuccessfullySecondPageLoadedList() {
+    func test_listPrefetchCompletion_rendersSuccessfullyAdditionalPageLoadedList() {
         var firstPageItems = [ResultItem]()
         for i in 0...11 {
             firstPageItems.append(makeResourceItem(name: "Pokemon\(i)"))
