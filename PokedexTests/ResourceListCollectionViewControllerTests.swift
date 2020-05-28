@@ -9,93 +9,15 @@
 import XCTest
 import Pokedex
 
-class ResourceListCollectionViewController: UICollectionViewController, UICollectionViewDataSourcePrefetching {
-
-    private var loader: ListLoader?
-    private var collectionModel = [ResultItem]()
-
-    private var prefetchTriggerCount: Int {
-        collectionModel.count - 6
-    }
-
-    private var selection: ((String) -> Void)? = nil
-
-    convenience init(loader: ListLoader, selection: @escaping (String) -> Void) {
-        self.init(collectionViewLayout: UICollectionViewLayout())
-        self.loader = loader
-        self.selection = selection
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        collectionView.refreshControl = UIRefreshControl()
-        collectionView.refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-        collectionView.prefetchDataSource = self
-        collectionView.register(ListCell.self)
-        load()
-    }
-
-    @objc private func load() {
-        collectionView.refreshControl?.beginRefreshing()
-
-        loader?.load { [weak self] result in
-            if let items = try? result.get() {
-                self?.collectionModel = items
-                self?.collectionView.reloadData()
-            }
-
-            self?.collectionView.refreshControl?.endRefreshing()
-        }
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionModel.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellModel = collectionModel[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(type: ListCell.self, for: indexPath)
-        cell.nameLabel.text = cellModel.name
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: isDisplayingCell) {
-            loader?.load { [weak self] result in
-                guard let self = self else { return }
-
-                if let items = try? result.get() {
-                    self.collectionModel.append(contentsOf: items)
-
-                    let indexesToReload = self.calculateIndexPathsToReload(from: items)
-                    self.collectionView.insertItems(at: indexesToReload)
-                    self.collectionView.reloadItems(at: indexesToReload)
-                }
-            }
-        }
-    }
-
-    func calculateIndexPathsToReload(from newItems: [ResultItem]) -> [IndexPath] {
-
-        let startIndex = collectionModel.count - newItems.count
-
-        let endIndex = startIndex + newItems.count
-
-        return (startIndex..<endIndex).map { IndexPath(item: $0, section: 0) }
-    }
-
-    func isDisplayingCell(for indexPath: IndexPath) -> Bool {
-        indexPath.item >= prefetchTriggerCount
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = collectionModel[indexPath.item]
-        selection?(item.url)
-    }
-}
-
 class ResourceListCollectionViewControllerTests: XCTestCase {
+
+    func test_resourceListView_hasTitle() {
+        let (sut, _) = makeSUT()
+
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(sut.title, "Pokédex")
+    }
 
     func test_loadActions_requestsListFromLoader() {
         let (sut, loader) = makeSUT()
