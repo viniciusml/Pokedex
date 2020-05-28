@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Pokedex
 
 public protocol Router {
     func routeTo(pokemon urlString: String)
@@ -21,11 +22,12 @@ class NavigationControllerRouter: Router {
     }
 
     func routeTo(pokemon urlString: String) {
-        navigationController.pushViewController(UIViewController(), animated: false)
+        let controller = PokemonViewController()
+        navigationController.pushViewController(controller, animated: true)
     }
 }
 
-class NavigationControllerRouterTests {
+class NavigationControllerRouterTests: XCTestCase {
 
     func test_routToPokemon_presentViewController() {
         let navigationController = UINavigationController()
@@ -34,5 +36,14 @@ class NavigationControllerRouterTests {
         sut.routeTo(pokemon: "http://pokemon1.com")
 
         XCTAssertEqual(navigationController.viewControllers.count, 1)
+    }
+
+    func test_routToPokemon_presentPokemonViewController() {
+        let navigationController = UINavigationController()
+        let sut = NavigationControllerRouter(navigationController)
+
+        sut.routeTo(pokemon: "http://pokemon1.com")
+
+        XCTAssertTrue(navigationController.viewControllers.first is PokemonViewController)
     }
 }

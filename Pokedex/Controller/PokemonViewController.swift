@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PokemonViewController: UIViewController {
+public class PokemonViewController: UIViewController {
 
     // MARK: - Properties
 
@@ -28,7 +28,7 @@ class PokemonViewController: UIViewController {
         pokemonViewModel.fetchPokemon()
     }
 
-    override func loadView() {
+    public override func loadView() {
         view = mainView
     }
 }
