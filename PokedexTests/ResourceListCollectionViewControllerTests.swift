@@ -153,12 +153,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_loadActions_preloadsNewDataWhenLastModelItemNearVisible() {
-
-        var items = [ResultItem]()
-        for i in 0...11 {
-            items.append(makeResourceItem(name: "Pokemon\(i)"))
-        }
-
+        let items = makeResourceItems(10)
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -173,15 +168,8 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_listPrefetchCompletion_rendersSuccessfullyAdditionalPageLoadedList() {
-        var firstPageItems = [ResultItem]()
-        for i in 0...11 {
-            firstPageItems.append(makeResourceItem(name: "Pokemon\(i)"))
-        }
-
-        var secondPageItems = [ResultItem]()
-        for i in 11...22 {
-            secondPageItems.append(makeResourceItem(name: "Pokemon\(i)"))
-        }
+        let firstPageItems = makeResourceItems(10)
+        let secondPageItems = makeResourceItems(10)
 
         let (sut, loader) = makeSUT()
         sut.loadViewIfNeeded()
@@ -227,6 +215,14 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
     private func makeResourceItem(name: String, url: String = "http://pokemon-url.com") -> ResultItem {
         ResultItem(name: name, url: url)
+    }
+
+    private func makeResourceItems(_ quantity: Int) -> [ResultItem] {
+        var array = [ResultItem]()
+        for i in 0...quantity {
+            array.append(makeResourceItem(name: "Pokemon\(i)"))
+        }
+        return array
     }
 
     class LoaderSpy: ListLoader {
