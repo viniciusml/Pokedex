@@ -18,9 +18,12 @@ class ResourceListCollectionViewController: UICollectionViewController, UICollec
         collectionModel.count - 6
     }
 
-    convenience init(loader: ListLoader) {
+    private var selection: ((String) -> Void)? = nil
+
+    convenience init(loader: ListLoader, selection: @escaping (String) -> Void) {
         self.init(collectionViewLayout: UICollectionViewLayout())
         self.loader = loader
+        self.selection = selection
     }
 
     override func viewDidLoad() {
@@ -84,6 +87,11 @@ class ResourceListCollectionViewController: UICollectionViewController, UICollec
 
     func isDisplayingCell(for indexPath: IndexPath) -> Bool {
         indexPath.item >= prefetchTriggerCount
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = collectionModel[indexPath.item]
+        selection?(item.url)
     }
 }
 
@@ -182,11 +190,27 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: firstPageItems + secondPageItems)
     }
 
+    func test_cellSelected_notifiesDelegateWithSelection() {
+        let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon.com")
+        let item1 = makeResourceItem(name: "Pokemon1", url: "http://pokemon1.com")
+        let item2 = makeResourceItem(name: "Pokemon2", url: "http://pokemon2.com")
+
+        var receivedPokemonURL = String()
+        let (sut, loader) = makeSUT { receivedPokemonURL = $0 }
+        sut.loadViewIfNeeded()
+
+        loader.completeListLoading(with: [item0, item1, item2])
+
+        sut.simulateResourceItemSelection(item: 0)
+
+        XCTAssertEqual(receivedPokemonURL, "http://pokemon.com")
+    }
+
     // MARK: - Helpers
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line)  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy){
+    private func makeSUT(file: StaticString = #file, line: UInt = #line, selection: @escaping (String) -> Void = { _ in })  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = ResourceListCollectionViewController(loader: loader)
+        let sut = ResourceListCollectionViewController(loader: loader, selection: selection)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
@@ -273,6 +297,12 @@ private extension ResourceListCollectionViewController {
         let ds = collectionView.prefetchDataSource
         let index = IndexPath(item: item, section: resourceItemsSection)
         ds?.collectionView(collectionView, prefetchItemsAt: [index])
+    }
+
+    func simulateResourceItemSelection(item: Int) {
+        let dl = collectionView.delegate
+        let indexPath = IndexPath(item: item, section: 0)
+        dl?.collectionView?(collectionView, didSelectItemAt: indexPath)
     }
 }
 
