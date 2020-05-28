@@ -83,7 +83,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_loadActions_preloadsNewDataWhenLastModelItemNearVisible() {
-        let items = makeResourceItems(20)
+        let items = makeResourceItems(18)
         let (sut, loader, _) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -155,6 +155,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let sut = ResourceListCollectionViewController(loader: loader, alertPresenter: alertPresenter, selection: selection)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(alertPresenter, file: file, line: line)
         return (sut, loader, alertPresenter)
     }
 
