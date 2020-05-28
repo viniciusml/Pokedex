@@ -91,10 +91,10 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_loadListCompletion_rendersSuccessfullyLoadedList() {
-        let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon-url.com")
-        let item1 = makeResourceItem(name: "Pokemon1", url: "http://pokemon-url.com")
-        let item2 = makeResourceItem(name: "Pokemon2", url: "http://pokemon-url.com")
-        let item3 = makeResourceItem(name: "Pokemon3", url: "http://pokemon-url.com")
+        let item0 = makeResourceItem(name: "Pokemon")
+        let item1 = makeResourceItem(name: "Pokemon1")
+        let item2 = makeResourceItem(name: "Pokemon2")
+        let item3 = makeResourceItem(name: "Pokemon3")
 
         let (sut, loader) = makeSUT()
 
@@ -110,7 +110,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_loadListCompletion_doesNotAlterCurrentLoadingStateOnError() {
-        let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon-url.com")
+        let item0 = makeResourceItem(name: "Pokemon")
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -123,8 +123,8 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_loadActions_preloadsNewDataWhenNearVisible() {
-        let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon-url.com")
-        let item1 = makeResourceItem(name: "Pokemon1", url: "http://pokemon-url.com")
+        let item0 = makeResourceItem(name: "Pokemon")
+        let item1 = makeResourceItem(name: "Pokemon1")
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -154,12 +154,12 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         }
 
         list.enumerated().forEach { index, item in
-            assertThat(sut, hasViewConfiguredFor: item, at: index)
+            assertThat(sut, hasViewConfiguredFor: item, at: index, file: file, line: line)
         }
     }
 
     private func assertThat(_ sut: ResourceListCollectionViewController, hasViewConfiguredFor item: ResultItem, at index: Int, file: StaticString = #file, line: UInt = #line) {
-        let view = sut.listItem(at: 0)
+        let view = sut.listItem(at: index)
 
         guard let cell = view as? ListCell else {
             return XCTFail("Expected \(ListCell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
@@ -169,8 +169,8 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(cell.nameLabel.text, item.name, "Expected name text to be \(String(describing: item.name)) for label at index \(index)", file: file, line: line)
     }
 
-    private func makeResourceItem(name: String, url: String) -> ResultItem {
-        ResultItem(name: "Pokemon", url: "http://pokemon-url.com")
+    private func makeResourceItem(name: String, url: String = "http://pokemon-url.com") -> ResultItem {
+        ResultItem(name: name, url: url)
     }
 
     class LoaderSpy: ListLoader {
