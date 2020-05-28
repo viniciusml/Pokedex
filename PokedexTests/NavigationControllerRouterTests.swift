@@ -14,7 +14,7 @@ public protocol Router {
 
 class NavigationControllerRouter: Router {
 
-    let navigationController: UINavigationController
+    private let navigationController: UINavigationController
 
     init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -27,7 +27,7 @@ class NavigationControllerRouter: Router {
 
 class NavigationControllerRouterTests {
 
-    func test_routToPokemon_presentPokemonViewController() {
+    func test_routToPokemon_presentViewController() {
         let navigationController = UINavigationController()
         let sut = NavigationControllerRouter(navigationController)
 
