@@ -83,7 +83,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     }
 
     func test_loadActions_preloadsNewDataWhenLastModelItemNearVisible() {
-        let items = makeResourceItems(10)
+        let items = makeResourceItems(20)
         let (sut, loader, _) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -230,7 +230,7 @@ private extension ResourceListCollectionViewController {
         collectionView.refreshControl?.isRefreshing == true
     }
 
-    var prefetchTrigger: Int { 6 }
+    var prefetchTrigger: Int { 10 }
 
     func numberOfRenderedResourceItems() -> Int {
         collectionView.numberOfItems(inSection: resourceItemsSection)

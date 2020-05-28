@@ -15,7 +15,7 @@ public class ResourceListCollectionViewController: UICollectionViewController {
     private var collectionModel = [ResultItem]()
 
     private var prefetchTriggerCount: Int {
-        collectionModel.count - 6
+        collectionModel.count - 10
     }
 
     private var selection: ((String) -> Void)? = nil
