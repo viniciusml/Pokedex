@@ -9,24 +9,6 @@
 import XCTest
 import Pokedex
 
-public protocol Router {
-    func routeTo(pokemon urlString: String)
-}
-
-class NavigationControllerRouter: Router {
-
-    private let navigationController: UINavigationController
-
-    init(_ navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-
-    func routeTo(pokemon urlString: String) {
-        let controller = PokemonViewController()
-        navigationController.pushViewController(controller, animated: true)
-    }
-}
-
 class NavigationControllerRouterTests: XCTestCase {
 
     let navigationController = NonAnimatedNavigationController()
