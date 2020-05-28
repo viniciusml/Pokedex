@@ -26,10 +26,6 @@ public class ListCell: BaseCell {
         return iv
     }()
 
-    static var identifier: String {
-        return String(describing: self)
-    }
-
     var item: ResultItem? {
         didSet {
             nameLabel.text = item?.name.capitalized

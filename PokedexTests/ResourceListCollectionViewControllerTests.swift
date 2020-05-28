@@ -29,6 +29,7 @@ class ResourceListCollectionViewController: UICollectionViewController, UICollec
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
         collectionView.prefetchDataSource = self
+        collectionView.register(ListCell.self)
         load()
     }
 
@@ -36,8 +37,8 @@ class ResourceListCollectionViewController: UICollectionViewController, UICollec
         collectionView.refreshControl?.beginRefreshing()
 
         loader?.load { [weak self] result in
-            if let item = try? result.get() {
-                self?.collectionModel = item
+            if let items = try? result.get() {
+                self?.collectionModel = items
                 self?.collectionView.reloadData()
             }
 
@@ -51,15 +52,34 @@ class ResourceListCollectionViewController: UICollectionViewController, UICollec
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellModel = collectionModel[indexPath.item]
-        let cell = ListCell()
+        let cell = collectionView.dequeueReusableCell(type: ListCell.self, for: indexPath)
         cell.nameLabel.text = cellModel.name
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isDisplayingCell) {
-            loader?.load { _ in }
+            loader?.load { [weak self] result in
+                guard let self = self else { return }
+
+                if let items = try? result.get() {
+                    self.collectionModel.append(contentsOf: items)
+
+                    let indexesToReload = self.calculateIndexPathsToReload(from: items)
+                    self.collectionView.insertItems(at: indexesToReload)
+                    self.collectionView.reloadItems(at: indexesToReload)
+                }
+            }
         }
+    }
+
+    func calculateIndexPathsToReload(from newItems: [ResultItem]) -> [IndexPath] {
+
+        let startIndex = collectionModel.count - newItems.count
+
+        let endIndex = startIndex + newItems.count
+
+        return (startIndex..<endIndex).map { IndexPath(item: $0, section: 0) }
     }
 
     func isDisplayingCell(for indexPath: IndexPath) -> Bool {
@@ -150,6 +170,28 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
         sut.simulateResourceItemViewNearVisible(at: 6)
         XCTAssertEqual(loader.loadCallCount, 2, "Expected additional request once last model item is near visible")
+    }
+
+    func test_listPrefetchCompletion_rendersSuccessfullySecondPageLoadedList() {
+        var firstPageItems = [ResultItem]()
+        for i in 0...11 {
+            firstPageItems.append(makeResourceItem(name: "Pokemon\(i)"))
+        }
+
+        var secondPageItems = [ResultItem]()
+        for i in 11...22 {
+            secondPageItems.append(makeResourceItem(name: "Pokemon\(i)"))
+        }
+
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+
+        loader.completeListLoading(with: firstPageItems, at: 0)
+        assertThat(sut, isRendering: firstPageItems)
+
+        sut.simulateResourceItemViewNearVisible(at: firstPageItems.count - 6)
+        loader.completeListLoading(with: secondPageItems, at: 1)
+        assertThat(sut, isRendering: firstPageItems + secondPageItems)
     }
 
     // MARK: - Helpers
