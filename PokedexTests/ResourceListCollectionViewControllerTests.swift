@@ -163,7 +163,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         sut.simulateResourceItemViewNearVisible(at: 0)
         XCTAssertEqual(loader.loadCallCount, 1, "Expected no additional requests until last model item is near visible")
 
-        sut.simulateResourceItemViewNearVisible(at: 6)
+        sut.simulateResourceItemViewNearVisible(at: sut.prefetchTrigger)
         XCTAssertEqual(loader.loadCallCount, 2, "Expected additional request once last model item is near visible")
     }
 
@@ -177,7 +177,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         loader.completeListLoading(with: firstPageItems, at: 0)
         assertThat(sut, isRendering: firstPageItems)
 
-        sut.simulateResourceItemViewNearVisible(at: firstPageItems.count - 6)
+        sut.simulateResourceItemViewNearVisible(at: firstPageItems.count - sut.prefetchTrigger)
         loader.completeListLoading(with: secondPageItems, at: 1)
         assertThat(sut, isRendering: firstPageItems + secondPageItems)
     }
@@ -254,6 +254,8 @@ private extension ResourceListCollectionViewController {
     var isShowingLoadingIndicator: Bool {
         collectionView.refreshControl?.isRefreshing == true
     }
+
+    var prefetchTrigger: Int { 6 }
 
     func numberOfRenderedResourceItems() -> Int {
         collectionView.numberOfItems(inSection: resourceItemsSection)
