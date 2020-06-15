@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Pokedex
+@testable import Pokedex
 
 class ResourceListCollectionViewControllerTests: XCTestCase {
 
@@ -163,7 +163,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
         var alertsPresented = [(title: String, message: String)]()
 
-        func presentAlert(title: String, message: String) {
+        func presentAlert(title: String, message: String, on controller: UIViewController) {
             alertsPresented.append((title, message))
         }
     }

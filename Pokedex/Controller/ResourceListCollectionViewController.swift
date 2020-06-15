@@ -54,7 +54,7 @@ public class ResourceListCollectionViewController: UICollectionViewController {
                 self.collectionModel = items
                 self.collectionView.reloadData()
             case .failure:
-                self.alertPresenter?.presentAlert(title: "Alert", message: "An error ocurred. Please try again")
+                self.alertPresenter?.presentAlert(title: "Alert", message: "An error ocurred. Please try again", on: self)
             }
 
             self.collectionView.refreshControl?.endRefreshing()
@@ -124,7 +124,7 @@ extension ResourceListCollectionViewController: UICollectionViewDataSourcePrefet
                     self.collectionView.insertItems(at: indexesToReload)
                     self.collectionView.reloadItems(at: indexesToReload)
                 case .failure:
-                    self.alertPresenter?.presentAlert(title: "Alert", message: "An error ocurred. Please try again")
+                    self.alertPresenter?.presentAlert(title: "Alert", message: "An error ocurred. Please try again", on: self)
                 }
             }
         }
