@@ -3,6 +3,7 @@
 > An application that displays a list of Pokémon from '[PokéAPI](https://pokeapi.co)'. When the user selects a Pokémon, the app shows image/s representing it and its type, stats and abilities.
 
 ![CI](https://github.com/viniciusml/Pokedex/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/viniciusml/Pokedex/branch/master/graph/badge.svg?token=0MEJ7ZMR7X)](undefined)
 
 > Unit tests were written in TDD methodology for the Networking implementation.
 
