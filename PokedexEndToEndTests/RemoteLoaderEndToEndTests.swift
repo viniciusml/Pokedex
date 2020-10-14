@@ -27,7 +27,6 @@ class RemoteLoaderEndToEndTests: XCTestCase {
 
         switch receivedResult {
         case let .success(item):
-            XCTAssertEqual(item.count, 964)
             XCTAssertEqual(item.next, "https://pokeapi.co/api/v2/pokemon/?offset=40&limit=40")
             XCTAssertEqual(item.previous, nil)
             XCTAssertEqual(item.results, [ResultItem(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"),
