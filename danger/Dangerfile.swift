@@ -26,7 +26,7 @@ if prTitle.count < 5 {
     warn("PR title is too short. 🙏 Please use this format `[PKD-000] Your feature title` and replace `000` with task number.")
 }
 if !prTitle.contains("[PKD-") || prTitle.contains("[PKD-000]") {
-    warn("PR title does not containe the related Jira task. 🙏 Please use this format `[PKD-000] Your feature title` and replace `000` with task number.")
+    warn("PR title does not contains the related Jira task. 🙏 Please use this format `[PKD-000] Your feature title` and replace `000` with task number.")
 }
 
 // Files changed and created should includes unit tests
@@ -40,3 +40,8 @@ if testFiles.isEmpty {
 
 message("🎉 The PR added \(additions) and removed \(deletions) lines. 🗂 \(changedFiles) files changed.")
 
+import package: https://github.com/f-meloni/danger-swift-coverage.git
+
+Coverage.xcodeBuildCoverage(.derivedDataFolder("Build"),
+                            minimumCoverage: 70,
+                            excludedTargets: ["PokedexTests.xctest", "PokedexEndToEndTests.xctest"])
