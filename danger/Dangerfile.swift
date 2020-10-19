@@ -40,7 +40,7 @@ if testFiles.isEmpty {
 
 message("🎉 The PR added \(additions) and removed \(deletions) lines. 🗂 \(changedFiles) files changed.")
 
-import package: https://github.com/f-meloni/danger-swift-coverage.git
+import DangerSwiftCoverage //package: https://github.com/f-meloni/danger-swift-coverage.git
 
 Coverage.xcodeBuildCoverage(.derivedDataFolder("Build"),
                             minimumCoverage: 70,
