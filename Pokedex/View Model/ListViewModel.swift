@@ -88,7 +88,7 @@ public class ListViewModel {
 
     // Returns a List Item for a specific index. Used to configure cell.
     private func item(at index: Int) -> ResultItem {
-        return resources[index]
+        resources[index]
     }
 
     // Calculates the index paths for the last page of resources received from the API.
@@ -106,7 +106,6 @@ extension Int {
 
     /// Converts page into offset, to be used as parameter for the API call.
     fileprivate func toOffset() -> String {
-        let offset = self * 20
-        return String(offset)
+        String(self * 20)
     }
 }
