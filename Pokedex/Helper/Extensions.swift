@@ -8,6 +8,18 @@
 
 import UIKit
 
+public extension UICollectionView {
+    func dequeueReusableCell<T: UICollectionViewCell>(type: T.Type, for index: IndexPath) -> T {
+        let identifier = String(describing: T.self)
+        return dequeueReusableCell(withReuseIdentifier: identifier, for: index) as! T
+    }
+
+    func register(_ type: UICollectionViewCell.Type) {
+        let className = String(describing: type)
+        register(type, forCellWithReuseIdentifier: className)
+    }
+}
+
 // Programatic Constraints
 extension UIView {
 

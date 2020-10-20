@@ -20,10 +20,12 @@ public class HTTPClient: NetworkAdapter {
         AF.request(url)
             .validate()
             .responseDecodable(of: T.self) { response in
-                if response.error != nil {
-                    response.error.map({ _ in completion(.failure(NetworkError.invalidData)) })
-                } else if let value = response.value {
+
+                switch response.result {
+                case let .success(value):
                     completion(.success(value))
+                case .failure:
+                    completion(.failure(NetworkError.invalidData))
                 }
         }
     }

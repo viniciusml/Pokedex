@@ -12,7 +12,7 @@ public class ListCell: BaseCell {
 
     //    MARK: - Properties
 
-    var nameLabel: UILabel = {
+    public var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Font.medium, size: 16)!
         label.textAlignment = .center
@@ -20,15 +20,11 @@ public class ListCell: BaseCell {
         return label
     }()
 
-    var pokeImage: UIImageView = {
+    public var pokeImage: UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "pokeball")
         return iv
     }()
-
-    static var identifier: String {
-        return String(describing: self)
-    }
 
     var item: ResultItem? {
         didSet {
