@@ -15,7 +15,7 @@ protocol ListViewModelDelegate: class {
 
 public class ListViewModel {
 
-    let client = HTTPClient()
+    let client = AFHTTPClient()
 
     var loader: RemoteLoader {
         RemoteLoader(client: client)

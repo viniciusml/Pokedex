@@ -19,7 +19,7 @@ class PokemonViewModel {
 
     let pokemonID: String
 
-    let client = HTTPClient()
+    let client = AFHTTPClient()
 
     var loader: RemoteLoader {
         RemoteLoader(client: client)

@@ -12,7 +12,7 @@ import Pokedex
 class RemoteLoaderEndToEndTests: XCTestCase {
     
     func test_endToEndLoadResourceList_matchesFixedTestData() {
-        let client = HTTPClient()
+        let client = AFHTTPClient()
         let loader = RemoteLoader(client: client)
 
         let exp = expectation(description: "Wait for load completion")
@@ -79,7 +79,7 @@ class RemoteLoaderEndToEndTests: XCTestCase {
     }
     
     func test_endToEndLoadPokemon_matchesFixedTestData() {
-        let client = HTTPClient()
+        let client = AFHTTPClient()
         let loader = RemoteLoader(client: client)
 
         let exp = expectation(description: "Wait for load completion")
