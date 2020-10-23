@@ -29,11 +29,11 @@ public class RemoteLoader {
 
     //    MARK: - Properties
 
-    let client: NetworkAdapter
+    let client: HTTPClient
 
     // MARK: - Initializer
 
-    public init(client: NetworkAdapter) {
+    public init(client: HTTPClient) {
         self.client = client
     }
 

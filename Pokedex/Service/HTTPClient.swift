@@ -16,6 +16,6 @@ import Foundation
 public typealias HTTPResult = Result<(Data, HTTPURLResponse), Error>
 
 /// Adapter for network requests that enables Network Client abstraction and Spy class implementation for unit testing.
-public protocol NetworkAdapter {
+public protocol HTTPClient {
     func load<T: Decodable>(_ object: T.Type, from url: String, completion: @escaping (RequestResult<T>) -> Void)
 }

@@ -9,7 +9,7 @@
 import Foundation
 import Pokedex
 
-class HTTPClientSpy<U: Decodable>: NetworkAdapter {
+class HTTPClientSpy<U: Decodable>: HTTPClient {
 
     private var messages = [(url: String, completion: (RequestResult<U>) -> Void)]()
 
