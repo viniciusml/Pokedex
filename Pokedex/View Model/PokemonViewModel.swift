@@ -21,8 +21,8 @@ class PokemonViewModel {
 
     let client = AFHTTPClient()
 
-    var loader: RemoteLoader {
-        RemoteLoader(client: client)
+    var loader: RemoteLoader<PokemonItem> {
+        RemoteLoader(client: client, mapper: PokemonItemMapper.map)
     }
 
     var imagesAvailable = [String]() {
@@ -45,27 +45,27 @@ class PokemonViewModel {
 
     func fetchPokemon() {
 
-        loader.loadPokemon(pokemonId: pokemonID) { [weak self] result in
-            guard let self = self else { return }
-
-            switch result {
-            case .success(let pokemon):
-                self.imagesAvailable = self.checkForAvailableImages(pokemon.sprites)
-
-                DispatchQueue.main.async {
-                    // Inform delegate data about repository detail
-                    self.pokemonDelegate?.onFetchCompleted(pokemon: pokemon)
-                }
-
-            case .failure(let error):
-
-                DispatchQueue.main.async {
-                    // Inform delegate the motive of failure
-                    self.pokemonDelegate?.onFetchFailed(with: error.localizedDescription)
-                }
-
-            }
-        }
+//        loader.loadPokemon(pokemonId: pokemonID) { [weak self] result in
+//            guard let self = self else { return }
+//
+//            switch result {
+//            case .success(let pokemon):
+//                self.imagesAvailable = self.checkForAvailableImages(pokemon.sprites)
+//
+//                DispatchQueue.main.async {
+//                    // Inform delegate data about repository detail
+//                    self.pokemonDelegate?.onFetchCompleted(pokemon: pokemon)
+//                }
+//
+//            case .failure(let error):
+//
+//                DispatchQueue.main.async {
+//                    // Inform delegate the motive of failure
+//                    self.pokemonDelegate?.onFetchFailed(with: error.localizedDescription)
+//                }
+//
+//            }
+//        }
     }
 
     // Removes 'nil' properties from the array.

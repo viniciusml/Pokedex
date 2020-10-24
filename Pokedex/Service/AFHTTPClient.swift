@@ -29,4 +29,16 @@ public class AFHTTPClient: HTTPClient {
                 }
         }
     }
+    
+    public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
+        
+        AF.request(url).response { response in
+            guard let data = response.data,
+                  let response = response.response else {
+                completion(.failure(NetworkError.invalidData))
+                return
+            }
+            completion(.success((data, response)))
+        }
+    }
 }

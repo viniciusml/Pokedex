@@ -44,6 +44,9 @@
 		8FE2C911242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */; };
 		8FE2C913242D4F2F00CDAD9F /* AFHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C912242D4F2F00CDAD9F /* AFHTTPClient.swift */; };
 		8FE2C915242D4F6600CDAD9F /* RemoteLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */; };
+		8FE5A72F2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A72E2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift */; };
+		8FE5A7342543676000D1B71A /* RemoteLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A7332543676000D1B71A /* RemoteLoaderTests.swift */; };
+		8FE5A7392544608D00D1B71A /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A7382544608D00D1B71A /* SharedTestHelpers.swift */; };
 		C4BEF6B9A7138E71A388F8D4 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +116,9 @@
 		8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadResourceListRequestTests.swift; sourceTree = "<group>"; };
 		8FE2C912242D4F2F00CDAD9F /* AFHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFHTTPClient.swift; sourceTree = "<group>"; };
 		8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoader.swift; sourceTree = "<group>"; };
+		8FE5A72E2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+StatusCode.swift"; sourceTree = "<group>"; };
+		8FE5A7332543676000D1B71A /* RemoteLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoaderTests.swift; sourceTree = "<group>"; };
+		8FE5A7382544608D00D1B71A /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		B5E23DD93919190FDA478CDE /* Pods-PokedexEndToEndTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokedexEndToEndTests.debug.xcconfig"; path = "Target Support Files/Pods-PokedexEndToEndTests/Pods-PokedexEndToEndTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -215,6 +221,7 @@
 				8F7B09EA2430B425003377F0 /* ResourceListCollectionViewControllerTests.swift */,
 				8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */,
 				8F21935D2480630C00C18968 /* NavigationControllerRouterTests.swift */,
+				8FE5A7382544608D00D1B71A /* SharedTestHelpers.swift */,
 			);
 			path = PokedexTests;
 			sourceTree = "<group>";
@@ -235,6 +242,7 @@
 				8F3E9673242C06BF00DCD62D /* HTTPClient.swift */,
 				8FE2C912242D4F2F00CDAD9F /* AFHTTPClient.swift */,
 				8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */,
+				8FE5A72E2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -299,6 +307,7 @@
 				8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */,
 				8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */,
 				8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */,
+				8FE5A7332543676000D1B71A /* RemoteLoaderTests.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -551,6 +560,7 @@
 				8F7B0A03243106F7003377F0 /* IndicatorCell.swift in Sources */,
 				8F7B0A1524314414003377F0 /* UIViewController+Alert.swift in Sources */,
 				8F7B0A0924310810003377F0 /* PhotoCell.swift in Sources */,
+				8FE5A72F2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift in Sources */,
 				8F7B0A1124313EAF003377F0 /* PokemonMainView.swift in Sources */,
 				8F7B09FF2431039C003377F0 /* PokemonViewModel.swift in Sources */,
 				8FE2C915242D4F6600CDAD9F /* RemoteLoader.swift in Sources */,
@@ -567,10 +577,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FE5A7342543676000D1B71A /* RemoteLoaderTests.swift in Sources */,
 				8F7B09EB2430B425003377F0 /* ResourceListCollectionViewControllerTests.swift in Sources */,
 				8FE2C911242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift in Sources */,
 				8FB4642B242F96B400C1FE8A /* HTTPClientSpy.swift in Sources */,
 				8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */,
+				8FE5A7392544608D00D1B71A /* SharedTestHelpers.swift in Sources */,
 				8FB4642D242F96F300C1FE8A /* LoadPokemonRequestTests.swift in Sources */,
 				8F21935E2480630C00C18968 /* NavigationControllerRouterTests.swift in Sources */,
 				8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */,

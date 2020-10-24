@@ -9,25 +9,28 @@
 import Foundation
 import Pokedex
 
-class HTTPClientSpy<U: Decodable>: HTTPClient {
-
-    private var messages = [(url: String, completion: (RequestResult<U>) -> Void)]()
-
-    var requestedURLs: [String] {
-        return messages.map { $0.url }
-    }
-
-    func load<T: Decodable>(_ object: T.Type, from url: String, completion: @escaping (RequestResult<T>) -> Void) {
-        if T.self is U.Type {
-            messages.append((url, completion as! (Result<U, NetworkError>) -> Void))
-        }
+class HTTPClientSpy: HTTPClient {    
+    private var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
+    
+    var requestedURLs: [URL] {
+        messages.map { $0.url }
     }
     
-    func complete(with error: NetworkError, at index: Int = 0) {
+    func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
+        messages.append((url, completion))
+    }
+    
+    func complete(with error: Error, at index: Int = 0) {
         messages[index].completion(.failure(error))
     }
     
-    func complete(withValue value: U, at index: Int = 0) {
-        messages[index].completion(.success(value))
+    func complete(withStatusCode code: Int, data: Data, at index: Int = 0) {
+        let response = HTTPURLResponse(
+            url: requestedURLs[index],
+            statusCode: code,
+            httpVersion: nil,
+            headerFields: nil
+        )!
+        messages[index].completion(.success((data, response)))
     }
 }

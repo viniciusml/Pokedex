@@ -17,8 +17,8 @@ public class ListViewModel {
 
     let client = AFHTTPClient()
 
-    var loader: RemoteLoader {
-        RemoteLoader(client: client)
+    var loader: RemoteLoader<ListItem> {
+        RemoteLoader(client: client, mapper: ListItemMapper.map)
     }
 
     weak var resourcesDelegate: ListViewModelDelegate?
@@ -43,45 +43,45 @@ public class ListViewModel {
 
         isFetchInProgress = true
 
-        loader.loadResourceList(page: currentPage.toOffset()) { result in
-            switch result {
-            case .success(let item):
-
-                DispatchQueue.main.async {
-
-                    self.isFetchInProgress = false
-
-                    self.resources.append(contentsOf: item.results)
-
-                    if self.currentPage > 1 {
-
-                        // Index paths to update collection.
-                        let indexPathsToReload =
-                            self.calculateIndexPathsToReload(
-                                from: item.results)
-
-                        // Inform delegate there's new data available to load.
-                        self.resourcesDelegate?.onFetchCompleted(
-                            with: indexPathsToReload)
-                    } else {
-                        // Inform delegate there's first amount of data to load
-                        self.resourcesDelegate?.onFetchCompleted(
-                            with: .none)
-                    }
-
-                    self.currentPage += 1
-                }
-            case .failure(let error):
-
-                DispatchQueue.main.async {
-                    self.isFetchInProgress = false
-
-                    // Inform delegate the motive of failure
-                    self.resourcesDelegate?.onFetchFailed(
-                        with: error.localizedDescription)
-                }
-            }
-        }
+//        loader.loadResourceList(page: currentPage.toOffset()) { result in
+//            switch result {
+//            case .success(let item):
+//
+//                DispatchQueue.main.async {
+//
+//                    self.isFetchInProgress = false
+//
+//                    self.resources.append(contentsOf: item.results)
+//
+//                    if self.currentPage > 1 {
+//
+//                        // Index paths to update collection.
+//                        let indexPathsToReload =
+//                            self.calculateIndexPathsToReload(
+//                                from: item.results)
+//
+//                        // Inform delegate there's new data available to load.
+//                        self.resourcesDelegate?.onFetchCompleted(
+//                            with: indexPathsToReload)
+//                    } else {
+//                        // Inform delegate there's first amount of data to load
+//                        self.resourcesDelegate?.onFetchCompleted(
+//                            with: .none)
+//                    }
+//
+//                    self.currentPage += 1
+//                }
+//            case .failure(let error):
+//
+//                DispatchQueue.main.async {
+//                    self.isFetchInProgress = false
+//
+//                    // Inform delegate the motive of failure
+//                    self.resourcesDelegate?.onFetchFailed(
+//                        with: error.localizedDescription)
+//                }
+//            }
+//        }
     }
 
     // MARK: - Helper Functions

@@ -17,5 +17,8 @@ public typealias HTTPResult = Result<(Data, HTTPURLResponse), Error>
 
 /// Adapter for network requests that enables Network Client abstraction and Spy class implementation for unit testing.
 public protocol HTTPClient {
-    func load<T: Decodable>(_ object: T.Type, from url: String, completion: @escaping (RequestResult<T>) -> Void)
+    typealias Result = Swift.Result<(Data, HTTPURLResponse), Error>
+    
+    func get(from url: URL, completion: @escaping (Result) -> Void)
+//    func load<T: Decodable>(_ object: T.Type, from url: String, completion: @escaping (RequestResult<T>) -> Void)
 }
