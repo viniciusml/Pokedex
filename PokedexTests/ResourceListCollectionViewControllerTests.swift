@@ -113,7 +113,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: firstPageItems + secondPageItems)
     }
 
-    func test_cellSelected_notifiesDelegateWithSelection() {
+    func test_itemSelection_notifiesDelegateWithSelection() {
         let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon.com")
         let item1 = makeResourceItem(name: "Pokemon1", url: "http://pokemon1.com")
         let item2 = makeResourceItem(name: "Pokemon2", url: "http://pokemon2.com")
