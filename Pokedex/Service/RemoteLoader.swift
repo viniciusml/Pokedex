@@ -26,35 +26,6 @@ public enum NetworkError: Error {
 
 /// Network Service.
 public class RemoteLoader<Resource> {
-    
-//    public func loadResourceList(page: String = "0", completion: @escaping (RequestResult<ListItem>) -> Void) {
-//
-//        let offset = "https://pokeapi.co/api/v2/pokemon/?offset=\(page)&limit=40"
-//
-//        client.load(ListItem.self, from: offset) { result in
-//            switch result {
-//            case let .success(listItem):
-//                completion(.success(listItem))
-//            case .failure:
-//                completion(.failure(.connectivity))
-//            }
-//        }
-//    }
-//
-//    public func loadPokemon(pokemonId: String = "", completion: @escaping (RequestResult<PokemonItem>) -> Void) {
-//
-//        let urlString = "https://pokeapi.co/api/v2/pokemon/\(pokemonId)"
-//
-//        client.load(PokemonItem.self, from: urlString) { result in
-//            switch result {
-//            case let .success(pokemonItem):
-//                completion(.success(pokemonItem))
-//            case .failure:
-//                completion(.failure(.connectivity))
-//            }
-//        }
-//    }
-
     private let client: HTTPClient
     private let mapper: Mapper
     
