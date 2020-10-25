@@ -38,10 +38,8 @@
 		8F7B0A13243142AB003377F0 /* PokemonInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B0A12243142AB003377F0 /* PokemonInfoView.swift */; };
 		8F7B0A1524314414003377F0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B0A1424314414003377F0 /* UIViewController+Alert.swift */; };
 		8FB4642B242F96B400C1FE8A /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */; };
-		8FB4642D242F96F300C1FE8A /* LoadPokemonRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */; };
 		8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */; };
 		8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */; };
-		8FE2C911242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */; };
 		8FE2C913242D4F2F00CDAD9F /* AFHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C912242D4F2F00CDAD9F /* AFHTTPClient.swift */; };
 		8FE2C915242D4F6600CDAD9F /* RemoteLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */; };
 		8FE5A72F2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A72E2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift */; };
@@ -112,10 +110,8 @@
 		8F7B0A12243142AB003377F0 /* PokemonInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfoView.swift; sourceTree = "<group>"; };
 		8F7B0A1424314414003377F0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
-		8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadPokemonRequestTests.swift; sourceTree = "<group>"; };
 		8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHelpers.swift; sourceTree = "<group>"; };
 		8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMemoryLeaks.swift; sourceTree = "<group>"; };
-		8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadResourceListRequestTests.swift; sourceTree = "<group>"; };
 		8FE2C912242D4F2F00CDAD9F /* AFHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFHTTPClient.swift; sourceTree = "<group>"; };
 		8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoader.swift; sourceTree = "<group>"; };
 		8FE5A72E2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+StatusCode.swift"; sourceTree = "<group>"; };
@@ -307,8 +303,6 @@
 		8FB4642E242F975800C1FE8A /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				8FE2C910242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift */,
-				8FB4642C242F96F300C1FE8A /* LoadPokemonRequestTests.swift */,
 				8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */,
 				8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */,
 				8FE5A7332543676000D1B71A /* RemoteLoaderTests.swift */,
@@ -585,13 +579,11 @@
 			files = (
 				8FE5A7342543676000D1B71A /* RemoteLoaderTests.swift in Sources */,
 				8F7B09EB2430B425003377F0 /* ResourceListCollectionViewControllerTests.swift in Sources */,
-				8FE2C911242D4A0A00CDAD9F /* LoadResourceListRequestTests.swift in Sources */,
 				8FB4642B242F96B400C1FE8A /* HTTPClientSpy.swift in Sources */,
 				8FE5A7432544766E00D1B71A /* PokemonItemMapperTests.swift in Sources */,
 				8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */,
 				8FE5A73E254462C100D1B71A /* ListItemMapperTests.swift in Sources */,
 				8FE5A7392544608D00D1B71A /* SharedTestHelpers.swift in Sources */,
-				8FB4642D242F96F300C1FE8A /* LoadPokemonRequestTests.swift in Sources */,
 				8F21935E2480630C00C18968 /* NavigationControllerRouterTests.swift in Sources */,
 				8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */,
 			);
