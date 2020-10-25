@@ -12,33 +12,25 @@ import Foundation
 /// Network Client (Alamofire) abstraction to structure Network Adapter's methods and handle response cases.
 ///
 public class AFHTTPClient: HTTPClient {
-
-    public init() {}
-
-    public func load<T: Decodable>(_ object: T.Type, from url: String, completion: @escaping (RequestResult<T>) -> Void) {
-
-        AF.request(url)
-            .validate()
-            .responseDecodable(of: T.self) { response in
-
-                switch response.result {
-                case let .success(value):
-                    completion(.success(value))
-                case .failure:
-                    completion(.failure(NetworkError.invalidData))
-                }
-        }
+    let session: Session
+    
+    public init(sessionConfiguration: URLSessionConfiguration = .default) {
+        self.session = Session(configuration: sessionConfiguration)
+    }
+    
+    private enum Error: Swift.Error {
+        case unexpectedValuesRepresentation
     }
     
     public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-        
-        AF.request(url).response { response in
-            guard let data = response.data,
-                  let response = response.response else {
-                completion(.failure(NetworkError.invalidData))
-                return
+        session.request(url).response { response in
+            if let error = response.error {
+                completion(.failure(error))
+            } else if let data = response.data, let response = response.response {
+                completion(.success((data, response)))
+            } else {
+                completion(.failure(Error.unexpectedValuesRepresentation))
             }
-            completion(.success((data, response)))
         }
     }
 }

@@ -51,6 +51,7 @@
 		8FE5A75325458EE500D1B71A /* PokemonItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A75225458EE500D1B71A /* PokemonItemMapper.swift */; };
 		8FE5A75B25458F3300D1B71A /* RemotePokemonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A75A25458F3300D1B71A /* RemotePokemonLoader.swift */; };
 		8FE5A76025458FBF00D1B71A /* RemoteListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A75F25458FBF00D1B71A /* RemoteListLoader.swift */; };
+		8FE5A7652545A84E00D1B71A /* AFHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */; };
 		C4BEF6B9A7138E71A388F8D4 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +128,7 @@
 		8FE5A75225458EE500D1B71A /* PokemonItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonItemMapper.swift; sourceTree = "<group>"; };
 		8FE5A75A25458F3300D1B71A /* RemotePokemonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePokemonLoader.swift; sourceTree = "<group>"; };
 		8FE5A75F25458FBF00D1B71A /* RemoteListLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListLoader.swift; sourceTree = "<group>"; };
+		8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFHTTPClientTests.swift; sourceTree = "<group>"; };
 		B5E23DD93919190FDA478CDE /* Pods-PokedexEndToEndTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokedexEndToEndTests.debug.xcconfig"; path = "Target Support Files/Pods-PokedexEndToEndTests/Pods-PokedexEndToEndTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -320,6 +322,7 @@
 				8FE5A7332543676000D1B71A /* RemoteLoaderTests.swift */,
 				8FE5A73D254462C100D1B71A /* ListItemMapperTests.swift */,
 				8FE5A7422544766E00D1B71A /* PokemonItemMapperTests.swift */,
+				8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 				8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */,
 				8FE5A73E254462C100D1B71A /* ListItemMapperTests.swift in Sources */,
 				8FE5A7392544608D00D1B71A /* SharedTestHelpers.swift in Sources */,
+				8FE5A7652545A84E00D1B71A /* AFHTTPClientTests.swift in Sources */,
 				8F21935E2480630C00C18968 /* NavigationControllerRouterTests.swift in Sources */,
 				8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */,
 			);
