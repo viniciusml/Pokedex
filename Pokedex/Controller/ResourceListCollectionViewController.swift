@@ -11,7 +11,6 @@ import UIKit
 public class ResourceListCollectionViewController: UICollectionViewController {
 
     private var loader: ListLoader?
-    private var alertPresenter: AlertPresenter?
     private var collectionModel = [ResultItem]()
 
     private var prefetchTriggerCount: Int {
@@ -20,10 +19,9 @@ public class ResourceListCollectionViewController: UICollectionViewController {
 
     private var selection: ((String) -> Void)? = nil
 
-    public convenience init(loader: ListLoader, alertPresenter: AlertPresenter, selection: @escaping (String) -> Void) {
+    public convenience init(loader: ListLoader, selection: @escaping (String) -> Void) {
         self.init(collectionViewLayout: UICollectionViewLayout())
         self.loader = loader
-        self.alertPresenter = alertPresenter
         self.selection = selection
     }
 
@@ -124,7 +122,7 @@ extension ResourceListCollectionViewController: UICollectionViewDataSourcePrefet
                     self.collectionView.insertItems(at: indexesToReload)
                     self.collectionView.reloadItems(at: indexesToReload)
                 case .failure:
-                    self.alertPresenter?.presentAlert(title: "Alert", message: "An error ocurred. Please try again", on: self)
+                    self.showBasicAlert(title: "Alert", message: "An error ocurred. Please try again")
                 }
             }
         }

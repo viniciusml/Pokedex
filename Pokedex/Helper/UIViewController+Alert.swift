@@ -20,18 +20,3 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
 }
-
-public protocol AlertPresenter {
-    func presentAlert(title: String, message: String, on controller: UIViewController)
-}
-
-class AlertErrorPresenter: AlertPresenter {
-
-    func presentAlert(title: String, message: String, on controller: UIViewController) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-        controller.present(alert, animated: true)
-    }
-}
