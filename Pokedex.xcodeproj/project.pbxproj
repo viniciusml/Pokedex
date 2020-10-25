@@ -228,10 +228,9 @@
 			children = (
 				8F3E9662242BF6F200DCD62D /* Info.plist */,
 				8FB4642E242F975800C1FE8A /* Service */,
+				8FE5A7692545B30D00D1B71A /* Helpers */,
 				8F7B09EA2430B425003377F0 /* ResourceListCollectionViewControllerTests.swift */,
-				8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */,
 				8F21935D2480630C00C18968 /* NavigationControllerRouterTests.swift */,
-				8FE5A7382544608D00D1B71A /* SharedTestHelpers.swift */,
 			);
 			path = PokedexTests;
 			sourceTree = "<group>";
@@ -325,6 +324,15 @@
 				8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		8FE5A7692545B30D00D1B71A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */,
+				8FE5A7382544608D00D1B71A /* SharedTestHelpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D83EFC0C6A7CCEDA176AF306 /* Frameworks */ = {
