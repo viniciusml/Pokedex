@@ -11,7 +11,7 @@ import Foundation
 public typealias RemoteListLoader = RemoteLoader<ListItem>
 
 extension RemoteListLoader {
-    convenience init(client: HTTPClient) {
+    public convenience init(client: HTTPClient) {
         self.init(client: client, mapper: ListItemMapper.map)
     }
 }

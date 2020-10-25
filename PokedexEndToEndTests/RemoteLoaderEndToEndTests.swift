@@ -13,16 +13,17 @@ class RemoteLoaderEndToEndTests: XCTestCase {
     
     func test_endToEndLoadResourceList_matchesFixedTestData() {
         let client = AFHTTPClient()
-        let loader = RemoteLoader(client: client)
+        let loader = RemoteListLoader(client: client)
+        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")!
 
         let exp = expectation(description: "Wait for load completion")
 
-        var receivedResult: RequestResult<ListItem>?
-
-        loader.loadResourceList(page: "0") { result in
+        var receivedResult: RemoteListLoader.Result?
+        loader.load(from: url) { result in
             receivedResult = result
             exp.fulfill()
         }
+
         wait(for: [exp], timeout: 5.0)
 
         switch receivedResult {
@@ -80,16 +81,17 @@ class RemoteLoaderEndToEndTests: XCTestCase {
     
     func test_endToEndLoadPokemon_matchesFixedTestData() {
         let client = AFHTTPClient()
-        let loader = RemoteLoader(client: client)
-
+        let loader = RemotePokemonLoader(client: client)
+        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/1")!
+        
         let exp = expectation(description: "Wait for load completion")
-
-        var receivedResult: RequestResult<PokemonItem>?
-
-        loader.loadPokemon(pokemonId: "1") { result in
+        
+        var receivedResult: RemotePokemonLoader.Result?
+        loader.load(from: url) { result in
             receivedResult = result
             exp.fulfill()
         }
+
         wait(for: [exp], timeout: 5.0)
 
         switch receivedResult {

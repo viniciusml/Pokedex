@@ -11,7 +11,7 @@ import Foundation
 public typealias RemotePokemonLoader = RemoteLoader<PokemonItem>
 
 extension RemotePokemonLoader {
-    convenience init(client: HTTPClient) {
+    public convenience init(client: HTTPClient) {
         self.init(client: client, mapper: PokemonItemMapper.map)
     }
 }
