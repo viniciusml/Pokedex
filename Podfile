@@ -11,6 +11,7 @@ target 'Pokedex' do
   target 'PokedexTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'ViewControllerPresentationSpy', '~> 5.0'
   end
 
   target 'PokedexEndToEndTests' do
