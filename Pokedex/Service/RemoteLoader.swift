@@ -24,35 +24,6 @@ public enum NetworkError: Error {
     case invalidData
 }
 
-
-public final class ListItemMapper {
-    public enum Error: Swift.Error {
-        case invalidData
-    }
-    
-    public static func map(_ data: Data, from response: HTTPURLResponse) throws -> ListItem {
-        guard response.isOK, let list = try? JSONDecoder().decode(ListItem.self, from: data) else {
-            throw Error.invalidData
-        }
-        
-        return list
-    }
-}
-
-public final class PokemonItemMapper {
-    public enum Error: Swift.Error {
-        case invalidData
-    }
-    
-    public static func map(_ data: Data, from response: HTTPURLResponse) throws -> PokemonItem {
-        guard response.isOK, let item = try? JSONDecoder().decode(PokemonItem.self, from: data) else {
-            throw Error.invalidData
-        }
-        
-        return item
-    }
-}
-
 /// Network Service.
 public class RemoteLoader<Resource> {
     
