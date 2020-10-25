@@ -54,7 +54,7 @@ public class ResourceListCollectionViewController: UICollectionViewController {
                 self.collectionModel = items
                 self.collectionView.reloadData()
             case .failure:
-                self.alertPresenter?.presentAlert(title: "Alert", message: "An error ocurred. Please try again", on: self)
+                self.showBasicAlert(title: "Alert", message: "An error ocurred. Please try again")
             }
 
             self.collectionView.refreshControl?.endRefreshing()
