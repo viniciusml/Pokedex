@@ -8,16 +8,4 @@
 
 import Foundation
 
-public final class ListItemMapper {
-    public enum Error: Swift.Error {
-        case decodingError
-    }
-    
-    public static func map(_ data: Data) throws -> ListItem {
-        guard let list = try? JSONDecoder().decode(ListItem.self, from: data) else {
-            throw Error.decodingError
-        }
-        
-        return list
-    }
-}
+public typealias ListItemMapper = ResourceMapper<ListItem>
