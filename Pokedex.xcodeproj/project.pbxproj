@@ -37,6 +37,7 @@
 		8F7B0A1124313EAF003377F0 /* PokemonMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B0A1024313EAF003377F0 /* PokemonMainView.swift */; };
 		8F7B0A13243142AB003377F0 /* PokemonInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B0A12243142AB003377F0 /* PokemonInfoView.swift */; };
 		8F7B0A1524314414003377F0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B0A1424314414003377F0 /* UIViewController+Alert.swift */; };
+		8FAD8C9625498E9700C2C78F /* ResourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAD8C9525498E9700C2C78F /* ResourceMapper.swift */; };
 		8FB4642B242F96B400C1FE8A /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */; };
 		8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */; };
 		8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */; };
@@ -115,6 +116,7 @@
 		8F7B0A1024313EAF003377F0 /* PokemonMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonMainView.swift; sourceTree = "<group>"; };
 		8F7B0A12243142AB003377F0 /* PokemonInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfoView.swift; sourceTree = "<group>"; };
 		8F7B0A1424314414003377F0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		8FAD8C9525498E9700C2C78F /* ResourceMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceMapper.swift; sourceTree = "<group>"; };
 		8FB4642A242F96B400C1FE8A /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		8FB4642F242F97E900C1FE8A /* ServiceHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHelpers.swift; sourceTree = "<group>"; };
 		8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMemoryLeaks.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 		8F3E966B242C035000DCD62D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8FAD8C9525498E9700C2C78F /* ResourceMapper.swift */,
 				8F3E966C242C03DA00DCD62D /* ListItem.swift */,
 				8FE5A74D25458EC900D1B71A /* ListItemMapper.swift */,
 				8F3E966E242C045600DCD62D /* PokemonItem.swift */,
@@ -592,6 +595,7 @@
 				8F219362248067A100C18968 /* Router.swift in Sources */,
 				8F3E964E242BF6ED00DCD62D /* ResourceListCollectionViewController.swift in Sources */,
 				8F7B09FD24310107003377F0 /* PokemonViewController.swift in Sources */,
+				8FAD8C9625498E9700C2C78F /* ResourceMapper.swift in Sources */,
 				8FE2C913242D4F2F00CDAD9F /* AFHTTPClient.swift in Sources */,
 				8F7B0A07243107E5003377F0 /* PhotoCarousel.swift in Sources */,
 				8FE5A74E25458EC900D1B71A /* ListItemMapper.swift in Sources */,
