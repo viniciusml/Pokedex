@@ -10,12 +10,12 @@ import Foundation
 
 public final class ListItemMapper {
     public enum Error: Swift.Error {
-        case invalidData
+        case decodingError
     }
     
-    public static func map(_ data: Data, from response: HTTPURLResponse) throws -> ListItem {
-        guard response.isOK, let list = try? JSONDecoder().decode(ListItem.self, from: data) else {
-            throw Error.invalidData
+    public static func map(_ data: Data) throws -> ListItem {
+        guard let list = try? JSONDecoder().decode(ListItem.self, from: data) else {
+            throw Error.decodingError
         }
         
         return list

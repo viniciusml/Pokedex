@@ -46,7 +46,7 @@ class RemoteLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOnMapperError() {
-        let (sut, client) = makeSUT(mapper: { _, _ in
+        let (sut, client) = makeSUT(mapper: { _ in
             throw anyNSError()
         })
         
@@ -68,7 +68,7 @@ class RemoteLoaderTests: XCTestCase {
     
     func test_load_deliversMappedResource() {
         let resource = "a resource"
-        let (sut, client) = makeSUT(mapper: { data, _ in
+        let (sut, client) = makeSUT(mapper: { data in
             String(data: data, encoding: .utf8)!
         })
         
@@ -80,7 +80,7 @@ class RemoteLoaderTests: XCTestCase {
     func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
         let url = URL(string: "http://any-url.com")!
         let client = HTTPClientSpy()
-        var sut: RemoteLoader<String>? = RemoteLoader<String>(client: client, mapper: { _, _ in "any" })
+        var sut: RemoteLoader<String>? = RemoteLoader<String>(client: client, mapper: { _ in "any" })
         
         var capturedResults = [RemoteLoader<String>.Result]()
         sut?.load(from: url) { capturedResults.append($0) }
@@ -94,7 +94,7 @@ class RemoteLoaderTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT(
-        mapper: @escaping RemoteLoader<String>.Mapper = { _, _ in "any" },
+        mapper: @escaping RemoteLoader<String>.Mapper = { _ in "any" },
         file: StaticString = #file,
         line: UInt = #line
     ) -> (sut: RemoteLoader<String>, client: HTTPClientSpy) {

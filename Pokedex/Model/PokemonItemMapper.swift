@@ -10,12 +10,12 @@ import Foundation
 
 public final class PokemonItemMapper {
     public enum Error: Swift.Error {
-        case invalidData
+        case decodingError
     }
     
-    public static func map(_ data: Data, from response: HTTPURLResponse) throws -> PokemonItem {
-        guard response.isOK, let item = try? JSONDecoder().decode(PokemonItem.self, from: data) else {
-            throw Error.invalidData
+    public static func map(_ data: Data) throws -> PokemonItem {
+        guard let item = try? JSONDecoder().decode(PokemonItem.self, from: data) else {
+            throw Error.decodingError
         }
         
         return item

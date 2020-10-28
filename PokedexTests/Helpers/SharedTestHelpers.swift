@@ -23,9 +23,3 @@ func anyNSError() -> NSError {
 func makeItemsJSON(_ items: [String: Any]) -> Data {
     try! JSONSerialization.data(withJSONObject: items)
 }
-
-extension HTTPURLResponse {
-    convenience init(statusCode: Int) {
-        self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
-    }
-}

@@ -11,22 +11,11 @@ import Pokedex
 
 class ListItemMapperTests: XCTestCase {
     
-    func test_map_throwsErrorOnNon200HTTPResponse() throws {
-        let json = makeItemsJSON([:])
-        let samples = [199, 201, 300, 400, 500]
-        
-        try samples.forEach { code in
-            XCTAssertThrowsError(
-                try ListItemMapper.map(json, from: HTTPURLResponse(statusCode: code))
-            )
-        }
-    }
-    
     func test_map_throwsErrorOn200HTTPResponseWithInvalidJSON() {
         let invalidJSON = Data("invalid json".utf8)
         
         XCTAssertThrowsError(
-            try ListItemMapper.map(invalidJSON, from: HTTPURLResponse(statusCode: 200))
+            try ListItemMapper.map(invalidJSON)
         )
     }
     
@@ -34,7 +23,7 @@ class ListItemMapperTests: XCTestCase {
         let emptyListJSON = makeItemsJSON([:])
         
         XCTAssertThrowsError(
-            try ListItemMapper.map(emptyListJSON, from: HTTPURLResponse(statusCode: 200))
+            try ListItemMapper.map(emptyListJSON)
         )
     }
     
@@ -48,7 +37,7 @@ class ListItemMapperTests: XCTestCase {
         
         let json = makeItemsJSON(item.json)
         
-        let result = try ListItemMapper.map(json, from: HTTPURLResponse(statusCode: 200))
+        let result = try ListItemMapper.map(json)
         
         XCTAssertEqual(result, item.model)
     }
