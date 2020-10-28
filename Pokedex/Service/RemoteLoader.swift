@@ -47,8 +47,11 @@ public class RemoteLoader<Resource> {
             guard let self = self else { return }
             
             switch result {
-                case let .success((data, response)):
+                case .success((let data, let response)) where response.isOK:
                     completion(self.map(data, from: response))
+                    
+                case .success:
+                    completion(.failure(Error.invalidData))
                     
                 case .failure:
                     completion(.failure(Error.connectivity))

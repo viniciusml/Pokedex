@@ -55,6 +55,17 @@ class RemoteLoaderTests: XCTestCase {
         })
     }
     
+    func test_load_deliversErrorOnNon200HTTPResponse() throws {
+        let (sut, client) = makeSUT()
+        let samples = [199, 201, 300, 400, 500]
+        
+        samples.enumerated().forEach { index, code in
+            expect(sut, toCompleteWith: failure(.invalidData), when: {
+                client.complete(withStatusCode: code, data: anyData(), at: index)
+            })
+        }
+    }
+    
     func test_load_deliversMappedResource() {
         let resource = "a resource"
         let (sut, client) = makeSUT(mapper: { data, _ in
