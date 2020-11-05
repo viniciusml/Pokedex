@@ -13,6 +13,7 @@ import Foundation
 ///
 public class AFHTTPClient: HTTPClient {
     let session: Session
+    let queue = DispatchQueue(label: "com.pokedex", qos: .background, attributes: .concurrent)
     
     public init(sessionConfiguration: URLSessionConfiguration = .default) {
         self.session = Session(configuration: sessionConfiguration)
@@ -23,7 +24,7 @@ public class AFHTTPClient: HTTPClient {
     }
     
     public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-        session.request(url).response { response in
+        session.request(url).response(queue: queue) { response in
             if let error = response.error {
                 completion(.failure(error))
             } else if let data = response.data, let response = response.response {
