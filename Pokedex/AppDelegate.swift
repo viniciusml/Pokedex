@@ -16,7 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController(rootViewController: UIViewController())
+        
+        let httpClient = AFHTTPClient()
+        let listLoader = RemoteListLoader(client: httpClient)
+        let listViewController = ResourceListUIComposer.resourceListComposedWith(
+            listLoader: listLoader, selection: { _ in })
+        let navigationController = UINavigationController(rootViewController: listViewController)
+        
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 
@@ -39,5 +45,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
 
         return true
+    }
+}
+
+public final class ResourceListUIComposer {
+    private init() {}
+    
+    public static func resourceListComposedWith(listLoader: RemoteListLoader, selection: @escaping ((String) -> Void)) -> ResourceListCollectionViewController {
+        let listViewModel = ListViewModel(listLoader: listLoader, url: URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")!)
+        let refreshController = RefreshViewController(viewModel: listViewModel)
+        let listViewController = ResourceListCollectionViewController(
+            refreshController: refreshController,
+            selection: selection)
+        listViewModel.onListLoad = adaptResourceToCellControllers(forwardingTo: listViewController, using: listViewModel)
+        listViewModel.onListFailure = listViewController.handleLoadFailure
+        return listViewController
+    }
+    
+    private static func adaptResourceToCellControllers(forwardingTo controller: ResourceListCollectionViewController, using viewModel: ListViewModel) -> (ListItem) -> Void {
+        return { [weak controller] listItem in
+            var collectionModel = [ResourceListCellController]()
+            if viewModel.isFirstPage {
+                collectionModel = listItem.results.map { model in
+                    ResourceListCellController(model: model)
+                }
+            } else {
+                let currentCollectionModel = controller?.collectionModel ?? []
+                collectionModel = currentCollectionModel + listItem.results.map { model in
+                    ResourceListCellController(model: model)
+                }
+            }
+            controller?.collectionModel = collectionModel
+        }
     }
 }

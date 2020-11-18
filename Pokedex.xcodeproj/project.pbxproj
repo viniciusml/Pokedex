@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		136B79BD2F13329F80CDDF82 /* Pods_PokedexEndToEndTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CA503AF300CD2AA534005F /* Pods_PokedexEndToEndTests.framework */; };
 		302AD1F12959AE9E5783883D /* Pods_PokedexTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB1C3E69A0A7066FFB8D944 /* Pods_PokedexTests.framework */; };
+		8F1304772549FF0A003F3FBC /* RefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1304762549FF0A003F3FBC /* RefreshViewController.swift */; };
+		8F13047C254A0202003F3FBC /* ResourceListCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13047B254A0202003F3FBC /* ResourceListCellController.swift */; };
 		8F21935E2480630C00C18968 /* NavigationControllerRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21935D2480630C00C18968 /* NavigationControllerRouterTests.swift */; };
 		8F2193602480679300C18968 /* NavigationControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21935F2480679300C18968 /* NavigationControllerRouter.swift */; };
 		8F219362248067A100C18968 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F219361248067A100C18968 /* Router.swift */; };
@@ -82,6 +84,8 @@
 		54CE94584C65FA91B9E3137C /* Pods-Pokedex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.debug.xcconfig"; path = "Target Support Files/Pods-Pokedex/Pods-Pokedex.debug.xcconfig"; sourceTree = "<group>"; };
 		63BE6E9B4C20DAB65776FE33 /* Pods-PokedexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokedexTests.release.xcconfig"; path = "Target Support Files/Pods-PokedexTests/Pods-PokedexTests.release.xcconfig"; sourceTree = "<group>"; };
 		7FE55538C8BDC86B15EDAA68 /* Pods-Pokedex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.release.xcconfig"; path = "Target Support Files/Pods-Pokedex/Pods-Pokedex.release.xcconfig"; sourceTree = "<group>"; };
+		8F1304762549FF0A003F3FBC /* RefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshViewController.swift; sourceTree = "<group>"; };
+		8F13047B254A0202003F3FBC /* ResourceListCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceListCellController.swift; sourceTree = "<group>"; };
 		8F21935D2480630C00C18968 /* NavigationControllerRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerRouterTests.swift; sourceTree = "<group>"; };
 		8F21935F2480679300C18968 /* NavigationControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerRouter.swift; sourceTree = "<group>"; };
 		8F219361248067A100C18968 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -278,6 +282,8 @@
 			children = (
 				8F3E964D242BF6ED00DCD62D /* ResourceListCollectionViewController.swift */,
 				8F7B09FC24310107003377F0 /* PokemonViewController.swift */,
+				8F1304762549FF0A003F3FBC /* RefreshViewController.swift */,
+				8F13047B254A0202003F3FBC /* ResourceListCellController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -593,6 +599,7 @@
 				8F3E966F242C045600DCD62D /* PokemonItem.swift in Sources */,
 				8FE5A75B25458F3300D1B71A /* RemotePokemonLoader.swift in Sources */,
 				8F219362248067A100C18968 /* Router.swift in Sources */,
+				8F1304772549FF0A003F3FBC /* RefreshViewController.swift in Sources */,
 				8F3E964E242BF6ED00DCD62D /* ResourceListCollectionViewController.swift in Sources */,
 				8F7B09FD24310107003377F0 /* PokemonViewController.swift in Sources */,
 				8FAD8C9625498E9700C2C78F /* ResourceMapper.swift in Sources */,
@@ -609,6 +616,7 @@
 				8F7B0A03243106F7003377F0 /* IndicatorCell.swift in Sources */,
 				8F7B0A1524314414003377F0 /* UIViewController+Alert.swift in Sources */,
 				8F7B0A0924310810003377F0 /* PhotoCell.swift in Sources */,
+				8F13047C254A0202003F3FBC /* ResourceListCellController.swift in Sources */,
 				8FE5A72F2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift in Sources */,
 				8F7B0A1124313EAF003377F0 /* PokemonMainView.swift in Sources */,
 				8F7B09FF2431039C003377F0 /* PokemonViewModel.swift in Sources */,
