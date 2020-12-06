@@ -57,6 +57,7 @@
 		8FE5A7652545A84E00D1B71A /* AFHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */; };
 		8FE5A76D2545B37500D1B71A /* TrackMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */; };
 		C4BEF6B9A7138E71A388F8D4 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */; };
+		D837B823257D71A400E9A2A2 /* ResourceListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		8FE5A75F25458FBF00D1B71A /* RemoteListLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListLoader.swift; sourceTree = "<group>"; };
 		8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFHTTPClientTests.swift; sourceTree = "<group>"; };
 		B5E23DD93919190FDA478CDE /* Pods-PokedexEndToEndTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokedexEndToEndTests.debug.xcconfig"; path = "Target Support Files/Pods-PokedexEndToEndTests/Pods-PokedexEndToEndTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceListUIComposer.swift; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -220,6 +222,7 @@
 				8F7B09F52430C9D7003377F0 /* View */,
 				8F7B09F92430F4F4003377F0 /* View Model */,
 				8F7B09F42430C9CD003377F0 /* Controller */,
+				D837B821257D719000E9A2A2 /* Composer */,
 				8F7B09F62430C9E2003377F0 /* Helper */,
 				8F219363248067C100C18968 /* Routing */,
 				8F3E9649242BF6ED00DCD62D /* AppDelegate.swift */,
@@ -343,6 +346,14 @@
 				8FE5A7382544608D00D1B71A /* SharedTestHelpers.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D837B821257D719000E9A2A2 /* Composer */ = {
+			isa = PBXGroup;
+			children = (
+				D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */,
+			);
+			path = Composer;
 			sourceTree = "<group>";
 		};
 		D83EFC0C6A7CCEDA176AF306 /* Frameworks */ = {
@@ -624,6 +635,7 @@
 				8FE2C915242D4F6600CDAD9F /* RemoteLoader.swift in Sources */,
 				8F3E9674242C06BF00DCD62D /* HTTPClient.swift in Sources */,
 				8F3E966D242C03DA00DCD62D /* ListItem.swift in Sources */,
+				D837B823257D71A400E9A2A2 /* ResourceListUIComposer.swift in Sources */,
 				8F3E964A242BF6ED00DCD62D /* AppDelegate.swift in Sources */,
 				8F7B09F12430C04A003377F0 /* Constants.swift in Sources */,
 				8F7B0A0F24311FA4003377F0 /* PokeType.swift in Sources */,
