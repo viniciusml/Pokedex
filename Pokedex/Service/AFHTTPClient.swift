@@ -14,6 +14,7 @@ import Foundation
 public class AFHTTPClient: HTTPClient {
     let session: Session
     let queue = DispatchQueue.main
+    // TODO - Dispatch to queue
         //DispatchQueue(label: "com.pokedex", qos: .utility, attributes: .concurrent)
     
     public init(sessionConfiguration: URLSessionConfiguration = .default) {
