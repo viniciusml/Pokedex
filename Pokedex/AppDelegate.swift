@@ -58,12 +58,15 @@ public final class ResourceListUIComposer {
             refreshController: refreshController,
             selection: selection)
         listViewModel.onListLoad = adaptResourceToCellControllers(forwardingTo: listViewController, using: listViewModel)
-        listViewModel.onListFailure = listViewController.handleLoadFailure
+        listViewModel.onListFailure = { [weak listViewController] in
+            listViewController?.handleLoadFailure()
+        }
         return listViewController
     }
     
     private static func adaptResourceToCellControllers(forwardingTo controller: ResourceListCollectionViewController, using viewModel: ListViewModel) -> (ListItem) -> Void {
-        return { [weak controller] listItem in
+        return { [weak controller, weak viewModel] listItem in
+            guard let viewModel = viewModel else { return }
             var collectionModel = [ResourceListCellController]()
             if viewModel.isFirstPage {
                 collectionModel = listItem.results.map { model in

@@ -169,9 +169,8 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let client = HTTPClientSpy()
         let loader = LoaderSpy(client: client)
         let sut = ResourceListUIComposer.resourceListComposedWith(listLoader: loader, selection: selection)
-        // TODO: Fix that
-//        trackForMemoryLeaks(loader, file: file, line: line)
-//        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
     }
 
