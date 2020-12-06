@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Pokedex
+import Pokedex
 import ViewControllerPresentationSpy
 
 class ResourceListCollectionViewControllerTests: XCTestCase {
@@ -165,9 +165,9 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line, selection: @escaping (String) -> Void = { _ in })  -> (sut: ResourceListCollectionViewController, loader: LoaderSpy) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line, selection: @escaping (String) -> Void = { _ in })  -> (sut: ResourceListCollectionViewController, loader: RemoteListLoaderSpy) {
         let client = HTTPClientSpy()
-        let loader = LoaderSpy(client: client)
+        let loader = RemoteListLoaderSpy(client: client)
         let sut = ResourceListUIComposer.resourceListComposedWith(listLoader: loader, selection: selection)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -205,26 +205,6 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
             array.append(makeResourceItem(name: "Pokemon\(i)"))
         }
         return array
-    }
-
-    class LoaderSpy: RemoteListLoader {
-        private var completions = [(RemoteLoader<ListItem>.Result) -> Void]()
-
-        var loadCallCount: Int {
-            completions.count
-        }
-        
-        override func load(from url: URL, completion: @escaping (RemoteLoader<ListItem>.Result) -> Void) {
-            completions.append(completion)
-        }
-
-        func completeListLoading(with list: ListItem, at index: Int = 0) {
-            completions[index](.success(list))
-        }
-
-        func completeListLoadingWithError(at index: Int) {
-            completions[index](.failure(.connectivity))
-        }
     }
 }
 
