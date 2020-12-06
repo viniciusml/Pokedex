@@ -26,12 +26,6 @@ public class ListCell: BaseCell {
         return iv
     }()
 
-    var item: ResultItem? {
-        didSet {
-            nameLabel.text = item?.name.capitalized
-        }
-    }
-
     // MARK: - Helpers
 
     override func setupViews() {
