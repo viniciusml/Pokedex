@@ -58,9 +58,7 @@ public final class ResourceListUIComposer {
             refreshController: refreshController,
             selection: selection)
         listViewModel.onListLoad = adaptResourceToCellControllers(forwardingTo: listViewController, using: listViewModel)
-        listViewModel.onListFailure = { [weak listViewController] in
-            listViewController?.handleLoadFailure()
-        }
+        listViewModel.onListFailure = handleLoadFailure(on: listViewController)
         return listViewController
     }
     
@@ -79,6 +77,12 @@ public final class ResourceListUIComposer {
                 }
             }
             controller?.collectionModel = collectionModel
+        }
+    }
+    
+    private static func handleLoadFailure(on listViewController: ResourceListCollectionViewController) -> () -> Void {
+        return { [weak listViewController] in
+            listViewController?.handleLoadFailure()
         }
     }
 }
