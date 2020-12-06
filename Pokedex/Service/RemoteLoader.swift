@@ -8,22 +8,6 @@
 
 import Foundation
 
-public protocol ListLoader {
-    func load(completion: @escaping (RequestResult<[ResultItem]>) -> Void)
-}
-
-// MARK: - Generic Request Result
-/// Result received from a request.
-///
-/// When request and mapping are successful, delivers a Generic Decodable type.
-/// When request or mapping are unsuccessful, delivers an Error type.
-public typealias RequestResult<T: Decodable> = Result<T, NetworkError>
-
-public enum NetworkError: Error {
-    case connectivity
-    case invalidData
-}
-
 /// Network Service.
 public class RemoteLoader<Resource> {
     private let client: HTTPClient
