@@ -39,14 +39,7 @@ public final class ListViewModel {
         listLoader.load(from: url) { [weak self] result in
             guard let self = self else { return }
             
-            switch result {
-                case let .success(item):
-                    self.fetchedList = item
-                    self.onListLoad?(item)
-                case .failure:
-                    self.onListFailure?()
-            }
-
+            self.unrwap(result)
             self.onLoadingStateChange?(false)
         }
     }
@@ -58,13 +51,17 @@ public final class ListViewModel {
         listLoader.load(from: url) { [weak self] result in
             guard let self = self else { return }
             
-            switch result {
-                case let .success(item):
-                    self.fetchedList = item
-                    self.onListLoad?(item)
-                case .failure:
-                    self.onListFailure?()
-            }
+            self.unrwap(result)
+        }
+    }
+    
+    private func unrwap(_ result: RemoteListLoader.Result) {
+        switch result {
+            case let .success(item):
+                fetchedList = item
+                onListLoad?(item)
+            case .failure:
+                onListFailure?()
         }
     }
 }
