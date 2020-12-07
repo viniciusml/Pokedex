@@ -60,6 +60,7 @@
 		D83D67FB257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D67FA257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift */; };
 		D83D6806257EC1CE0017F31C /* PokemonViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D6805257EC1CE0017F31C /* PokemonViewController+TestHelpers.swift */; };
 		D83D680B257ECC4A0017F31C /* PokemonItem+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D680A257ECC4A0017F31C /* PokemonItem+TestHelpers.swift */; };
+		D83D6810257ED0150017F31C /* PokemonUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D680F257ED0150017F31C /* PokemonUIComposer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,7 @@
 		D83D67FA257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePokemonLoaderSpy.swift; sourceTree = "<group>"; };
 		D83D6805257EC1CE0017F31C /* PokemonViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 		D83D680A257ECC4A0017F31C /* PokemonItem+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonItem+TestHelpers.swift"; sourceTree = "<group>"; };
+		D83D680F257ED0150017F31C /* PokemonUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonUIComposer.swift; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -350,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */,
+				D83D680F257ED0150017F31C /* PokemonUIComposer.swift */,
 			);
 			path = Composer;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				8F7B09F12430C04A003377F0 /* Constants.swift in Sources */,
 				8F7B0A0F24311FA4003377F0 /* PokeType.swift in Sources */,
 				8F7B09F82430CB62003377F0 /* ListViewModel.swift in Sources */,
+				D83D6810257ED0150017F31C /* PokemonUIComposer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

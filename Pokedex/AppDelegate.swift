@@ -23,8 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let listViewController = ResourceListUIComposer.resourceListComposedWith(
             listLoader: listLoader, selection: { pokemonURLString in
                 let loader = RemotePokemonLoader(client: httpClient)
-                let viewModel = PokemonViewModel(loader: loader, pokemonURLString: pokemonURLString)
-                let pokemonViewController = PokemonViewController(viewModel: viewModel)
+                let pokemonViewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, urlString: pokemonURLString)
                 navigationController.pushViewController(pokemonViewController, animated: true)
             })
         navigationController.setViewControllers([listViewController], animated: false)

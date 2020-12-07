@@ -61,11 +61,9 @@ class PokemonViewControllerTests: XCTestCase {
     private func makeSUT(urlString: String = "https://pokeapi.co/api/v2/pokemon/1") -> (sut: PokemonViewController, loader: RemotePokemonLoaderSpy) {
         let client = HTTPClientSpy()
         let loader = RemotePokemonLoaderSpy(client: client)
-        let viewModel = PokemonViewModel(loader: loader, pokemonURLString: urlString)
-        let sut = PokemonViewController(viewModel: viewModel)
+        let sut = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, urlString: urlString)
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(loader)
-        trackForMemoryLeaks(viewModel)
         trackForMemoryLeaks(client)
         return (sut, loader)
     }
