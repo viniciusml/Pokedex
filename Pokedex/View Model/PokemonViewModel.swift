@@ -6,16 +6,17 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class PokemonViewModel {
 
     // MARK: - Properties
 
-    let pokemonURLString: String
-    var loader: RemotePokemonLoader
+    private let pokemonURLString: String
+    private let loader: RemotePokemonLoader
+    private var fetchedPokemon: PokemonItem?
     
-    var onFetchCompleted: ((PokemonItem) -> Void)?
+    var onFetchCompleted: ((PokemonViewModel) -> Void)?
     var onFetchFailed: (() -> Void)?
 
     var imagesAvailable = [String]() {
@@ -41,8 +42,8 @@ public class PokemonViewModel {
             switch result {
                 case .success(let pokemon):
                     self.imagesAvailable = self.checkForAvailableImages(pokemon.sprites)
-                    
-                    self.onFetchCompleted?(pokemon)
+                    self.fetchedPokemon = pokemon
+                    self.onFetchCompleted?(self)
                 case .failure:
                     
                     self.onFetchFailed?()
@@ -61,5 +62,32 @@ public class PokemonViewModel {
          sprite.backShiny,
          sprite.backShinyFemale]
             .compactMap { $0 }
+    }
+}
+
+extension PokemonViewModel {
+    var name: String? {
+        fetchedPokemon?.name.capitalized
+    }
+    
+    var id: String? {
+        "#\(fetchedPokemon?.id ?? 0)"
+    }
+    
+    var type: String? {
+        fetchedPokemon?.types.first?.type.name.capitalized
+    }
+    
+    // TODO: Remove UIKit
+    var backgroundColor: UIColor? {
+        fetchedPokemon?.types.first?.typeID()?.color
+    }
+    
+    var stats: String? {
+        fetchedPokemon?.stats.map { $0.stat.name }.joined(separator: ", ").capitalized
+    }
+    
+    var abilities: String? {
+        fetchedPokemon?.abilities.map { $0.ability.name }.joined(separator: ", ").capitalized
     }
 }

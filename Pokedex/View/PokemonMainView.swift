@@ -96,16 +96,4 @@ class PokemonMainView: UIView {
             top: photoCarousel.bottomAnchor, leading: self.leadingAnchor, bottom: nil, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 131, bottom: 0, right: 131),
             size: CGSize(width: 0, height: 28))
     }
-
-    func renderUI(with pokemon: PokemonItem) {
-        pokemonNameLabel.text = pokemon.name.capitalized
-        idLabel.text = "#" + String(pokemon.id)
-
-        if let type = pokemon.types.first {
-            self.backgroundColor = type.typeID()?.color
-            typeLabel.text = type.type.name.capitalized
-        }
-
-        infoCard.renderUI(with: pokemon)
-    }
 }

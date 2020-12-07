@@ -39,12 +39,23 @@ public class PokemonViewController: UIViewController {
     }
     
     private func observeViewModel() {
-        viewModel.onFetchCompleted = { [weak self] pokemon in
-            self?.mainView.renderUI(with: pokemon)
+        viewModel.onFetchCompleted = { [weak self] viewModel in
+            self?.renderUI(with: viewModel)
         }
         
         viewModel.onFetchFailed = { [weak self] in
             self?.showBasicAlert(title: "Error", message: "An error ocurred. Please try again")
         }
+    }
+    
+    func renderUI(with viewModel: PokemonViewModel) {
+        mainView.pokemonNameLabel.text = viewModel.name
+        mainView.idLabel.text = viewModel.id
+        
+        mainView.backgroundColor = viewModel.backgroundColor
+        mainView.typeLabel.text = viewModel.type
+        
+        mainView.infoCard.statsValueLabel.text = viewModel.stats
+        mainView.infoCard.abilitiesValueLabel.text = viewModel.abilities
     }
 }

@@ -66,9 +66,4 @@ class PokemonInfoView: UIView {
         addSubview(verticalStack)
         verticalStack.fillSuperview(padding: UIEdgeInsets(top: 40, left: 20, bottom: 100, right: 20))
     }
-
-    func renderUI(with pokemon: PokemonItem) {
-        statsValueLabel.text = pokemon.stats.map { $0.stat.name }.joined(separator: ", ").capitalized
-        abilitiesValueLabel.text = pokemon.abilities.map { $0.ability.name }.joined(separator: ", ").capitalized
-    }
 }
