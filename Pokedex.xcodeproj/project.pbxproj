@@ -11,9 +11,6 @@
 		302AD1F12959AE9E5783883D /* Pods_PokedexTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB1C3E69A0A7066FFB8D944 /* Pods_PokedexTests.framework */; };
 		8F1304772549FF0A003F3FBC /* RefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1304762549FF0A003F3FBC /* RefreshViewController.swift */; };
 		8F13047C254A0202003F3FBC /* ResourceListCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13047B254A0202003F3FBC /* ResourceListCellController.swift */; };
-		8F21935E2480630C00C18968 /* NavigationControllerRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21935D2480630C00C18968 /* NavigationControllerRouterTests.swift */; };
-		8F2193602480679300C18968 /* NavigationControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21935F2480679300C18968 /* NavigationControllerRouter.swift */; };
-		8F219362248067A100C18968 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F219361248067A100C18968 /* Router.swift */; };
 		8F3E964A242BF6ED00DCD62D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E9649242BF6ED00DCD62D /* AppDelegate.swift */; };
 		8F3E964E242BF6ED00DCD62D /* ResourceListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E964D242BF6ED00DCD62D /* ResourceListCollectionViewController.swift */; };
 		8F3E9653242BF6F100DCD62D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3E9652242BF6F100DCD62D /* Assets.xcassets */; };
@@ -59,6 +56,8 @@
 		C4BEF6B9A7138E71A388F8D4 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */; };
 		D837B823257D71A400E9A2A2 /* ResourceListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */; };
 		D837B82B257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */; };
+		D83D67F6257EA42C0017F31C /* PokemonViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D67F5257EA42C0017F31C /* PokemonViewControllerTests.swift */; };
+		D83D67FB257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D67FA257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,9 +87,6 @@
 		7FE55538C8BDC86B15EDAA68 /* Pods-Pokedex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.release.xcconfig"; path = "Target Support Files/Pods-Pokedex/Pods-Pokedex.release.xcconfig"; sourceTree = "<group>"; };
 		8F1304762549FF0A003F3FBC /* RefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshViewController.swift; sourceTree = "<group>"; };
 		8F13047B254A0202003F3FBC /* ResourceListCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceListCellController.swift; sourceTree = "<group>"; };
-		8F21935D2480630C00C18968 /* NavigationControllerRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerRouterTests.swift; sourceTree = "<group>"; };
-		8F21935F2480679300C18968 /* NavigationControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerRouter.swift; sourceTree = "<group>"; };
-		8F219361248067A100C18968 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8F3E9646242BF6ED00DCD62D /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3E9649242BF6ED00DCD62D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F3E964D242BF6ED00DCD62D /* ResourceListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceListCollectionViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +137,8 @@
 		B5E23DD93919190FDA478CDE /* Pods-PokedexEndToEndTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokedexEndToEndTests.debug.xcconfig"; path = "Target Support Files/Pods-PokedexEndToEndTests/Pods-PokedexEndToEndTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceListUIComposer.swift; sourceTree = "<group>"; };
 		D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListLoaderSpy.swift; sourceTree = "<group>"; };
+		D83D67F5257EA42C0017F31C /* PokemonViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewControllerTests.swift; sourceTree = "<group>"; };
+		D83D67FA257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePokemonLoaderSpy.swift; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -185,15 +183,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8F219363248067C100C18968 /* Routing */ = {
-			isa = PBXGroup;
-			children = (
-				8F219361248067A100C18968 /* Router.swift */,
-				8F21935F2480679300C18968 /* NavigationControllerRouter.swift */,
-			);
-			path = Routing;
-			sourceTree = "<group>";
-		};
 		8F3E963D242BF6ED00DCD62D = {
 			isa = PBXGroup;
 			children = (
@@ -226,7 +215,6 @@
 				8F7B09F42430C9CD003377F0 /* Controller */,
 				D837B821257D719000E9A2A2 /* Composer */,
 				8F7B09F62430C9E2003377F0 /* Helper */,
-				8F219363248067C100C18968 /* Routing */,
 				8F3E9649242BF6ED00DCD62D /* AppDelegate.swift */,
 				8F3E9652242BF6F100DCD62D /* Assets.xcassets */,
 				8F3E9657242BF6F200DCD62D /* Info.plist */,
@@ -242,8 +230,9 @@
 				8FB4642E242F975800C1FE8A /* Service */,
 				8FE5A7692545B30D00D1B71A /* Helpers */,
 				8F7B09EA2430B425003377F0 /* ResourceListCollectionViewControllerTests.swift */,
-				8F21935D2480630C00C18968 /* NavigationControllerRouterTests.swift */,
 				D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */,
+				D83D67F5257EA42C0017F31C /* PokemonViewControllerTests.swift */,
+				D83D67FA257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift */,
 			);
 			path = PokedexTests;
 			sourceTree = "<group>";
@@ -609,10 +598,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F2193602480679300C18968 /* NavigationControllerRouter.swift in Sources */,
 				8F3E966F242C045600DCD62D /* PokemonItem.swift in Sources */,
 				8FE5A75B25458F3300D1B71A /* RemotePokemonLoader.swift in Sources */,
-				8F219362248067A100C18968 /* Router.swift in Sources */,
 				8F1304772549FF0A003F3FBC /* RefreshViewController.swift in Sources */,
 				8F3E964E242BF6ED00DCD62D /* ResourceListCollectionViewController.swift in Sources */,
 				8F7B09FD24310107003377F0 /* PokemonViewController.swift in Sources */,
@@ -655,11 +642,12 @@
 				8FB4642B242F96B400C1FE8A /* HTTPClientSpy.swift in Sources */,
 				8FE5A7432544766E00D1B71A /* PokemonItemMapperTests.swift in Sources */,
 				8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */,
+				D83D67FB257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift in Sources */,
 				8FE5A73E254462C100D1B71A /* ListItemMapperTests.swift in Sources */,
 				8FE5A7392544608D00D1B71A /* SharedTestHelpers.swift in Sources */,
 				8FE5A7652545A84E00D1B71A /* AFHTTPClientTests.swift in Sources */,
+				D83D67F6257EA42C0017F31C /* PokemonViewControllerTests.swift in Sources */,
 				D837B82B257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift in Sources */,
-				8F21935E2480630C00C18968 /* NavigationControllerRouterTests.swift in Sources */,
 				8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
