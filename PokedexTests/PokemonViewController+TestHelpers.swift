@@ -7,6 +7,7 @@
 //
 
 @testable import Pokedex
+import UIKit
 
 extension PokemonViewController {
     var pokemonName: String? {
@@ -19,6 +20,10 @@ extension PokemonViewController {
     
     var pokemonType: String? {
         mainView.typeLabel.text
+    }
+    
+    var pokemonBackgroundColor: UIColor? {
+        mainView.backgroundColor
     }
     
     var card: PokemonInfoView {
