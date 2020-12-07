@@ -16,7 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController(rootViewController: ResourceListCollectionViewController())
+        let navigationController = UINavigationController()
+        
+        let httpClient = AFHTTPClient()
+        let listLoader = RemoteListLoader(client: httpClient)
+        let listViewController = ResourceListUIComposer.resourceListComposedWith(
+            listLoader: listLoader, selection: { pokemonURLString in
+                let loader = RemotePokemonLoader(client: httpClient)
+                let pokemonViewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, urlString: pokemonURLString)
+                navigationController.pushViewController(pokemonViewController, animated: true)
+            })
+        navigationController.setViewControllers([listViewController], animated: false)
+        
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 

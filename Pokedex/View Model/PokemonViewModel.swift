@@ -6,24 +6,18 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-protocol PokemonViewModelDelegate: class {
-    func onFetchCompleted(pokemon: PokemonItem)
-    func onFetchFailed(with reason: String)
-}
-
-class PokemonViewModel {
+public class PokemonViewModel {
 
     // MARK: - Properties
 
-    let pokemonID: String
-
-    let client = HTTPClient()
-
-    var loader: RemoteLoader {
-        RemoteLoader(client: client)
-    }
+    private let pokemonURLString: String
+    private let loader: RemotePokemonLoader
+    private var fetchedPokemon: PokemonItem?
+    
+    var onFetchCompleted: ((PokemonViewModel) -> Void)?
+    var onFetchFailed: (() -> Void)?
 
     var imagesAvailable = [String]() {
         didSet {
@@ -32,46 +26,68 @@ class PokemonViewModel {
         }
     }
 
-    weak var pokemonDelegate: PokemonViewModelDelegate?
-
     // MARK: - Initializer
 
-    init(pokemonID: String, delegate: PokemonViewModelDelegate) {
-        self.pokemonID = pokemonID
-        self.pokemonDelegate = delegate
+    public init(loader: RemotePokemonLoader, pokemonURLString: String) {
+        self.loader = loader
+        self.pokemonURLString = pokemonURLString
     }
 
     // MARK: - API
 
     func fetchPokemon() {
-
-        loader.loadPokemon(pokemonId: pokemonID) { [weak self] result in
+        loader.load(from: URL(string: "\(pokemonURLString)")!) { [weak self] result in
             guard let self = self else { return }
-
+            
             switch result {
-            case .success(let pokemon):
-                self.imagesAvailable = self.checkForAvailableImages(pokemon.sprites)
-
-                DispatchQueue.main.async {
-                    // Inform delegate data about repository detail
-                    self.pokemonDelegate?.onFetchCompleted(pokemon: pokemon)
-                }
-
-            case .failure(let error):
-
-                DispatchQueue.main.async {
-                    // Inform delegate the motive of failure
-                    self.pokemonDelegate?.onFetchFailed(with: error.localizedDescription)
-                }
-
+                case .success(let pokemon):
+                    self.imagesAvailable = self.checkForAvailableImages(pokemon.sprites)
+                    self.fetchedPokemon = pokemon
+                    self.onFetchCompleted?(self)
+                case .failure:
+                    
+                    self.onFetchFailed?()
             }
+            
         }
     }
-
-    // Removes 'nil' properties from the array.
+    
     private func checkForAvailableImages(_ sprite: Sprites) -> [String] {
-        let sprites = [sprite.frontDefault, sprite.frontFemale, sprite.frontShiny, sprite.frontShinyFemale, sprite.backDefault, sprite.backFemale, sprite.backShiny, sprite.backShinyFemale]
-        return sprites.compactMap { $0 }
+        [sprite.frontDefault,
+         sprite.frontFemale,
+         sprite.frontShiny,
+         sprite.frontShinyFemale,
+         sprite.backDefault,
+         sprite.backFemale,
+         sprite.backShiny,
+         sprite.backShinyFemale]
+            .compactMap { $0 }
+    }
+}
 
+extension PokemonViewModel {
+    var name: String? {
+        fetchedPokemon?.name.capitalized
+    }
+    
+    var id: String? {
+        "#\(fetchedPokemon?.id ?? 0)"
+    }
+    
+    var type: String? {
+        fetchedPokemon?.types.first?.type.name.capitalized
+    }
+    
+    // TODO: Remove UIKit
+    var backgroundColor: UIColor? {
+        fetchedPokemon?.types.first?.typeID()?.color
+    }
+    
+    var stats: String? {
+        fetchedPokemon?.stats.map { $0.stat.name }.joined(separator: ", ").capitalized
+    }
+    
+    var abilities: String? {
+        fetchedPokemon?.abilities.map { $0.ability.name }.joined(separator: ", ").capitalized
     }
 }

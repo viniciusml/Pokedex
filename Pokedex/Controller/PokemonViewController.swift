@@ -8,42 +8,54 @@
 
 import UIKit
 
-class PokemonViewController: UIViewController {
+public class PokemonViewController: UIViewController {
 
     // MARK: - Properties
 
-    var id = ""
-
-    var pokemonViewModel: PokemonViewModel!
-
+    let viewModel: PokemonViewModel
+    
     let mainView = PokemonMainView()
 
     // MARK: - Initializer
 
-    convenience init(id: String) {
-        self.init()
-        self.id = id
-
-        pokemonViewModel = PokemonViewModel(pokemonID: id, delegate: self)
-        pokemonViewModel.fetchPokemon()
+    public init(viewModel: PokemonViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
-
-    override func loadView() {
+    
+    required init?(coder: NSCoder) {
+        fatalError("\(#function) has not been implemented")
+    }
+    
+    public override func loadView() {
         view = mainView
     }
-}
-
-// MARK: - Pokemon ViewModel Delegate
-
-extension PokemonViewController: PokemonViewModelDelegate {
-
-    func onFetchCompleted(pokemon: PokemonItem) {
-
-        mainView.renderUI(with: pokemon)
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        observeViewModel()
+        viewModel.fetchPokemon()
     }
-
-    func onFetchFailed(with reason: String) {
-
-        showBasicAlert(title: "Error", message: reason)
+    
+    private func observeViewModel() {
+        viewModel.onFetchCompleted = { [weak self] viewModel in
+            self?.renderUI(with: viewModel)
+        }
+        
+        viewModel.onFetchFailed = { [weak self] in
+            self?.showBasicAlert(title: "Error", message: "An error ocurred. Please try again")
+        }
+    }
+    
+    func renderUI(with viewModel: PokemonViewModel) {
+        mainView.pokemonNameLabel.text = viewModel.name
+        mainView.idLabel.text = viewModel.id
+        
+        mainView.backgroundColor = viewModel.backgroundColor
+        mainView.typeLabel.text = viewModel.type
+        
+        mainView.infoCard.statsValueLabel.text = viewModel.stats
+        mainView.infoCard.abilitiesValueLabel.text = viewModel.abilities
     }
 }

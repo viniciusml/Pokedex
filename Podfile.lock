@@ -1,16 +1,20 @@
 PODS:
   - Alamofire (5.0.5)
+  - ViewControllerPresentationSpy (5.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
+  - ViewControllerPresentationSpy (~> 5.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - ViewControllerPresentationSpy
 
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
+  ViewControllerPresentationSpy: 7cfa8ef8ec9fa197ea58ee6e9ac72bbe5442281b
 
-PODFILE CHECKSUM: 3dbc5023721458e27ea44b70c94e93f4a0cd1979
+PODFILE CHECKSUM: 829741996eefe2ece5ddc89f6942ee2427768be8
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0

@@ -8,105 +8,60 @@
 
 import Foundation
 
-protocol ListViewModelDelegate: class {
-    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
-    func onFetchFailed(with reason: String)
-}
-
-public class ListViewModel {
-
-    let client = HTTPClient()
-
-    var loader: RemoteLoader {
-        RemoteLoader(client: client)
+public final class ListViewModel {
+    typealias Observer<T> = (T) -> Void
+    
+    private let listLoader: RemoteListLoader
+    private let url: URL
+    
+    public init(listLoader: RemoteListLoader, url: URL) {
+        self.listLoader = listLoader
+        self.url = url
     }
-
-    weak var resourcesDelegate: ListViewModelDelegate?
-
-    public var resources = [ResultItem]()
-
-    var currentPage = 0
-
-    var isFetchInProgress = false
-
-    init(delegate: ListViewModelDelegate) {
-
-        self.resourcesDelegate = delegate
+    
+    var onLoadingStateChange: Observer<Bool>?
+    var onListLoad: Observer<ListItem>?
+    var onListFailure: (() -> Void)?
+    
+    private var fetchedList: ListItem?
+    
+    var isFirstPage: Bool {
+        guard let fetchedList = fetchedList else { return true }
+        return fetchedList.previous == nil
     }
-
-    func fetchResourceList() {
-
-        // Prevents multiple requests happening.
-        guard !isFetchInProgress else {
-            return
-        }
-
-        isFetchInProgress = true
-
-        loader.loadResourceList(page: currentPage.toOffset()) { result in
-            switch result {
-            case .success(let item):
-
-                DispatchQueue.main.async {
-
-                    self.isFetchInProgress = false
-
-                    self.resources.append(contentsOf: item.results)
-
-                    if self.currentPage > 1 {
-
-                        // Index paths to update collection.
-                        let indexPathsToReload =
-                            self.calculateIndexPathsToReload(
-                                from: item.results)
-
-                        // Inform delegate there's new data available to load.
-                        self.resourcesDelegate?.onFetchCompleted(
-                            with: indexPathsToReload)
-                    } else {
-                        // Inform delegate there's first amount of data to load
-                        self.resourcesDelegate?.onFetchCompleted(
-                            with: .none)
-                    }
-
-                    self.currentPage += 1
-                }
-            case .failure(let error):
-
-                DispatchQueue.main.async {
-                    self.isFetchInProgress = false
-
-                    // Inform delegate the motive of failure
-                    self.resourcesDelegate?.onFetchFailed(
-                        with: error.localizedDescription)
-                }
-            }
+    
+    var nextURLString: String? {
+        fetchedList.map { $0.next }
+    }
+    
+    func loadList() {
+        onLoadingStateChange?(true)
+        listLoader.load(from: url) { [weak self] result in
+            guard let self = self else { return }
+            
+            self.unrwap(result)
+            self.onLoadingStateChange?(false)
         }
     }
-
-    // MARK: - Helper Functions
-
-    // Returns a List Item for a specific index. Used to configure cell.
-    private func item(at index: Int) -> ResultItem {
-        return resources[index]
+    
+    func loadMore() {
+        guard let next = nextURLString,
+              let url = URL(string: next) else { return }
+        
+        listLoader.load(from: url) { [weak self] result in
+            guard let self = self else { return }
+            
+            self.unrwap(result)
+        }
     }
-
-    // Calculates the index paths for the last page of resources received from the API.
-    private func calculateIndexPathsToReload(from newResources: [ResultItem]) -> [IndexPath] {
-
-        let startIndex = resources.count - newResources.count
-
-        let endIndex = startIndex + newResources.count
-
-        return (startIndex..<endIndex).map { IndexPath(item: $0, section: 0) }
-    }
-}
-
-extension Int {
-
-    /// Converts page into offset, to be used as parameter for the API call.
-    fileprivate func toOffset() -> String {
-        let offset = self * 20
-        return String(offset)
+    
+    private func unrwap(_ result: RemoteListLoader.Result) {
+        switch result {
+            case let .success(item):
+                fetchedList = item
+                onListLoad?(item)
+            case .failure:
+                onListFailure?()
+        }
     }
 }
