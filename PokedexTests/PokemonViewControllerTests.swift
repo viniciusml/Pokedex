@@ -27,7 +27,10 @@ class PokemonViewControllerTests: XCTestCase {
         let loader = RemotePokemonLoaderSpy(client: client)
         let viewModel = PokemonViewModel(loader: loader, pokemonID: "3")
         let sut = PokemonViewController(viewModel: viewModel)
-        
+        trackForMemoryLeaks(sut)
+        trackForMemoryLeaks(loader)
+        trackForMemoryLeaks(viewModel)
+        trackForMemoryLeaks(client)
         return (sut, loader)
     }
 }
