@@ -43,8 +43,8 @@ public class PokemonViewController: UIViewController {
             self?.mainView.renderUI(with: pokemon)
         }
         
-        viewModel.onFetchFailed = { [weak self] errorMessage in
-            self?.showBasicAlert(title: "Error", message: errorMessage)
+        viewModel.onFetchFailed = { [weak self] in
+            self?.showBasicAlert(title: "Error", message: "An error ocurred. Please try again")
         }
     }
 }

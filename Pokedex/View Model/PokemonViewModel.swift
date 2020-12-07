@@ -16,7 +16,7 @@ public class PokemonViewModel {
     var loader: RemotePokemonLoader
     
     var onFetchCompleted: ((PokemonItem) -> Void)?
-    var onFetchFailed: ((String) -> Void)?
+    var onFetchFailed: (() -> Void)?
 
     var imagesAvailable = [String]() {
         didSet {
@@ -43,9 +43,9 @@ public class PokemonViewModel {
                     self.imagesAvailable = self.checkForAvailableImages(pokemon.sprites)
                     
                     self.onFetchCompleted?(pokemon)
-                case .failure(let error):
+                case .failure:
                     
-                    self.onFetchFailed?(error.localizedDescription)
+                    self.onFetchFailed?()
             }
             
         }
