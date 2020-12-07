@@ -34,6 +34,7 @@ public class PokemonViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        observeViewModel()
         viewModel.fetchPokemon()
     }
     

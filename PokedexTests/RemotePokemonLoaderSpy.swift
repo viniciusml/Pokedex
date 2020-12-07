@@ -10,21 +10,25 @@ import Foundation
 @testable import Pokedex
 
 class RemotePokemonLoaderSpy: RemotePokemonLoader {
-    private var completions = [(RemoteLoader<PokemonItem>.Result) -> Void]()
+    private var messages = [(url: URL, completion: (RemoteLoader<PokemonItem>.Result) -> Void)]()
     
     var loadCallCount: Int {
-        completions.count
+        messages.count
+    }
+    
+    var url: URL? {
+        messages.first?.url
     }
     
     override func load(from url: URL, completion: @escaping (RemoteLoader<PokemonItem>.Result) -> Void) {
-        completions.append(completion)
+        messages.append((url, completion))
     }
     
     func completeItemLoading(with pokemon: PokemonItem, at index: Int = 0) {
-        completions[index](.success(pokemon))
+        messages[index].completion(.success(pokemon))
     }
     
     func completeItemLoadingWithError(at index: Int) {
-        completions[index](.failure(.connectivity))
+        messages[index].completion(.failure(.connectivity))
     }
 }

@@ -12,7 +12,7 @@ public class PokemonViewModel {
 
     // MARK: - Properties
 
-    let pokemonID: String
+    let pokemonURLString: String
     var loader: RemotePokemonLoader
     
     var onFetchCompleted: ((PokemonItem) -> Void)?
@@ -27,15 +27,15 @@ public class PokemonViewModel {
 
     // MARK: - Initializer
 
-    public init(loader: RemotePokemonLoader, pokemonID: String) {
+    public init(loader: RemotePokemonLoader, pokemonURLString: String) {
         self.loader = loader
-        self.pokemonID = pokemonID
+        self.pokemonURLString = pokemonURLString
     }
 
     // MARK: - API
 
     func fetchPokemon() {
-        loader.load(from: URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemonID)")!) { [weak self] result in
+        loader.load(from: URL(string: "\(pokemonURLString)")!) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
