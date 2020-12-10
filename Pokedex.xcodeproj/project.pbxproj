@@ -63,6 +63,7 @@
 		D83D680B257ECC4A0017F31C /* PokemonItem+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D680A257ECC4A0017F31C /* PokemonItem+TestHelpers.swift */; };
 		D83D6810257ED0150017F31C /* PokemonUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D680F257ED0150017F31C /* PokemonUIComposer.swift */; };
 		D8AB3FFB2582C9FD006AC67B /* PokedexSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */; };
+		D8AB401C2582D13D006AC67B /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = D8AB401B2582D13D006AC67B /* __Snapshots__ */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +161,7 @@
 		D8AB3FF82582C9FD006AC67B /* PokedexSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokedexSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexSnapshotTests.swift; sourceTree = "<group>"; };
 		D8AB3FFC2582C9FD006AC67B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8AB401B2582D13D006AC67B /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -398,6 +400,7 @@
 		D8AB3FF92582C9FD006AC67B /* PokedexSnapshotTests */ = {
 			isa = PBXGroup;
 			children = (
+				D8AB401B2582D13D006AC67B /* __Snapshots__ */,
 				D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */,
 				D8AB3FFC2582C9FD006AC67B /* Info.plist */,
 			);
@@ -563,6 +566,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8AB401C2582D13D006AC67B /* __Snapshots__ in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
