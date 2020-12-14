@@ -13,20 +13,20 @@ import XCTest
 class PokedexSnapshotTests: XCTestCase {
 
     func test_listViewController_withSuccessfulResponse() {
-        assertSnapshot(matching: makeSUT(.online), as: .image)
+        assertSnapshot(matching: makeListViewController(.online), as: .image)
     }
     
     func test_listViewController_withUnsuccessfulResponse() {
-        assertSnapshot(matching: makeSUT(.offline), as: .image)
+        assertSnapshot(matching: makeListViewController(.offline), as: .image)
     }
     
     func test_listViewController_whileWaitingResponse() {
-        assertSnapshot(matching: makeSUT(.loading), as: .image)
+        assertSnapshot(matching: makeListViewController(.loading), as: .image)
     }
     
     // MARK: - Helpers
     
-    private func makeSUT(_ state: HTTPClientStub.State) -> ResourceListCollectionViewController {
+    private func makeListViewController(_ state: HTTPClientStub.State) -> ResourceListCollectionViewController {
         let client = HTTPClientStub(state)
         let listLoader = RemoteListLoader(client: client)
         let viewController = ResourceListUIComposer.resourceListComposedWith(listLoader: listLoader, selection: { _ in })
@@ -47,7 +47,7 @@ class PokedexSnapshotTests: XCTestCase {
         func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
             switch state {
             case .online:
-                completion(.success((makeData(), makeResponse())))
+                completion(.success((makeListData(), makeResponse())))
             case .offline:
                 completion(.failure(anyNSError()))
             case .loading:
@@ -55,7 +55,7 @@ class PokedexSnapshotTests: XCTestCase {
             }
         }
         
-        private func makeData() -> Data {
+        private func makeListData() -> Data {
             let json = [
                 "count": 200,
                 "next": "http://next-url.com",
