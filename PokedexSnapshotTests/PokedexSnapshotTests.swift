@@ -12,12 +12,16 @@ import XCTest
 
 class PokedexSnapshotTests: XCTestCase {
 
-    func test_listViewController_online() {
+    func test_listViewController_withSuccessfulResponse() {
         assertSnapshot(matching: makeSUT(.online), as: .image)
     }
     
-    func test_listViewController_offline() {
+    func test_listViewController_withUnsuccessfulResponse() {
         assertSnapshot(matching: makeSUT(.offline), as: .image)
+    }
+    
+    func test_listViewController_whileWaitingResponse() {
+        assertSnapshot(matching: makeSUT(.loading), as: .image)
     }
     
     // MARK: - Helpers
@@ -31,7 +35,7 @@ class PokedexSnapshotTests: XCTestCase {
     
     private class HTTPClientStub: HTTPClient {
         enum State {
-            case online, offline
+            case online, offline, loading
         }
         
         let state: State
@@ -42,10 +46,12 @@ class PokedexSnapshotTests: XCTestCase {
         
         func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
             switch state {
-                case .online:
-                    completion(.success((makeData(), makeResponse())))
-                case .offline:
-                    completion(.failure(anyNSError()))
+            case .online:
+                completion(.success((makeData(), makeResponse())))
+            case .offline:
+                completion(.failure(anyNSError()))
+            case .loading:
+                return
             }
         }
         
