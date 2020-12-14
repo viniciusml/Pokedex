@@ -9,11 +9,18 @@
 import SnapshotTesting
 import Pokedex
 import XCTest
+import AccessibilitySnapshot
 
 class PokedexSnapshotTests: XCTestCase {
 
+    // TODO: Add Desired accessibility labels.
+    
     func test_listViewController_withSuccessfulResponse() {
         assertSnapshot(matching: makeListViewController(.online(.listData)), as: .image(on: .iPhoneXr))
+    }
+    
+    func test_listViewController_withSuccessfulResponse_accessibilityElements() {
+        assertSnapshot(matching: makeListViewController(.online(.listData)).view, as: .accessibilityImage)
     }
     
     func test_listViewController_withUnsuccessfulResponse() {
@@ -24,8 +31,21 @@ class PokedexSnapshotTests: XCTestCase {
         assertSnapshot(matching: makeListViewController(.loading), as: .image(on: .iPhoneXr))
     }
     
+    func test_listViewController_whileWaitingResponse_accessibilityElements() {
+        assertSnapshot(matching: makeListViewController(.loading), as: .accessibilityImage(showActivationPoints: .always))
+    }
+    
     func test_pokemonViewController_withSuccessfulResponse() {
         assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
+    }
+    
+    func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() {
+        let viewController = makePokemonViewController(.online(.pokemonData))
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.makeKeyAndVisible()
+        window.rootViewController = viewController
+        
+        assertSnapshot(matching: window.rootViewController!.view, as: .accessibilityImage)
     }
     
     func test_pokemonViewController_withUnsuccessfulResponse() {
