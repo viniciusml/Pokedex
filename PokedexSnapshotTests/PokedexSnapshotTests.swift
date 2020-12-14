@@ -13,7 +13,7 @@ import XCTest
 class PokedexSnapshotTests: XCTestCase {
 
     func test_listViewController_withSuccessfulResponse() {
-        assertSnapshot(matching: makeListViewController(.online(makeListData())), as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .image(on: .iPhoneXr))
     }
     
     func test_listViewController_withUnsuccessfulResponse() {
@@ -25,7 +25,7 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_pokemonViewController_withSuccessfulResponse() {
-        assertSnapshot(matching: makePokemonViewController(.online(makePokemonData())), as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
     }
     
     func test_pokemonViewController_withUnsuccessfulResponse() {
@@ -80,9 +80,8 @@ class PokedexSnapshotTests: XCTestCase {
     }
 }
 
-extension PokedexSnapshotTests {
-    
-    func makeListData() -> Data {
+fileprivate extension Data {
+    static var listData: Data {
         let json = [
             "count": 200,
             "next": "http://next-url.com",
@@ -110,7 +109,7 @@ extension PokedexSnapshotTests {
         return try! JSONSerialization.data(withJSONObject: json)
     }
     
-    func makePokemonData() -> Data {
+    static var pokemonData: Data {
         let json = [
             "id": 1,
             "name": "bulbasaur",
