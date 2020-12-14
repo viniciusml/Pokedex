@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (5.0.5)
+  - SnapshotTesting (1.8.2)
   - ViewControllerPresentationSpy (5.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
+  - SnapshotTesting (~> 1.8.1)
   - ViewControllerPresentationSpy (~> 5.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - SnapshotTesting
     - ViewControllerPresentationSpy
 
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
+  SnapshotTesting: 38947050d13960d57a4a9c166fcf51bca7d56970
   ViewControllerPresentationSpy: 7cfa8ef8ec9fa197ea58ee6e9ac72bbe5442281b
 
-PODFILE CHECKSUM: 829741996eefe2ece5ddc89f6942ee2427768be8
+PODFILE CHECKSUM: ea0b519471d50e7fe896e2c2f5bf04f5b3dd2032
 
 COCOAPODS: 1.10.0

@@ -108,7 +108,9 @@ class PokemonViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.pokemonName, item?.formattedName, "Expected name text to be \(String(describing: item?.name)) for label", file: file, line: line)
         XCTAssertEqual(sut.pokemonID, item?.formattedID, "Expected id text to be \(String(describing: item?.id)) for label", file: file, line: line)
         XCTAssertEqual(sut.pokemonType, item?.formattedType, "Expected type text to be \(String(describing: item?.name)) for label", file: file, line: line)
-        XCTAssertEqual(sut.pokemonBackgroundColor, item?.backgroundColor, "Expected background color to be \(String(describing: item?.backgroundColor)) for view", file: file, line: line)
+        
+        let expectedColor = item?.backgroundColor ?? .gray
+        XCTAssertEqual(sut.pokemonBackgroundColor, expectedColor, "Expected background color to be \(String(describing: item?.backgroundColor)) for view", file: file, line: line)
         XCTAssertEqual(sut.pokemonStats, item?.formattedStats, "Expected stats text to be \(String(describing: item?.formattedStats)) for label", file: file, line: line)
         XCTAssertEqual(sut.pokemonAbilities, item?.formattedAbilities, "Expected abilities text to be \(String(describing: item?.formattedAbilities)) for label", file: file, line: line)
     }

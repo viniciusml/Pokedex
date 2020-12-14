@@ -18,5 +18,12 @@ target 'Pokedex' do
     inherit! :search_paths
     # Pods for testing
   end
+  
+  target 'PokedexSnapshotTests' do
+    inherit! :search_paths
+    # Pods for testing
+    
+    pod 'SnapshotTesting', '~> 1.8.1'
+  end
 
 end

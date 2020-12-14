@@ -82,6 +82,8 @@ class PokemonMainView: UIView {
             size: CGSize(width: 0, height: self.frame.height / 2))
 
         setupPhotoCarousel()
+        
+        backgroundColor = .gray
     }
 
     private func setupPhotoCarousel() {
