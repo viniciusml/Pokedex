@@ -13,8 +13,6 @@ import AccessibilitySnapshot
 
 class PokedexSnapshotTests: XCTestCase {
 
-    // TODO: Add Desired accessibility labels.
-    
     func test_listViewController_withSuccessfulResponse() {
         assertSnapshot(matching: makeListViewController(.online(.listData)), as: .image(on: .iPhoneXr))
     }

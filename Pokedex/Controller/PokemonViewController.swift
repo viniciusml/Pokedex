@@ -51,9 +51,11 @@ public class PokemonViewController: UIViewController {
     func renderUI(with viewModel: PokemonViewModel) {
         mainView.pokemonNameLabel.text = viewModel.name
         mainView.idLabel.text = viewModel.id
+        mainView.idLabel.accessibilityLabel = "Id: \(viewModel.id?.replacingOccurrences(of: "#", with: "") ?? "")"
         
         mainView.backgroundColor = viewModel.backgroundColor
         mainView.typeLabel.text = viewModel.type
+        mainView.typeLabel.accessibilityLabel = "Type: \(viewModel.type ?? "")"
         
         mainView.infoCard.statsValueLabel.text = viewModel.stats
         mainView.infoCard.abilitiesValueLabel.text = viewModel.abilities
