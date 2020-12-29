@@ -18,7 +18,7 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_listViewController_withSuccessfulResponse_accessibilityElements() {
-        assertSnapshot(matching: makeListViewController(.online(.listData)).view, as: .accessibilityImage)
+        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .accessibilityImage)
     }
     
     func test_listViewController_withUnsuccessfulResponse() {
