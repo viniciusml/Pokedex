@@ -14,11 +14,11 @@ import XCTest
 class PokedexSnapshotTests: XCTestCase {
 
     func test_listViewController_withSuccessfulResponse() {
-        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .image(on: .iPhoneXr, precision: 0.9))
+        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .image(on: .iPhoneXr))
     }
     
     func test_listViewController_withSuccessfulResponse_accessibilityElements() {
-        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .accessibilityImage)
+        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
     func test_listViewController_withUnsuccessfulResponse() {
