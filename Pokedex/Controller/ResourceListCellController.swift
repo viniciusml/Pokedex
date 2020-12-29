@@ -22,6 +22,7 @@ final public class ResourceListCellController {
     func view(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(type: ListCell.self, for: indexPath)
         cell.nameLabel.text = model.name
+        cell.nameLabel.accessibilityLabel = "Pokémon name: \(model.name)"
         return cell
     }
 }
