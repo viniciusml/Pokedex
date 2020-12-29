@@ -32,7 +32,7 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_listViewController_whileWaitingResponse_accessibilityElements() {
-        assertSnapshot(matching: makeListViewController(.loading), as: .accessibilityImage(showActivationPoints: .always))
+        assertSnapshot(matching: makeListViewController(.loading), as: .accessibilityImage)
     }
     
     func test_pokemonViewController_withSuccessfulResponse() {

@@ -9,7 +9,13 @@
 import UIKit
 
 final public class RefreshViewController: NSObject {
-    private(set) lazy var view = binded(UIRefreshControl())
+    private let loadingIndicator: UIRefreshControl = {
+        $0.isAccessibilityElement = true
+        $0.accessibilityLabel = "Loading Pokémons"
+        return $0
+    }(UIRefreshControl())
+    
+    private(set) lazy var view = binded(loadingIndicator)
     
     private let viewModel: ListViewModel
     
