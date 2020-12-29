@@ -6,10 +6,10 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import SnapshotTesting
-import Pokedex
-import XCTest
 import AccessibilitySnapshot
+import Pokedex
+import SnapshotTesting
+import XCTest
 
 class PokedexSnapshotTests: XCTestCase {
 
