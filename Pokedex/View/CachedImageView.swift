@@ -91,7 +91,9 @@ open class CachedImageView: UIImageView {
             return
         }
         
-        httpClient.get(from: url) { result in
+        httpClient.get(from: url) { [weak self] result in
+            guard let self = self else { return }
+            
             if let response = try? result.get() {
                 if let image = UIImage(data: response.0) {
                     self.image = image

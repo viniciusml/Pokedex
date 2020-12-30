@@ -12,8 +12,7 @@ import XCTest
 class CachedImageViewTests: XCTestCase {
     
     func test_loadImage_deliversImageOnClientSuccess() {
-        let client = HTTPClientSpy()
-        let sut = CachedImageView(httpClient: client)
+        let (sut, client) = makeSUT()
         let (image, data) = UIImage.make(withColor: .red)
         
         sut.loadImage(urlString: anyURL().absoluteString)
@@ -23,8 +22,7 @@ class CachedImageViewTests: XCTestCase {
     }
     
     func test_loadImage_withoutPlaceholder_deliversNoImageOnClientFailure() {
-        let client = HTTPClientSpy()
-        let sut = CachedImageView(httpClient: client)
+        let (sut, client) = makeSUT()
         
         sut.loadImage(urlString: anyURL().absoluteString)
         client.complete(with: anyNSError())
@@ -35,6 +33,16 @@ class CachedImageViewTests: XCTestCase {
     // Cover case where Data -> UIImage fails (should display placeholder if there's one, or nothing.
     
     // Cover case where Response is not 200 (should display placeholder if there's one, or nothing.
+    
+    // MARK: - Helpers
+    
+    private func makeSUT() -> (sut: CachedImageView, client: HTTPClientSpy) {
+        let client = HTTPClientSpy()
+        let sut = CachedImageView(httpClient: client)
+        trackForMemoryLeaks(client)
+        trackForMemoryLeaks(sut)
+        return (sut, client)
+    }
 }
 
 extension UIImage {
