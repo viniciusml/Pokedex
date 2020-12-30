@@ -15,7 +15,7 @@ class CachedImageViewTests: XCTestCase {
         let (sut, client) = makeSUT()
         let (image, data) = UIImage.make(withColor: .red)
         
-        sut.loadImage(urlString: anyURL().absoluteString)
+        sut.loadImage(urlString: anyURLString)
         client.complete(withStatusCode: 200, data: data)
         
         XCTAssertEqual(sut.image?.pngData(), image.pngData())
@@ -24,7 +24,7 @@ class CachedImageViewTests: XCTestCase {
     func test_loadImage_withoutPlaceholder_deliversNoImageOnClientFailure() {
         let (sut, client) = makeSUT()
         
-        sut.loadImage(urlString: anyURL().absoluteString)
+        sut.loadImage(urlString: anyURLString)
         client.complete(with: anyNSError())
         
         XCTAssertNil(sut.image)
@@ -42,6 +42,10 @@ class CachedImageViewTests: XCTestCase {
         trackForMemoryLeaks(client)
         trackForMemoryLeaks(sut)
         return (sut, client)
+    }
+    
+    private var anyURLString: String {
+        anyURL().absoluteString
     }
 }
 
