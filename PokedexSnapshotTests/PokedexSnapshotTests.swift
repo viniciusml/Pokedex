@@ -18,7 +18,7 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_listViewController_withSuccessfulResponse_accessibilityElements() {
-        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .accessibilityImage(markerColors: [.lightGray]))
+        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true, markerColors: [.lightGray]))
     }
     
     func test_listViewController_withUnsuccessfulResponse() {
@@ -38,12 +38,7 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() {
-        let viewController = makePokemonViewController(.online(.pokemonData))
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.makeKeyAndVisible()
-        window.rootViewController = viewController
-        
-        assertSnapshot(matching: window.rootViewController!.view, as: .accessibilityImage)
+        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
     func test_pokemonViewController_withUnsuccessfulResponse() {
