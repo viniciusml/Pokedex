@@ -118,10 +118,10 @@ class PageViewControllerTests: XCTestCase {
 fileprivate extension UIPageViewController {
     
     func controllerAfter(_ controller: UIViewController) -> UIViewController? {
-        return dataSource?.pageViewController(self, viewControllerAfter: controller)
+        dataSource?.pageViewController(self, viewControllerAfter: controller)
     }
     
     func controllerBefore(_ controller: UIViewController) -> UIViewController? {
-        return dataSource?.pageViewController(self, viewControllerBefore: controller)
+        dataSource?.pageViewController(self, viewControllerBefore: controller)
     }
 }
