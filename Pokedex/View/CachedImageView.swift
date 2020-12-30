@@ -53,15 +53,14 @@ open class CachedImageView: UIImageView {
 
     private var urlStringForChecking: String?
     private var emptyImage: UIImage?
+    
+    private var httpClient: HTTPClient = AFHTTPClient()
 
-    public convenience init() {
-        self.init(emptyImage: nil)
-    }
-
-    public init(emptyImage: UIImage? = nil) {
+    public init(httpClient: HTTPClient = AFHTTPClient(), emptyImage: UIImage? = nil) {
         super.init(frame: .zero)
         contentMode = .scaleAspectFill
         clipsToBounds = true
+        self.httpClient = httpClient
         self.emptyImage = emptyImage
     }
 
@@ -91,6 +90,15 @@ open class CachedImageView: UIImageView {
             }
             return
         }
+        
+        httpClient.get(from: url) { result in
+            if let response = try? result.get() {
+                if let image = UIImage(data: response.0) {
+                    self.image = image
+                }
+            }
+        }
+        
         URLSession.shared.dataTask(
             with: url,
             completionHandler: { [weak self] (data, response, error) in
