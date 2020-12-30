@@ -6,8 +6,9 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import SnapshotTesting
+import AccessibilitySnapshot
 import Pokedex
+import SnapshotTesting
 import XCTest
 
 class PokedexSnapshotTests: XCTestCase {
@@ -24,8 +25,16 @@ class PokedexSnapshotTests: XCTestCase {
         assertSnapshot(matching: makeListViewController(.loading), as: .image(on: .iPhoneXr))
     }
     
+    func test_listViewController_whileWaitingResponse_accessibilityElements() {
+        assertSnapshot(matching: makeListViewController(.loading), as: .accessibilityImage)
+    }
+    
     func test_pokemonViewController_withSuccessfulResponse() {
         assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
+    }
+    
+    func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() {
+        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
     func test_pokemonViewController_withUnsuccessfulResponse() {

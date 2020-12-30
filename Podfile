@@ -24,6 +24,7 @@ target 'Pokedex' do
     # Pods for testing
     
     pod 'SnapshotTesting', '~> 1.8.1'
+    pod 'AccessibilitySnapshot'
   end
 
 end
