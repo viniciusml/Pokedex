@@ -38,7 +38,7 @@ extension PageViewController: UIPageViewControllerDataSource {
         
         let previousIndex = viewControllerIndex - 1
         
-        guard previousIndex >= 0 else { return nil }
+        guard previousIndex >= 0 else { return pages.last }
         
         return pages[previousIndex]
     }
@@ -50,7 +50,7 @@ extension PageViewController: UIPageViewControllerDataSource {
         
         let nextIndex = viewControllerIndex + 1
         
-        guard nextIndex < pages.count else { return nil }
+        guard nextIndex < pages.count else { return pages.first }
         
         return pages[nextIndex]
     }

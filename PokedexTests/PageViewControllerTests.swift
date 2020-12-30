@@ -54,14 +54,15 @@ class PageViewControllerTests: XCTestCase {
         XCTAssertEqual(secondControllerAfter, controller3)
     }
     
-    func test_viewControllerAfter_whenMaxNumberOfPagesReached_doesNotSelectNextController() {
+    func test_viewControllerAfter_whenMaxNumberOfPagesReached_selectsToFirstController() {
         let controller1 = UIViewController()
-        let pages = [controller1]
+        let controller2 = UIViewController()
+        let pages = [controller1, controller2]
         
         let sut = makeSUT(pages: pages)
-        let controllerAfter: UIViewController? = sut.controllerAfter(controller1)
+        let controllerAfter: UIViewController? = sut.controllerAfter(controller2)
         
-        XCTAssertNil(controllerAfter)
+        XCTAssertEqual(controllerAfter, controller1)
     }
     
     func test_viewControllerBefore_selectsPreviousIndex() {
@@ -88,14 +89,15 @@ class PageViewControllerTests: XCTestCase {
         XCTAssertEqual(secondControllerBefore, controller1)
     }
     
-    func test_viewControllerBefore_whenInFirstPage_doesNotSelectPreviousController() {
+    func test_viewControllerBefore_whenInFirstPage_selectsLastController() {
         let controller1 = UIViewController()
-        let pages = [controller1]
+        let controller2 = UIViewController()
+        let pages = [controller1, controller2]
         
         let sut = makeSUT(pages: pages)
         let controllerBefore: UIViewController? = sut.controllerBefore(controller1)
         
-        XCTAssertNil(controllerBefore)
+        XCTAssertEqual(controllerBefore, controller2)
     }
     
     func test_presentationCount_setsCorrectNumberOfPages() {
