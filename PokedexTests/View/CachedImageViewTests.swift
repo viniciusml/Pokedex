@@ -11,6 +11,23 @@ import XCTest
 
 class CachedImageViewTests: XCTestCase {
     
+    func test_loadImage_withPlaceholder_showsPlaceholderOnURLCreationFailure() {
+        let placeholderImage = makeImage()
+        let (sut, _) = makeSUT(placeholderImage: placeholderImage)
+        
+        sut.loadImage(urlString: invalidURLString)
+        
+        XCTAssertEqual(sut.image, placeholderImage)
+    }
+    
+    func test_loadImage_withoutPlaceholder_doesNotShowImageOnURLCreationFailure() {
+        let (sut, _) = makeSUT()
+        
+        sut.loadImage(urlString: invalidURLString)
+        
+        XCTAssertNil(sut.image)
+    }
+    
     func test_loadImage_deliversImageOnClientSuccess() {
         let (sut, client) = makeSUT()
         let (image, data) = UIImage.make(withColor: .red)
@@ -36,21 +53,29 @@ class CachedImageViewTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT() -> (sut: CachedImageView, client: HTTPClientSpy) {
+    private func makeSUT(placeholderImage: UIImage? = nil) -> (sut: CachedImageView, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = CachedImageView(httpClient: client)
+        let sut = CachedImageView(httpClient: client, placeholderImage: placeholderImage)
         trackForMemoryLeaks(client)
         trackForMemoryLeaks(sut)
         return (sut, client)
     }
     
+    private func makeImage() -> UIImage {
+        UIImage.make(withColor: .black).image
+    }
+    
     private var anyURLString: String {
         anyURL().absoluteString
+    }
+    
+    private var invalidURLString: String {
+        "any invalid url string"
     }
 }
 
 extension UIImage {
-    static func make(withColor color: UIColor) -> (UIImage, Data) {
+    static func make(withColor color: UIColor) -> (image: UIImage, data: Data) {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()!

@@ -49,19 +49,17 @@ open class CachedImageView: UIImageView {
 
     public static let imageCache = NSCache<NSString, DiscardableImageCacheItem>()
 
-    open var shouldUseEmptyImage = true
-
     private var urlStringForChecking: String?
-    private var emptyImage: UIImage?
+    private var placeholderImage: UIImage?
     
     private var httpClient: HTTPClient = AFHTTPClient()
 
-    public init(httpClient: HTTPClient = AFHTTPClient(), emptyImage: UIImage? = nil) {
+    public init(httpClient: HTTPClient = AFHTTPClient(), placeholderImage: UIImage? = nil) {
         super.init(frame: .zero)
         contentMode = .scaleAspectFill
         clipsToBounds = true
         self.httpClient = httpClient
-        self.emptyImage = emptyImage
+        self.placeholderImage = placeholderImage
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -85,9 +83,7 @@ open class CachedImageView: UIImageView {
         }
 
         guard let url = URL(string: urlString) else {
-            if shouldUseEmptyImage {
-                image = emptyImage
-            }
+            image = placeholderImage
             return
         }
         
