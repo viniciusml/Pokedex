@@ -66,6 +66,7 @@
 		D8AB401C2582D13D006AC67B /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = D8AB401B2582D13D006AC67B /* __Snapshots__ */; };
 		D8E93425259D25E9009AB1C3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93424259D25E9009AB1C3 /* PageViewController.swift */; };
 		D8E9342B259D260F009AB1C3 /* PageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */; };
+		D8E93432259D3331009AB1C3 /* CachedImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,7 @@
 		D8AB401B2582D13D006AC67B /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		D8E93424259D25E9009AB1C3 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewControllerTests.swift; sourceTree = "<group>"; };
+		D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageViewTests.swift; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -265,6 +267,7 @@
 		8F3E965F242BF6F200DCD62D /* PokedexTests */ = {
 			isa = PBXGroup;
 			children = (
+				D8E93430259D3312009AB1C3 /* View */,
 				8F3E9662242BF6F200DCD62D /* Info.plist */,
 				8FB4642E242F975800C1FE8A /* Service */,
 				8FE5A7692545B30D00D1B71A /* Helpers */,
@@ -329,6 +332,7 @@
 		8F7B09F52430C9D7003377F0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8F7B0A0A24310CDC003377F0 /* CachedImageView.swift */,
 				8F7B09F22430C978003377F0 /* ListCell.swift */,
 				8F7B0A00243106A6003377F0 /* PhotoIndicator.swift */,
 				8F7B0A02243106F7003377F0 /* IndicatorCell.swift */,
@@ -346,7 +350,6 @@
 			children = (
 				8F7B09EE2430BA54003377F0 /* Extensions.swift */,
 				8F7B09F02430C04A003377F0 /* Constants.swift */,
-				8F7B0A0A24310CDC003377F0 /* CachedImageView.swift */,
 				8F7B0A1424314414003377F0 /* UIViewController+Alert.swift */,
 			);
 			path = Helper;
@@ -411,6 +414,14 @@
 				D8AB3FFC2582C9FD006AC67B /* Info.plist */,
 			);
 			path = PokedexSnapshotTests;
+			sourceTree = "<group>";
+		};
+		D8E93430259D3312009AB1C3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -780,6 +791,7 @@
 				8FE5A7652545A84E00D1B71A /* AFHTTPClientTests.swift in Sources */,
 				D83D67F6257EA42C0017F31C /* PokemonViewControllerTests.swift in Sources */,
 				D837B82B257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift in Sources */,
+				D8E93432259D3331009AB1C3 /* CachedImageViewTests.swift in Sources */,
 				8FB46430242F97E900C1FE8A /* ServiceHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
