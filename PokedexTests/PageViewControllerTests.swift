@@ -24,85 +24,70 @@ class PageViewControllerTests: XCTestCase {
     }
     
     func test_viewDidLoad_withMoreThanZeroPages_setsInitialViewController() {
-        let pages = [UIViewController()]
+        let pages = makePages(count: 1)
         let sut = makeSUT(pages: pages)
         
         XCTAssertEqual(sut.viewControllers, pages)
     }
     
     func test_viewControllerAfter_selectsNextIndex() {
-        let controller1 = UIViewController()
-        let controller2 = UIViewController()
-        let pages = [controller1, controller2]
+        let pages = makePages(count: 2)
         
         let sut = makeSUT(pages: pages)
-        let controllerAfter = sut.controllerAfter(controller1)
+        let controllerAfter = sut.controllerAfter(pages[0])
         
-        XCTAssertEqual(controllerAfter, controller2)
+        XCTAssertEqual(controllerAfter, pages[1])
     }
     
     func test_viewControllerAfterTwice_selectsSecondNextIndex() {
-        let controller1 = UIViewController()
-        let controller2 = UIViewController()
-        let controller3 = UIViewController()
-        let pages = [controller1, controller2, controller3]
+        let pages = makePages(count: 3)
         
         let sut = makeSUT(pages: pages)
-        let controllerAfter = sut.controllerAfter(controller1)
+        let controllerAfter = sut.controllerAfter(pages[0])
         let secondControllerAfter = sut.controllerAfter(controllerAfter!)
         
-        XCTAssertEqual(secondControllerAfter, controller3)
+        XCTAssertEqual(secondControllerAfter, pages[2])
     }
     
     func test_viewControllerAfter_whenMaxNumberOfPagesReached_selectsToFirstController() {
-        let controller1 = UIViewController()
-        let controller2 = UIViewController()
-        let pages = [controller1, controller2]
+        let pages = makePages(count: 2)
         
         let sut = makeSUT(pages: pages)
-        let controllerAfter: UIViewController? = sut.controllerAfter(controller2)
+        let controllerAfter: UIViewController? = sut.controllerAfter(pages[1])
         
-        XCTAssertEqual(controllerAfter, controller1)
+        XCTAssertEqual(controllerAfter, pages[0])
     }
     
     func test_viewControllerBefore_selectsPreviousIndex() {
-        let controller1 = UIViewController()
-        let controller2 = UIViewController()
-        let pages = [controller1, controller2]
+        let pages = makePages(count: 2)
         
         let sut = makeSUT(pages: pages)
-        let controllerBefore = sut.controllerBefore(controller2)
+        let controllerBefore = sut.controllerBefore(pages[1])
         
-        XCTAssertEqual(controllerBefore, controller1)
+        XCTAssertEqual(controllerBefore, pages[0])
     }
     
     func test_viewControllerBeforeTwice_selectsSecondPreviousIndex() {
-        let controller1 = UIViewController()
-        let controller2 = UIViewController()
-        let controller3 = UIViewController()
-        let pages = [controller1, controller2, controller3]
+        let pages = makePages(count: 3)
         
         let sut = makeSUT(pages: pages)
-        let controllerBefore = sut.controllerBefore(controller3)
+        let controllerBefore = sut.controllerBefore(pages[2])
         let secondControllerBefore = sut.controllerBefore(controllerBefore!)
         
-        XCTAssertEqual(secondControllerBefore, controller1)
+        XCTAssertEqual(secondControllerBefore, pages[0])
     }
     
     func test_viewControllerBefore_whenInFirstPage_selectsLastController() {
-        let controller1 = UIViewController()
-        let controller2 = UIViewController()
-        let pages = [controller1, controller2]
+        let pages = makePages(count: 2)
         
         let sut = makeSUT(pages: pages)
-        let controllerBefore: UIViewController? = sut.controllerBefore(controller1)
+        let controllerBefore: UIViewController? = sut.controllerBefore(pages[0])
         
-        XCTAssertEqual(controllerBefore, controller2)
+        XCTAssertEqual(controllerBefore, pages[1])
     }
     
     func test_presentationCount_setsCorrectNumberOfPages() {
-        let controller1 = UIViewController()
-        let pages = [controller1]
+        let pages = makePages(count: 1)
         
         let sut = makeSUT(pages: pages)
         let presentationCount = sut.dataSource?.presentationCount?(for: sut)
@@ -111,10 +96,7 @@ class PageViewControllerTests: XCTestCase {
     }
     
     func test_presentationIndex_initiatesAtFirstIndex() {
-        let controller1 = UIViewController()
-        let pages = [controller1]
-        
-        let sut = makeSUT(pages: pages)
+        let sut = makeSUT(pages: makePages(count: 1))
         let presentationIndex = sut.dataSource?.presentationIndex!(for: sut)
         
         XCTAssertEqual(presentationIndex, 0)
@@ -126,6 +108,10 @@ class PageViewControllerTests: XCTestCase {
         let sut = PageViewController(pages: pages)
         sut.loadViewIfNeeded()
         return sut
+    }
+    
+    private func makePages(count: Int) -> [UIViewController] {
+        Array(repeating: UIViewController(), count: count)
     }
 }
 

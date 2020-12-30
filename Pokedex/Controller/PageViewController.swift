@@ -56,10 +56,10 @@ extension PageViewController: UIPageViewControllerDataSource {
     }
     
     public func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return pages.count
+        pages.count
     }
     
     public func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return pageControlIndex
+        pageControlIndex
     }
 }
