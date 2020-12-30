@@ -22,6 +22,16 @@ class CachedImageViewTests: XCTestCase {
         XCTAssertEqual(sut.image?.pngData(), image.pngData())
     }
     
+    func test_loadImage_withoutPlaceholder_deliversNoImageOnClientFailure() {
+        let client = HTTPClientSpy()
+        let sut = CachedImageView(httpClient: client)
+        
+        sut.loadImage(urlString: anyURL().absoluteString)
+        client.complete(with: anyNSError())
+        
+        XCTAssertNil(sut.image)
+    }
+    
     // Cover case where Data -> UIImage fails (should display placeholder if there's one, or nothing.
     
     // Cover case where Response is not 200 (should display placeholder if there's one, or nothing.
