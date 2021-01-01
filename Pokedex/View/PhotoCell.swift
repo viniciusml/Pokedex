@@ -19,11 +19,11 @@ class PhotoCell: BaseCell {
         return String(describing: self)
     }
     
-    static var placeholder = UIImage(named: "placeholder")
+    static var placeholder = true
     static var loader = RemoteImageLoader(client: AFHTTPClient())
     
     lazy var photoImageView: CachedImageView = {
-        let photo = CachedImageView(loader: PhotoCell.loader, placeholderImage: PhotoCell.placeholder)
+        let photo = CachedImageView(loader: PhotoCell.loader, placeholderImage: PhotoCell.placeholder ? UIImage(named: "placeholder") : nil)
         return photo
     }()
 

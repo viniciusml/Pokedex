@@ -30,33 +30,27 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_pokemonViewController_withSuccessfulResponse() {
-        disableImagePlaceholder()
         assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
     }
     
     func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() {
-        disableImagePlaceholder()
         assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
     func test_pokemonViewController_withUnsuccessfulResponse() {
-        disableImagePlaceholder()
         assertSnapshot(matching: makePokemonViewController(.offline), as: .image(on: .iPhoneXr))
     }
     
     func test_pokemonViewController_withPlaceholderImage_withSuccessfulResponse() {
-        PhotoCell.placeholder = UIImage(named: "placeholder")
-        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData), placeholder: true), as: .image(on: .iPhoneXr))
     }
     
     func test_pokemonViewController_withPlaceholderImage_withSuccessfulResponse_accessibilityElements() {
-        PhotoCell.placeholder = UIImage(named: "placeholder")
-        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
+        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData), placeholder: true), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
     func test_pokemonViewController_withPlaceholderImage_withUnsuccessfulResponse() {
-        PhotoCell.placeholder = UIImage(named: "placeholder")
-        assertSnapshot(matching: makePokemonViewController(.offline), as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: makePokemonViewController(.offline, placeholder: true), as: .image(on: .iPhoneXr))
     }
     
     // MARK: - Helpers
@@ -69,18 +63,15 @@ class PokedexSnapshotTests: XCTestCase {
         return navigationController
     }
     
-    private func makePokemonViewController(_ state: HTTPClientStub.State) -> NavigationController {
+    private func makePokemonViewController(_ state: HTTPClientStub.State, placeholder: Bool = false) -> NavigationController {
         let client = HTTPClientStub(state)
         let pokemonLoader = RemotePokemonLoader(client: client)
         let viewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: pokemonLoader, urlString: "https://pokeapi.co/api/v2/pokemon/1")
         PhotoCell.loader = RemoteImageLoader(client: client)
+        PhotoCell.placeholder = placeholder
         let navigationController = NavigationController(rootViewController: UIViewController())
         navigationController.pushViewController(viewController, animated: false)
         return navigationController
-    }
-    
-    private func disableImagePlaceholder() {
-        PhotoCell.placeholder = nil
     }
     
     private class HTTPClientStub: HTTPClient {
