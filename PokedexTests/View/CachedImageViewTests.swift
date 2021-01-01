@@ -81,6 +81,21 @@ class CachedImageViewTests: XCTestCase {
         XCTAssertEqual(cachedImage?.pngData(), image.pngData())
     }
     
+    func test_loadImage_withPreviouslyCachedImage_doesNotLoadImageAgain() {
+        let (sut, client) = makeSUT()
+        let (image, data) = UIImage.make(withColor: .red)
+        
+        sut.loadImage(urlString: validURLString)
+        client.complete(withStatusCode: 200, data: data)
+        
+        let cachedImage = CachedImageView.imageCache.object(forKey: validURLString as NSString)?.image
+        XCTAssertEqual(cachedImage?.pngData(), image.pngData())
+        
+        sut.loadImage(urlString: validURLString)
+        XCTAssertEqual(client.requestedURLs.count, 1)
+        XCTAssertEqual(sut.image?.pngData(), image.pngData())
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(placeholderImage: UIImage? = nil) -> (sut: CachedImageView, client: HTTPClientSpy) {
