@@ -65,9 +65,11 @@ class CachedImageViewTests: XCTestCase {
     
     private func makeSUT(placeholderImage: UIImage? = nil) -> (sut: CachedImageView, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = CachedImageView(httpClient: client, placeholderImage: placeholderImage)
+        let loader = RemoteImageLoader(client: client)
+        let sut = CachedImageView(loader: loader, placeholderImage: placeholderImage)
         trackForMemoryLeaks(client)
         trackForMemoryLeaks(sut)
+        trackForMemoryLeaks(loader)
         return (sut, client)
     }
     

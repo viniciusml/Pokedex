@@ -52,13 +52,13 @@ open class CachedImageView: UIImageView {
     private var urlStringForChecking: String?
     private var placeholderImage: UIImage?
     
-    private var httpClient: HTTPClient = AFHTTPClient()
+    private let loader: RemoteImageLoader
 
-    public init(httpClient: HTTPClient = AFHTTPClient(), placeholderImage: UIImage? = nil) {
+    public init(loader: RemoteImageLoader, placeholderImage: UIImage? = nil) {
+        self.loader = loader
         super.init(frame: .zero)
         contentMode = .scaleAspectFill
         clipsToBounds = true
-        self.httpClient = httpClient
         self.placeholderImage = placeholderImage
     }
 
@@ -87,20 +87,12 @@ open class CachedImageView: UIImageView {
             return
         }
         
-        httpClient.get(from: url) { [weak self] result in
+        loader.load(from: url) { [weak self] result in
             guard let self = self else { return }
             
-            if let response = try? result.get() {
-                if let image = UIImage(data: response.0) {
-                    self.image = image
-                }
-            }
-            
             switch result {
-            case let .success((data, _)):
-                if let image = UIImage(data: data) {
-                    self.image = image
-                }
+            case let .success(image):
+                self.image = image
             case .failure:
                 self.image = self.placeholderImage
             }
@@ -126,5 +118,11 @@ open class CachedImageView: UIImageView {
 
             }
         ).resume()
+    }
+}
+
+extension CachedImageView {
+    convenience init() {
+        self.init(loader: RemoteImageLoader(client: AFHTTPClient()))
     }
 }
