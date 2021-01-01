@@ -92,6 +92,8 @@ open class CachedImageView: UIImageView {
             
             switch result {
             case let .success(image):
+                let cacheItem = DiscardableImageCacheItem(image: image)
+                CachedImageView.imageCache.setObject(cacheItem, forKey: urlKey)
                 self.image = image
             case .failure:
                 self.image = self.placeholderImage

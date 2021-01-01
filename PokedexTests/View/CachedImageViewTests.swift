@@ -11,6 +11,18 @@ import XCTest
 
 class CachedImageViewTests: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        
+        clearImageCache()
+    }
+    
+    override func tearDown() {
+        clearImageCache()
+        
+        super.tearDown()
+    }
+    
     func test_loadImage_withPlaceholder_showsPlaceholderOnURLCreationFailure() {
         let placeholderImage = makeImage()
         let (sut, _) = makeSUT(placeholderImage: placeholderImage)
@@ -21,10 +33,11 @@ class CachedImageViewTests: XCTestCase {
     }
     
     func test_loadImage_withoutPlaceholder_doesNotShowImageOnURLCreationFailure() {
-        let (sut, _) = makeSUT()
+        let (sut, client) = makeSUT()
         
         sut.loadImage(urlString: invalidURLString)
         
+        XCTAssertTrue(client.requestedURLs.isEmpty)
         XCTAssertNil(sut.image)
     }
     
@@ -57,9 +70,16 @@ class CachedImageViewTests: XCTestCase {
         XCTAssertNil(sut.image)
     }
     
-    // Cover case where Data -> UIImage fails (should display placeholder if there's one, or nothing.
-    
-    // Cover case where Response is not 200 (should display placeholder if there's one, or nothing.
+    func test_loadImage_withSuccess_savesImageToCache() {
+        let (sut, client) = makeSUT()
+        let (image, data) = UIImage.make(withColor: .red)
+        
+        sut.loadImage(urlString: validURLString)
+        client.complete(withStatusCode: 200, data: data)
+        
+        let cachedImage = CachedImageView.imageCache.object(forKey: validURLString as NSString)?.image
+        XCTAssertEqual(cachedImage?.pngData(), image.pngData())
+    }
     
     // MARK: - Helpers
     
@@ -83,6 +103,10 @@ class CachedImageViewTests: XCTestCase {
     
     private var invalidURLString: String {
         "any invalid url string"
+    }
+    
+    private func clearImageCache() {
+        CachedImageView.imageCache.removeAllObjects()
     }
 }
 
