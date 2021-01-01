@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController()
+        let navigationController = NavigationController()
         
         let httpClient = AFHTTPClient()
         let listLoader = RemoteListLoader(client: httpClient)
@@ -31,24 +31,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 
-        //Set Navigation bar transparent
-        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController.navigationBar.shadowImage = UIImage()
-        navigationController.navigationBar.isTranslucent = true
-        navigationController.navigationBar.barTintColor = .white
-        navigationController.navigationBar.tintColor = .tintColor
+        return true
+    }
+}
 
+public class NavigationController: UINavigationController {
+    
+    public override func viewDidLoad() {
+        
+        configure()
+    }
+    
+    private func configure() {
+        //Set Navigation bar transparent
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.isTranslucent = true
+        navigationBar.barTintColor = .white
+        navigationBar.tintColor = .tintColor
+        
         //Set text from back button transparent
         let barButtonItemAppearance = UIBarButtonItem.appearance()
         barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
         barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .highlighted)
-
+        
         //Set title color and font
-        navigationController.navigationBar.titleTextAttributes = [
+        navigationBar.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont(name: Font.bold, size: 20)!, NSAttributedString.Key.foregroundColor: UIColor.tintColor,
             NSAttributedString.Key.kern: NSNumber(floatLiteral: 1.3),
         ]
-
-        return true
     }
 }

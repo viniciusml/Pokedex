@@ -18,9 +18,12 @@ class PhotoCell: BaseCell {
     static var identifier: String {
         return String(describing: self)
     }
-
-    let photoImageView: CachedImageView = {
-        let photo = CachedImageView()
+    
+    static var placeholder = UIImage(named: "placeholder")
+    static var loader = RemoteImageLoader(client: AFHTTPClient())
+    
+    lazy var photoImageView: CachedImageView = {
+        let photo = CachedImageView(loader: PhotoCell.loader, placeholderImage: PhotoCell.placeholder)
         return photo
     }()
 

@@ -7,7 +7,7 @@
 //
 
 import AccessibilitySnapshot
-import Pokedex
+@testable import Pokedex //TODO: Remove testable
 import SnapshotTesting
 import XCTest
 
@@ -30,31 +30,42 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_pokemonViewController_withSuccessfulResponse() {
+        disableImagePlaceholder()
         assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
     }
     
     func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() {
+        disableImagePlaceholder()
         assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
     func test_pokemonViewController_withUnsuccessfulResponse() {
+        disableImagePlaceholder()
         assertSnapshot(matching: makePokemonViewController(.offline), as: .image(on: .iPhoneXr))
     }
     
     // MARK: - Helpers
     
-    private func makeListViewController(_ state: HTTPClientStub.State) -> ResourceListCollectionViewController {
+    private func makeListViewController(_ state: HTTPClientStub.State) -> NavigationController {
         let client = HTTPClientStub(state)
         let listLoader = RemoteListLoader(client: client)
         let viewController = ResourceListUIComposer.resourceListComposedWith(listLoader: listLoader, selection: { _ in })
-        return viewController
+        let navigationController = NavigationController(rootViewController: viewController)
+        return navigationController
     }
     
-    private func makePokemonViewController(_ state: HTTPClientStub.State) -> PokemonViewController {
+    private func makePokemonViewController(_ state: HTTPClientStub.State) -> NavigationController {
         let client = HTTPClientStub(state)
         let pokemonLoader = RemotePokemonLoader(client: client)
         let viewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: pokemonLoader, urlString: "https://pokeapi.co/api/v2/pokemon/1")
-        return viewController
+        PhotoCell.loader = RemoteImageLoader(client: client)
+        let navigationController = NavigationController(rootViewController: UIViewController())
+        navigationController.pushViewController(viewController, animated: false)
+        return navigationController
+    }
+    
+    private func disableImagePlaceholder() {
+        PhotoCell.placeholder = nil
     }
     
     private class HTTPClientStub: HTTPClient {
