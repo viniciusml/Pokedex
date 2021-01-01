@@ -96,6 +96,19 @@ class CachedImageViewTests: XCTestCase {
         XCTAssertEqual(sut.image?.pngData(), image.pngData())
     }
     
+    func test_loadImage_doesNotCompleteAfterSUTHasBeenDeallocated() {
+        let client = HTTPClientSpy()
+        let loader = RemoteImageLoader(client: client)
+        var sut: CachedImageView? = CachedImageView(loader: loader)
+        let imageData = UIImage.make(withColor: .red).data
+        
+        sut?.loadImage(urlString: validURLString)
+        sut = nil
+        
+        client.complete(withStatusCode: 200, data: imageData)
+        XCTAssertNil(sut?.image)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(placeholderImage: UIImage? = nil) -> (sut: CachedImageView, client: HTTPClientSpy) {

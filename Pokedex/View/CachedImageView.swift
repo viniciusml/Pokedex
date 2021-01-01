@@ -47,13 +47,11 @@ open class DiscardableImageCacheItem: NSObject, NSDiscardableContent {
 /// UIImageView to load and cache images.
 open class CachedImageView: UIImageView {
 
+    private let loader: RemoteImageLoader
     public static let imageCache = NSCache<NSString, DiscardableImageCacheItem>()
-
-    private var urlStringForChecking: String?
+    
     private var placeholderImage: UIImage?
     
-    private let loader: RemoteImageLoader
-
     public init(loader: RemoteImageLoader, placeholderImage: UIImage? = nil) {
         self.loader = loader
         super.init(frame: .zero)
@@ -72,8 +70,6 @@ open class CachedImageView: UIImageView {
 
     open func loadImage(urlString: String) {
         image = nil
-
-        self.urlStringForChecking = urlString
 
         let urlKey = urlString as NSString
 
@@ -99,27 +95,6 @@ open class CachedImageView: UIImageView {
                 self.image = self.placeholderImage
             }
         }
-        
-        URLSession.shared.dataTask(
-            with: url,
-            completionHandler: { [weak self] (data, response, error) in
-                if error != nil {
-                    return
-                }
-
-                DispatchQueue.main.async {
-                    if let image = UIImage(data: data!) {
-                        let cacheItem = DiscardableImageCacheItem(image: image)
-                        CachedImageView.imageCache.setObject(cacheItem, forKey: urlKey)
-
-                        if urlString == self?.urlStringForChecking {
-                            self?.image = image
-                        }
-                    }
-                }
-
-            }
-        ).resume()
     }
 }
 
