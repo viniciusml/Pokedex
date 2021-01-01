@@ -95,6 +95,15 @@ open class CachedImageView: UIImageView {
                     self.image = image
                 }
             }
+            
+            switch result {
+            case let .success((data, _)):
+                if let image = UIImage(data: data) {
+                    self.image = image
+                }
+            case .failure:
+                self.image = self.placeholderImage
+            }
         }
         
         URLSession.shared.dataTask(

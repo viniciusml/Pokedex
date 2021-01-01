@@ -38,6 +38,16 @@ class CachedImageViewTests: XCTestCase {
         XCTAssertEqual(sut.image?.pngData(), image.pngData())
     }
     
+    func test_loadImage_withPlaceholder_showsPlaceholderOnClientFailure() {
+        let placeholderImage = makeImage()
+        let (sut, client) = makeSUT(placeholderImage: placeholderImage)
+        
+        sut.loadImage(urlString: validURLString)
+        client.complete(with: anyNSError())
+        
+        XCTAssertEqual(sut.image, placeholderImage)
+    }
+    
     func test_loadImage_withoutPlaceholder_deliversNoImageOnClientFailure() {
         let (sut, client) = makeSUT()
         
