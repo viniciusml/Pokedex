@@ -69,6 +69,7 @@
 		D8E93432259D3331009AB1C3 /* CachedImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */; };
 		D8F6AE3A259F51C8009AE563 /* ImageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE39259F51C8009AE563 /* ImageMapper.swift */; };
 		D8F6AE40259F52C6009AE563 /* ImageMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE3F259F52C6009AE563 /* ImageMapperTests.swift */; };
+		D8F6AE46259F53E2009AE563 /* RemoteImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE45259F53E2009AE563 /* RemoteImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +173,7 @@
 		D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageViewTests.swift; sourceTree = "<group>"; };
 		D8F6AE39259F51C8009AE563 /* ImageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapper.swift; sourceTree = "<group>"; };
 		D8F6AE3F259F52C6009AE563 /* ImageMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapperTests.swift; sourceTree = "<group>"; };
+		D8F6AE45259F53E2009AE563 /* RemoteImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoader.swift; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -303,6 +305,7 @@
 				8FE2C914242D4F6600CDAD9F /* RemoteLoader.swift */,
 				8FE5A75A25458F3300D1B71A /* RemotePokemonLoader.swift */,
 				8FE5A75F25458FBF00D1B71A /* RemoteListLoader.swift */,
+				D8F6AE45259F53E2009AE563 /* RemoteImageLoader.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F6AE46259F53E2009AE563 /* RemoteImageLoader.swift in Sources */,
 				8F3E966F242C045600DCD62D /* PokemonItem.swift in Sources */,
 				8FE5A75B25458F3300D1B71A /* RemotePokemonLoader.swift in Sources */,
 				8F1304772549FF0A003F3FBC /* RefreshViewController.swift in Sources */,
