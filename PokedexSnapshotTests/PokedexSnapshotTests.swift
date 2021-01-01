@@ -44,6 +44,21 @@ class PokedexSnapshotTests: XCTestCase {
         assertSnapshot(matching: makePokemonViewController(.offline), as: .image(on: .iPhoneXr))
     }
     
+    func test_pokemonViewController_withPlaceholderImage_withSuccessfulResponse() {
+        PhotoCell.placeholder = UIImage(named: "placeholder")
+        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
+    }
+    
+    func test_pokemonViewController_withPlaceholderImage_withSuccessfulResponse_accessibilityElements() {
+        PhotoCell.placeholder = UIImage(named: "placeholder")
+        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
+    }
+    
+    func test_pokemonViewController_withPlaceholderImage_withUnsuccessfulResponse() {
+        PhotoCell.placeholder = UIImage(named: "placeholder")
+        assertSnapshot(matching: makePokemonViewController(.offline), as: .image(on: .iPhoneXr))
+    }
+    
     // MARK: - Helpers
     
     private func makeListViewController(_ state: HTTPClientStub.State) -> NavigationController {
