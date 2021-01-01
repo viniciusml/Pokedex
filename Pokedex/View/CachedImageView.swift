@@ -8,10 +8,10 @@
 
 import UIKit
 
-open class DiscardableImageCacheItem: NSObject, NSDiscardableContent {
+public class DiscardableImageCacheItem: NSObject, NSDiscardableContent {
 
     private(set) public var image: UIImage?
-    var accessCount: UInt = 0
+    private var accessCount: UInt = 0
 
     public init(image: UIImage) {
         self.image = image
@@ -39,13 +39,13 @@ open class DiscardableImageCacheItem: NSObject, NSDiscardableContent {
     }
 
     public func isContentDiscarded() -> Bool {
-        return image == nil
+        image == nil
     }
 
 }
 
 /// UIImageView to load and cache images.
-open class CachedImageView: UIImageView {
+public class CachedImageView: UIImageView {
 
     private let loader: RemoteImageLoader
     public static let imageCache = NSCache<NSString, DiscardableImageCacheItem>()
