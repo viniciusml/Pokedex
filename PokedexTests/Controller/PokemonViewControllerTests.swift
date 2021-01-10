@@ -122,8 +122,7 @@ class PokemonViewControllerTests: XCTestCase {
                                                       url: "https://pokeapi.co/api/v2/type/4/"))])
     }
     
-    // TODO replace #file
-    private func assertThat(_ sut: PokemonViewController, hasViewConfiguredFor item: PokemonItem?, file: StaticString = #file, line: UInt = #line) {
+    private func assertThat(_ sut: PokemonViewController, hasViewConfiguredFor item: PokemonItem?, file: StaticString = #filePath, line: UInt = #line) {
         
         XCTAssertEqual(sut.pokemonName, item?.formattedName, "Expected name text to be \(String(describing: item?.name)) for label", file: file, line: line)
         XCTAssertEqual(sut.pokemonID, item?.formattedID, "Expected id text to be \(String(describing: item?.id)) for label", file: file, line: line)
@@ -135,7 +134,7 @@ class PokemonViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.pokemonAbilities, item?.formattedAbilities, "Expected abilities text to be \(String(describing: item?.formattedAbilities)) for label", file: file, line: line)
     }
     
-    private func assertThat(_ sut: PokemonViewController, hasImagesRenderededFor item: PokemonItem?, file: StaticString = #file, line: UInt = #line) {
+    private func assertThat(_ sut: PokemonViewController, hasImagesRenderededFor item: PokemonItem?, file: StaticString = #filePath, line: UInt = #line) {
         
         XCTAssertEqual(sut.photoCount, item?.photoCount, "Expected image count to be \(String(describing: item?.availableImagesURLString.count)).", file: file, line: line)
     }

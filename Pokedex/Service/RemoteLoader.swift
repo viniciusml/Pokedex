@@ -30,14 +30,20 @@ public class RemoteLoader<Resource> {
         client.get(from: url) { [weak self] result in
             guard let self = self else { return }
             switch result {
-                case .success((let data, let response)) where response.isOK:
+            case .success((let data, let response)) where response.isOK:
+                guaranteeMainThread {
                     completion(self.map(data))
-                    
-                case .success:
-                    completion(.failure(Error.invalidData))
-                    
-                case .failure:
-                    completion(.failure(Error.connectivity))
+                }
+                
+            case .success:
+                guaranteeMainThread {
+                    completion(.failure(.invalidData))
+                }
+                
+            case .failure:
+                guaranteeMainThread {
+                    completion(.failure(.connectivity))
+                }
             }
         }
     }
@@ -46,7 +52,15 @@ public class RemoteLoader<Resource> {
         do {
             return .success(try mapper(data))
         } catch {
-            return .failure(Error.invalidData)
+            return .failure(.invalidData)
         }
+    }
+}
+
+fileprivate func guaranteeMainThread(_ work: @escaping () -> Void) {
+    if Thread.isMainThread {
+        work()
+    } else {
+        DispatchQueue.main.async(execute: work)
     }
 }
