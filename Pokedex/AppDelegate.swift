@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = NavigationController()
         
-        let httpClient = AFHTTPClient()
+        let httpClient = HTTPClientMainQueueDecorator(AFHTTPClient())
         let listLoader = RemoteListLoader(client: httpClient)
         let imageLoader = RemoteImageLoader(client: httpClient)
         
