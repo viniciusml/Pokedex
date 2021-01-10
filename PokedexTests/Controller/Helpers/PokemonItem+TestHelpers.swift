@@ -33,4 +33,20 @@ extension PokemonItem {
     var formattedAbilities: String {
         abilities.map { $0.ability.name }.joined(separator: ", ").capitalized
     }
+    
+    var availableImagesURLString: [String] {
+        [sprites.frontDefault,
+         sprites.frontFemale,
+         sprites.frontShiny,
+         sprites.frontShinyFemale,
+         sprites.backDefault,
+         sprites.backFemale,
+         sprites.backShiny,
+         sprites.backShinyFemale]
+            .compactMap { $0 }
+    }
+    
+    var photoCount: Int {
+        availableImagesURLString.count
+    }
 }

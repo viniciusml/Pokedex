@@ -12,10 +12,8 @@ import Foundation
 /// Network Client (Alamofire) abstraction to structure Network Adapter's methods and handle response cases.
 ///
 public class AFHTTPClient: HTTPClient {
-    let session: Session
-    let queue = DispatchQueue.main
-    // TODO - Dispatch to queue
-        //DispatchQueue(label: "com.pokedex", qos: .utility, attributes: .concurrent)
+    private let session: Session
+    private let queue = DispatchQueue(label: "com.pokedex", qos: .utility, attributes: .concurrent)
     
     public init(sessionConfiguration: URLSessionConfiguration = .default) {
         self.session = Session(configuration: sessionConfiguration)

@@ -41,10 +41,6 @@ class PokemonMainView: UIView {
 
     let infoCard = PokemonInfoView()
 
-    let photoCarousel = PhotoCarousel()
-
-    let photoIndicator = PhotoIndicator()
-
     // MARK: - Initializer
 
     override init(frame: CGRect) {
@@ -81,21 +77,14 @@ class PokemonMainView: UIView {
             top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
             size: CGSize(width: 0, height: self.frame.height / 2))
 
-        setupPhotoCarousel()
-        
         backgroundColor = .gray
     }
 
-    private func setupPhotoCarousel() {
+    func setupPhotoCarousel(_ photoCarousel: UIView) {
 
         addSubview(photoCarousel)
         photoCarousel.anchor(
             top: nil, leading: nil, bottom: infoCard.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0), size: CGSize(width: 230, height: 230))
         photoCarousel.centerXInSuperview()
-
-        addSubview(photoIndicator)
-        photoIndicator.anchor(
-            top: photoCarousel.bottomAnchor, leading: self.leadingAnchor, bottom: nil, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 131, bottom: 0, right: 131),
-            size: CGSize(width: 0, height: 28))
     }
 }

@@ -16,38 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController()
+        let navigationController = NavigationController()
         
-        let httpClient = AFHTTPClient()
+        let httpClient = HTTPClientMainQueueDecorator(AFHTTPClient())
         let listLoader = RemoteListLoader(client: httpClient)
+        let imageLoader = RemoteImageLoader(client: httpClient)
+        
         let listViewController = ResourceListUIComposer.resourceListComposedWith(
             listLoader: listLoader, selection: { pokemonURLString in
                 let loader = RemotePokemonLoader(client: httpClient)
-                let pokemonViewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, urlString: pokemonURLString)
+                let pokemonViewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, imageLoader: imageLoader, urlString: pokemonURLString)
                 navigationController.pushViewController(pokemonViewController, animated: true)
             })
         navigationController.setViewControllers([listViewController], animated: false)
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-
-        //Set Navigation bar transparent
-        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController.navigationBar.shadowImage = UIImage()
-        navigationController.navigationBar.isTranslucent = true
-        navigationController.navigationBar.barTintColor = .white
-        navigationController.navigationBar.tintColor = .tintColor
-
-        //Set text from back button transparent
-        let barButtonItemAppearance = UIBarButtonItem.appearance()
-        barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
-        barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .highlighted)
-
-        //Set title color and font
-        navigationController.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont(name: Font.bold, size: 20)!, NSAttributedString.Key.foregroundColor: UIColor.tintColor,
-            NSAttributedString.Key.kern: NSNumber(floatLiteral: 1.3),
-        ]
 
         return true
     }

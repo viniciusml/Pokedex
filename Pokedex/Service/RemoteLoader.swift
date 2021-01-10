@@ -30,14 +30,14 @@ public class RemoteLoader<Resource> {
         client.get(from: url) { [weak self] result in
             guard let self = self else { return }
             switch result {
-                case .success((let data, let response)) where response.isOK:
-                    completion(self.map(data))
-                    
-                case .success:
-                    completion(.failure(Error.invalidData))
-                    
-                case .failure:
-                    completion(.failure(Error.connectivity))
+            case .success((let data, let response)) where response.isOK:
+                completion(self.map(data))
+                
+            case .success:
+                completion(.failure(.invalidData))
+                
+            case .failure:
+                completion(.failure(.connectivity))
             }
         }
     }
@@ -46,7 +46,7 @@ public class RemoteLoader<Resource> {
         do {
             return .success(try mapper(data))
         } catch {
-            return .failure(Error.invalidData)
+            return .failure(.invalidData)
         }
     }
 }

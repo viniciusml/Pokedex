@@ -8,10 +8,10 @@
 
 import UIKit
 
-open class DiscardableImageCacheItem: NSObject, NSDiscardableContent {
+public class DiscardableImageCacheItem: NSObject, NSDiscardableContent {
 
     private(set) public var image: UIImage?
-    var accessCount: UInt = 0
+    private var accessCount: UInt = 0
 
     public init(image: UIImage) {
         self.image = image
@@ -39,30 +39,26 @@ open class DiscardableImageCacheItem: NSObject, NSDiscardableContent {
     }
 
     public func isContentDiscarded() -> Bool {
-        return image == nil
+        image == nil
     }
 
 }
 
 /// UIImageView to load and cache images.
-open class CachedImageView: UIImageView {
+public class CachedImageView: UIImageView {
 
+    private let loader: RemoteImageLoader
     public static let imageCache = NSCache<NSString, DiscardableImageCacheItem>()
-
-    open var shouldUseEmptyImage = true
-
-    private var urlStringForChecking: String?
-    private var emptyImage: UIImage?
-
-    public convenience init() {
-        self.init(emptyImage: nil)
-    }
-
-    public init(emptyImage: UIImage? = nil) {
+    
+    private var placeholderImageName: String
+    private lazy var placeholderImage: UIImage? = UIImage(named: placeholderImageName)
+    
+    public init(loader: RemoteImageLoader, placeholderImageName: String = "") {
+        self.loader = loader
+        self.placeholderImageName = placeholderImageName
         super.init(frame: .zero)
         contentMode = .scaleAspectFill
         clipsToBounds = true
-        self.emptyImage = emptyImage
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -76,8 +72,6 @@ open class CachedImageView: UIImageView {
     open func loadImage(urlString: String) {
         image = nil
 
-        self.urlStringForChecking = urlString
-
         let urlKey = urlString as NSString
 
         if let cachedItem = CachedImageView.imageCache.object(forKey: urlKey) {
@@ -86,30 +80,27 @@ open class CachedImageView: UIImageView {
         }
 
         guard let url = URL(string: urlString) else {
-            if shouldUseEmptyImage {
-                image = emptyImage
-            }
+            image = placeholderImage
             return
         }
-        URLSession.shared.dataTask(
-            with: url,
-            completionHandler: { [weak self] (data, response, error) in
-                if error != nil {
-                    return
-                }
-
-                DispatchQueue.main.async {
-                    if let image = UIImage(data: data!) {
-                        let cacheItem = DiscardableImageCacheItem(image: image)
-                        CachedImageView.imageCache.setObject(cacheItem, forKey: urlKey)
-
-                        if urlString == self?.urlStringForChecking {
-                            self?.image = image
-                        }
-                    }
-                }
-
+        
+        loader.load(from: url) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case let .success(image):
+                let cacheItem = DiscardableImageCacheItem(image: image)
+                CachedImageView.imageCache.setObject(cacheItem, forKey: urlKey)
+                self.image = image
+            case .failure:
+                self.image = self.placeholderImage
             }
-        ).resume()
+        }
+    }
+}
+
+extension CachedImageView {
+    convenience init() {
+        self.init(loader: RemoteImageLoader(client: AFHTTPClient()))
     }
 }

@@ -12,9 +12,19 @@ import SnapshotTesting
 import XCTest
 
 class PokedexSnapshotTests: XCTestCase {
+    
+    override func setUp() {
+        super.setUp()
+        cleanImageViewCache()
+    }
+    
+    override func tearDown() {
+        cleanImageViewCache()
+        super.tearDown()
+    }
 
     func test_listViewController_withSuccessfulResponse() {
-        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: makeListViewController(.online([.listData])), as: .image(on: .iPhoneXr))
     }
     
     func test_listViewController_withUnsuccessfulResponse() {
@@ -25,16 +35,22 @@ class PokedexSnapshotTests: XCTestCase {
         assertSnapshot(matching: makeListViewController(.loading), as: .image(on: .iPhoneXr))
     }
     
-    func test_listViewController_whileWaitingResponse_accessibilityElements() {
+    func test_listViewController_whileWaitingResponse_accessibilityElements() throws {
+        try XCTSkipIf(UIDevice.isIphone12Pro, "Skipped on CI")
         assertSnapshot(matching: makeListViewController(.loading), as: .accessibilityImage)
     }
     
     func test_pokemonViewController_withSuccessfulResponse() {
-        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonImageData])), as: .image(on: .iPhoneXr))
     }
     
-    func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() {
-        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
+    func test_pokemonViewController_withImagePlaceholder_withSuccessfulResponse() {
+        assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonInvalidImageData])), as: .image(on: .iPhoneXr))
+    }
+    
+    func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() throws {
+        try XCTSkipIf(UIDevice.isIphone12Pro, "Skipped on CI")
+        assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonImageData])), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
     func test_pokemonViewController_withUnsuccessfulResponse() {
@@ -43,23 +59,34 @@ class PokedexSnapshotTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeListViewController(_ state: HTTPClientStub.State) -> ResourceListCollectionViewController {
+    private func makeListViewController(_ state: HTTPClientStub.State) -> NavigationController {
         let client = HTTPClientStub(state)
         let listLoader = RemoteListLoader(client: client)
         let viewController = ResourceListUIComposer.resourceListComposedWith(listLoader: listLoader, selection: { _ in })
-        return viewController
+        let navigationController = NavigationController(rootViewController: viewController)
+        return navigationController
     }
     
-    private func makePokemonViewController(_ state: HTTPClientStub.State) -> PokemonViewController {
+    private func makePokemonViewController(_ state: HTTPClientStub.State, placeholder: Bool = false) -> NavigationController {
         let client = HTTPClientStub(state)
         let pokemonLoader = RemotePokemonLoader(client: client)
-        let viewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: pokemonLoader, urlString: "https://pokeapi.co/api/v2/pokemon/1")
-        return viewController
+        let imageLoader = RemoteImageLoader(client: client)
+        let viewController = PokemonUIComposer.pokemonComposedWith(
+            pokemonLoader: pokemonLoader,
+            imageLoader: imageLoader,
+            urlString: "https://pokeapi.co/api/v2/pokemon/1")
+        let navigationController = NavigationController(rootViewController: UIViewController())
+        navigationController.pushViewController(viewController, animated: false)
+        return navigationController
+    }
+    
+    private func cleanImageViewCache() {
+        CachedImageView.imageCache.removeAllObjects()
     }
     
     private class HTTPClientStub: HTTPClient {
         enum State {
-            case online(Data), offline, loading
+            case online([Data]), offline, loading
         }
         
         let state: State
@@ -71,7 +98,7 @@ class PokedexSnapshotTests: XCTestCase {
         func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
             switch state {
             case let .online(data):
-                completion(.success((data, makeResponse())))
+                data.forEach { completion(.success(($0, makeResponse()))) }
             case .offline:
                 completion(.failure(anyNSError()))
             case .loading:
@@ -154,5 +181,27 @@ fileprivate extension Data {
         ].compactMapValues { $0 }
         
         return try! JSONSerialization.data(withJSONObject: json)
+    }
+    
+    static var pokemonImageData: Data {
+        UIImage.makeImageData()
+    }
+    
+    static var pokemonInvalidImageData: Data {
+        Data("any data".utf8)
+    }
+}
+
+extension UIDevice {
+    static var isIphone12Pro: Bool {
+        modelIdentifier() == "iPhone13,3" // iPhone 12 Pro model identifier
+    }
+    
+    // https://www.theiphonewiki.com/wiki/Models
+    private static func modelIdentifier() -> String {
+        if let simulatorModelIdentifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulatorModelIdentifier }
+        var sysinfo = utsname()
+        uname(&sysinfo) // ignore return value
+        return String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)!.trimmingCharacters(in: .controlCharacters)
     }
 }
