@@ -7,7 +7,7 @@
 //
 
 import AccessibilitySnapshot
-@testable import Pokedex //TODO: Remove testable
+import Pokedex
 import SnapshotTesting
 import XCTest
 
@@ -35,7 +35,8 @@ class PokedexSnapshotTests: XCTestCase {
         assertSnapshot(matching: makeListViewController(.loading), as: .image(on: .iPhoneXr))
     }
     
-    func test_listViewController_whileWaitingResponse_accessibilityElements() {
+    func test_listViewController_whileWaitingResponse_accessibilityElements() throws {
+        try XCTSkipIf(UIDevice.isIphone12Pro, "Skipped on CI")
         assertSnapshot(matching: makeListViewController(.loading), as: .accessibilityImage)
     }
     
@@ -47,7 +48,8 @@ class PokedexSnapshotTests: XCTestCase {
         assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonInvalidImageData])), as: .image(on: .iPhoneXr))
     }
     
-    func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() {
+    func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() throws {
+        try XCTSkipIf(UIDevice.isIphone12Pro, "Skipped on CI")
         assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonImageData])), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
@@ -187,5 +189,19 @@ fileprivate extension Data {
     
     static var pokemonInvalidImageData: Data {
         Data("any data".utf8)
+    }
+}
+
+extension UIDevice {
+    static var isIphone12Pro: Bool {
+        modelIdentifier() == "iPhone13,3" // iPhone 12 Pro model identifier
+    }
+    
+    // https://www.theiphonewiki.com/wiki/Models
+    private static func modelIdentifier() -> String {
+        if let simulatorModelIdentifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulatorModelIdentifier }
+        var sysinfo = utsname()
+        uname(&sysinfo) // ignore return value
+        return String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)!.trimmingCharacters(in: .controlCharacters)
     }
 }
