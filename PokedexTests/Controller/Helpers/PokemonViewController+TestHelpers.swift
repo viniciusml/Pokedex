@@ -37,4 +37,16 @@ extension PokemonViewController {
     var pokemonStats: String? {
         card.statsValueLabel.text
     }
+    
+    var photosContainer: PageViewController {
+        photoCarousel
+    }
+    
+    var photoPages: [UIViewController]? {
+        photoCarousel.pages
+    }
+    
+    var photoCount: Int? {
+        photoPages?.count
+    }
 }

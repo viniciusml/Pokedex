@@ -15,6 +15,11 @@ public class PokemonViewController: UIViewController {
     let viewModel: PokemonViewModel
     
     let mainView = PokemonMainView()
+    
+    let photoCarousel = PageViewController()
+    var imageControllers = [PokemonImageViewController]() {
+        didSet { renderImages() }
+    }
 
     // MARK: - Initializer
 
@@ -34,8 +39,14 @@ public class PokemonViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureCarousel()
         observeViewModel()
         viewModel.fetchPokemon()
+    }
+    
+    func configureCarousel() {
+        addChild(photoCarousel)
+        mainView.setupPhotoCarousel(photoCarousel.view)
     }
     
     private func observeViewModel() {
@@ -48,7 +59,7 @@ public class PokemonViewController: UIViewController {
         }
     }
     
-    func renderUI(with viewModel: PokemonViewModel) {
+    private func renderUI(with viewModel: PokemonViewModel) {
         mainView.pokemonNameLabel.text = viewModel.name
         mainView.idLabel.text = viewModel.id
         mainView.idLabel.accessibilityLabel = "Id: \(viewModel.id?.replacingOccurrences(of: "#", with: "") ?? "")"
@@ -59,5 +70,9 @@ public class PokemonViewController: UIViewController {
         
         mainView.infoCard.statsValueLabel.text = viewModel.stats
         mainView.infoCard.abilitiesValueLabel.text = viewModel.abilities
+    }
+    
+    private func renderImages() {
+        photoCarousel.setPages(imageControllers)
     }
 }

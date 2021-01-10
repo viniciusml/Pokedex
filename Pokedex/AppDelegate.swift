@@ -20,10 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let httpClient = AFHTTPClient()
         let listLoader = RemoteListLoader(client: httpClient)
+        let imageLoader = RemoteImageLoader(client: httpClient)
+        
         let listViewController = ResourceListUIComposer.resourceListComposedWith(
             listLoader: listLoader, selection: { pokemonURLString in
                 let loader = RemotePokemonLoader(client: httpClient)
-                let pokemonViewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, urlString: pokemonURLString)
+                let pokemonViewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, imageLoader: imageLoader, urlString: pokemonURLString)
                 navigationController.pushViewController(pokemonViewController, animated: true)
             })
         navigationController.setViewControllers([listViewController], animated: false)

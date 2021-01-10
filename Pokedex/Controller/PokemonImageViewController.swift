@@ -10,18 +10,24 @@ import UIKit
 
 class PokemonImageViewController: UIViewController {
     
-    private let photoImageView: CachedImageView = {
-        let photo = CachedImageView()
-        return photo
-    }()
+    private let photoImageView: CachedImageView
+    let imageURLString: String
+    
+    init(imageURLString: String, photoImageView: CachedImageView = CachedImageView()) {
+        self.imageURLString = imageURLString
+        self.photoImageView = photoImageView
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         
         view.addSubview(photoImageView)
         photoImageView.fillSuperview()
-    }
-    
-    public func loadImage(from urlString: String) {
-        photoImageView.loadImage(urlString: urlString)
+        
+        photoImageView.loadImage(urlString: imageURLString)
     }
 }

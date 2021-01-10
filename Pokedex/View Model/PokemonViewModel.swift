@@ -17,14 +17,8 @@ public class PokemonViewModel {
     private var fetchedPokemon: PokemonItem?
     
     var onFetchCompleted: ((PokemonViewModel) -> Void)?
+    var onImageCheckCompleted: (([String]) -> Void)?
     var onFetchFailed: (() -> Void)?
-
-    var imagesAvailable = [String]() {
-        didSet {
-            // Post notification for 'PhotoCarousel' and 'PhotoIndicator'
-            NotificationCenter.default.post(name: .saveImagesUrlAvailable, object: self)
-        }
-    }
 
     // MARK: - Initializer
 
@@ -41,7 +35,7 @@ public class PokemonViewModel {
             
             switch result {
                 case .success(let pokemon):
-                    self.imagesAvailable = self.checkForAvailableImages(pokemon.sprites)
+                    self.mapAvailableImages(from: pokemon.sprites)
                     self.fetchedPokemon = pokemon
                     self.onFetchCompleted?(self)
                 case .failure:
@@ -52,16 +46,18 @@ public class PokemonViewModel {
         }
     }
     
-    private func checkForAvailableImages(_ sprite: Sprites) -> [String] {
-        [sprite.frontDefault,
-         sprite.frontFemale,
-         sprite.frontShiny,
-         sprite.frontShinyFemale,
-         sprite.backDefault,
-         sprite.backFemale,
-         sprite.backShiny,
-         sprite.backShinyFemale]
-            .compactMap { $0 }
+    private func mapAvailableImages(from sprite: Sprites) {
+        let availableImages = [sprite.frontDefault,
+                               sprite.frontFemale,
+                               sprite.frontShiny,
+                               sprite.frontShinyFemale,
+                               sprite.backDefault,
+                               sprite.backFemale,
+                               sprite.backShiny,
+                               sprite.backShinyFemale]
+                                .compactMap { $0 }
+        
+        onImageCheckCompleted?(availableImages)
     }
 }
 

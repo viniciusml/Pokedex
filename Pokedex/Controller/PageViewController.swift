@@ -10,7 +10,7 @@ import UIKit
 
 public class PageViewController: UIPageViewController {
     
-    private var pages: [UIViewController] = []
+    private(set) var pages: [UIViewController] = []
     private var pageControlIndex = 0
     
     public convenience init(pages: [UIViewController]) {
@@ -19,10 +19,17 @@ public class PageViewController: UIPageViewController {
     }
     
     public override func viewDidLoad() {
-        super.viewDidLoad()
         
         dataSource = self
-        
+        updateFirstPage(from: pages)
+    }
+    
+    public func setPages(_ pages: [UIViewController]) {
+        self.pages = pages
+        updateFirstPage(from: pages)
+    }
+    
+    private func updateFirstPage(from pages: [UIViewController]) {
         if let firstPage = pages.first {
             setViewControllers([firstPage], direction: .forward, animated: true)
         }
