@@ -16,7 +16,7 @@ public class PokemonViewController: UIViewController {
     
     let mainView = PokemonMainView()
     
-    let photoCarousel = PageViewController()
+    let photoCarousel = PageViewController(transitionStyle: .scroll)
     var imageControllers = [PokemonImageViewController]() {
         didSet { renderImages() }
     }

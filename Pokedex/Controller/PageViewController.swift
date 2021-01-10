@@ -13,8 +13,8 @@ public class PageViewController: UIPageViewController {
     private(set) var pages: [UIViewController] = []
     private var pageControlIndex = 0
     
-    public convenience init(pages: [UIViewController]) {
-        self.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    public convenience init(transitionStyle: UIPageViewController.TransitionStyle, pages: [UIViewController] = []) {
+        self.init(transitionStyle: transitionStyle, navigationOrientation: .horizontal, options: nil)
         self.pages = pages
     }
     
