@@ -105,7 +105,7 @@ class PageViewControllerTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT(pages: [UIViewController] = []) -> PageViewController {
-        let sut = PageViewController(pages: pages)
+        let sut = PageViewController(transitionStyle: .scroll, pages: pages)
         sut.loadViewIfNeeded()
         return sut
     }

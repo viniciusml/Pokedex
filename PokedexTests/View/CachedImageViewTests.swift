@@ -24,12 +24,12 @@ class CachedImageViewTests: XCTestCase {
     }
     
     func test_loadImage_withPlaceholder_showsPlaceholderOnURLCreationFailure() {
-        let placeholderImage = makeImage()
-        let (sut, _) = makeSUT(placeholderImage: placeholderImage)
+        let placeholderImage = makePlaceholderImage()
+        let (sut, _) = makeSUT(placeholderImageName: placeholderImage.name)
         
         sut.loadImage(urlString: invalidURLString)
         
-        XCTAssertEqual(sut.image, placeholderImage)
+        XCTAssertEqual(sut.image?.pngData()!, placeholderImage.image.pngData()!)
     }
     
     func test_loadImage_withoutPlaceholder_doesNotShowImageOnURLCreationFailure() {
@@ -52,13 +52,13 @@ class CachedImageViewTests: XCTestCase {
     }
     
     func test_loadImage_withPlaceholder_showsPlaceholderOnClientFailure() {
-        let placeholderImage = makeImage()
-        let (sut, client) = makeSUT(placeholderImage: placeholderImage)
+        let placeholderImage = makePlaceholderImage()
+        let (sut, client) = makeSUT(placeholderImageName: placeholderImage.name)
         
         sut.loadImage(urlString: validURLString)
         client.complete(with: anyNSError())
         
-        XCTAssertEqual(sut.image, placeholderImage)
+        XCTAssertEqual(sut.image?.pngData()!, placeholderImage.image.pngData()!)
     }
     
     func test_loadImage_withoutPlaceholder_deliversNoImageOnClientFailure() {
@@ -111,18 +111,18 @@ class CachedImageViewTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(placeholderImage: UIImage? = nil) -> (sut: CachedImageView, client: HTTPClientSpy) {
+    private func makeSUT(placeholderImageName: String = "") -> (sut: CachedImageView, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let loader = RemoteImageLoader(client: client)
-        let sut = CachedImageView(loader: loader, placeholderImage: placeholderImage)
+        let sut = CachedImageView(loader: loader, placeholderImageName: placeholderImageName)
         trackForMemoryLeaks(client)
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(loader)
         return (sut, client)
     }
     
-    private func makeImage() -> UIImage {
-        UIImage.make(withColor: .black).image
+    private func makePlaceholderImage() -> (name: String, image: UIImage) {
+        ("placeholder", MockImage(imageName: "placeholder")!)
     }
     
     private var validURLString: String {
@@ -135,5 +135,11 @@ class CachedImageViewTests: XCTestCase {
     
     private func clearImageCache() {
         CachedImageView.imageCache.removeAllObjects()
+    }
+}
+
+private class MockImage: UIImage {
+    convenience init?(imageName: String) {
+        self.init(cgImage: UIImage(named: imageName)!.cgImage!)
     }
 }
