@@ -71,6 +71,7 @@
 		D8F6AE40259F52C6009AE563 /* ImageMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE3F259F52C6009AE563 /* ImageMapperTests.swift */; };
 		D8F6AE46259F53E2009AE563 /* RemoteImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE45259F53E2009AE563 /* RemoteImageLoader.swift */; };
 		D8F6AE4C259F7962009AE563 /* PokemonImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE4B259F7962009AE563 /* PokemonImageViewController.swift */; };
+		D8F6AE5C259F9BB5009AE563 /* RemoteImageLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE5B259F9BB5009AE563 /* RemoteImageLoaderSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,6 +177,7 @@
 		D8F6AE3F259F52C6009AE563 /* ImageMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMapperTests.swift; sourceTree = "<group>"; };
 		D8F6AE45259F53E2009AE563 /* RemoteImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoader.swift; sourceTree = "<group>"; };
 		D8F6AE4B259F7962009AE563 /* PokemonImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonImageViewController.swift; sourceTree = "<group>"; };
+		D8F6AE5B259F9BB5009AE563 /* RemoteImageLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoaderSpy.swift; sourceTree = "<group>"; };
 		F28C1B225C97A5B54B2ABDD5 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -448,6 +450,7 @@
 				D83D67FA257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift */,
 				D83D680A257ECC4A0017F31C /* PokemonItem+TestHelpers.swift */,
 				D83D6805257EC1CE0017F31C /* PokemonViewController+TestHelpers.swift */,
+				D8F6AE5B259F9BB5009AE563 /* RemoteImageLoaderSpy.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -817,6 +820,7 @@
 				D83D680B257ECC4A0017F31C /* PokemonItem+TestHelpers.swift in Sources */,
 				D83D67FB257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift in Sources */,
 				D8F6AE40259F52C6009AE563 /* ImageMapperTests.swift in Sources */,
+				D8F6AE5C259F9BB5009AE563 /* RemoteImageLoaderSpy.swift in Sources */,
 				8FE5A73E254462C100D1B71A /* ListItemMapperTests.swift in Sources */,
 				D8E9342B259D260F009AB1C3 /* PageViewControllerTests.swift in Sources */,
 				8FE5A7392544608D00D1B71A /* SharedTestHelpers.swift in Sources */,
