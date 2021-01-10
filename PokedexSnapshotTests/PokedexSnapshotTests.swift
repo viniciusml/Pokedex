@@ -14,7 +14,7 @@ import XCTest
 class PokedexSnapshotTests: XCTestCase {
 
     func test_listViewController_withSuccessfulResponse() {
-        assertSnapshot(matching: makeListViewController(.online(.listData)), as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: makeListViewController(.online([.listData])), as: .image(on: .iPhoneXr))
     }
     
     func test_listViewController_withUnsuccessfulResponse() {
@@ -30,27 +30,19 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_pokemonViewController_withSuccessfulResponse() {
-        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .image(on: .iPhoneXr))
+        assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonImageData])), as: .image(on: .iPhoneXr))
+    }
+    
+    func test_pokemonViewController_withImagePlaceholder_withSuccessfulResponse() {
+        assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonInvalidImageData])), as: .image(on: .iPhoneXr))
     }
     
     func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() {
-        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData)), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
+        assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonImageData])), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
     func test_pokemonViewController_withUnsuccessfulResponse() {
         assertSnapshot(matching: makePokemonViewController(.offline), as: .image(on: .iPhoneXr))
-    }
-    
-    func test_pokemonViewController_withPlaceholderImage_withSuccessfulResponse() {
-        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData), placeholder: true), as: .image(on: .iPhoneXr))
-    }
-    
-    func test_pokemonViewController_withPlaceholderImage_withSuccessfulResponse_accessibilityElements() {
-        assertSnapshot(matching: makePokemonViewController(.online(.pokemonData), placeholder: true), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
-    }
-    
-    func test_pokemonViewController_withPlaceholderImage_withUnsuccessfulResponse() {
-        assertSnapshot(matching: makePokemonViewController(.offline, placeholder: true), as: .image(on: .iPhoneXr))
     }
     
     // MARK: - Helpers
@@ -66,9 +58,11 @@ class PokedexSnapshotTests: XCTestCase {
     private func makePokemonViewController(_ state: HTTPClientStub.State, placeholder: Bool = false) -> NavigationController {
         let client = HTTPClientStub(state)
         let pokemonLoader = RemotePokemonLoader(client: client)
-        let viewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: pokemonLoader, urlString: "https://pokeapi.co/api/v2/pokemon/1")
-        PhotoCell.loader = RemoteImageLoader(client: client)
-        PhotoCell.placeholder = placeholder
+        let imageLoader = RemoteImageLoader(client: client)
+        let viewController = PokemonUIComposer.pokemonComposedWith(
+            pokemonLoader: pokemonLoader,
+            imageLoader: imageLoader,
+            urlString: "https://pokeapi.co/api/v2/pokemon/1")
         let navigationController = NavigationController(rootViewController: UIViewController())
         navigationController.pushViewController(viewController, animated: false)
         return navigationController
@@ -76,7 +70,7 @@ class PokedexSnapshotTests: XCTestCase {
     
     private class HTTPClientStub: HTTPClient {
         enum State {
-            case online(Data), offline, loading
+            case online([Data]), offline, loading
         }
         
         let state: State
@@ -88,7 +82,7 @@ class PokedexSnapshotTests: XCTestCase {
         func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
             switch state {
             case let .online(data):
-                completion(.success((data, makeResponse())))
+                data.forEach { completion(.success(($0, makeResponse()))) }
             case .offline:
                 completion(.failure(anyNSError()))
             case .loading:
@@ -171,5 +165,13 @@ fileprivate extension Data {
         ].compactMapValues { $0 }
         
         return try! JSONSerialization.data(withJSONObject: json)
+    }
+    
+    static var pokemonImageData: Data {
+        UIImage.makeImageData()
+    }
+    
+    static var pokemonInvalidImageData: Data {
+        Data("any data".utf8)
     }
 }

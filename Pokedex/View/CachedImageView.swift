@@ -50,14 +50,15 @@ public class CachedImageView: UIImageView {
     private let loader: RemoteImageLoader
     public static let imageCache = NSCache<NSString, DiscardableImageCacheItem>()
     
-    private var placeholderImage: UIImage?
+    private var placeholderImageName: String
+    private lazy var placeholderImage: UIImage? = UIImage(named: placeholderImageName)
     
-    public init(loader: RemoteImageLoader, placeholderImage: UIImage? = nil) {
+    public init(loader: RemoteImageLoader, placeholderImageName: String = "") {
         self.loader = loader
+        self.placeholderImageName = placeholderImageName
         super.init(frame: .zero)
         contentMode = .scaleAspectFill
         clipsToBounds = true
-        self.placeholderImage = placeholderImage
     }
 
     required public init?(coder aDecoder: NSCoder) {

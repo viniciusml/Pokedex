@@ -25,9 +25,17 @@ class PokemonImageViewController: UIViewController {
     
     override func viewDidLoad() {
         
+        photoImageView.configureAccessibility()
         view.addSubview(photoImageView)
         photoImageView.fillSuperview()
         
         photoImageView.loadImage(urlString: imageURLString)
+    }
+}
+
+private extension CachedImageView {
+    func configureAccessibility() {
+        isAccessibilityElement = true
+        accessibilityLabel = "Pokémon sprite"
     }
 }

@@ -24,6 +24,11 @@ public class PageViewController: UIPageViewController {
         updateFirstPage(from: pages)
     }
     
+    override public func viewDidLayoutSubviews() {
+        
+        repositionPageControl()
+    }
+    
     public func setPages(_ pages: [UIViewController]) {
         self.pages = pages
         updateFirstPage(from: pages)
@@ -32,6 +37,20 @@ public class PageViewController: UIPageViewController {
     private func updateFirstPage(from pages: [UIViewController]) {
         if let firstPage = pages.first {
             setViewControllers([firstPage], direction: .forward, animated: true)
+        }
+    }
+    
+    private func repositionPageControl() {
+        for subView in view.subviews {
+            // Change page control 'y' position
+            if subView is UIPageControl {
+                subView.frame.origin.y = self.view.frame.size.height - 50
+                
+                if let pageControl = subView as? UIPageControl {
+                    pageControl.pageIndicatorTintColor = .gray
+                    pageControl.currentPageIndicatorTintColor = .black
+                }
+            }
         }
     }
 }

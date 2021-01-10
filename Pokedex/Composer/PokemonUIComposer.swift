@@ -19,9 +19,15 @@ public final class PokemonUIComposer {
     }
     
     private static func adaptURLStringToImageControllers(forwardingTo controller: PokemonViewController, using loader: RemoteImageLoader) -> ([String]) -> Void {
-        return { [weak controller, weak loader] urlStrings in
-            guard let loader = loader else { return }
-            controller?.imageControllers = urlStrings.map { PokemonImageViewController(imageURLString: $0, photoImageView: CachedImageView(loader: loader)) }
+        return { [weak controller, loader] urlStrings in
+            controller?.imageControllers = urlStrings.map {
+                PokemonImageViewController(imageURLString: $0, photoImageView: CachedImageView(loader: loader, placeholderImageName: .placeholder)) }
         }
+    }
+}
+
+private extension String {
+    static var placeholder: String {
+        "placeholder"
     }
 }
