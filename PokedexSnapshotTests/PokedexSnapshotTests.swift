@@ -12,6 +12,16 @@ import SnapshotTesting
 import XCTest
 
 class PokedexSnapshotTests: XCTestCase {
+    
+    override func setUp() {
+        super.setUp()
+        cleanImageViewCache()
+    }
+    
+    override func tearDown() {
+        cleanImageViewCache()
+        super.tearDown()
+    }
 
     func test_listViewController_withSuccessfulResponse() {
         assertSnapshot(matching: makeListViewController(.online([.listData])), as: .image(on: .iPhoneXr))
@@ -66,6 +76,10 @@ class PokedexSnapshotTests: XCTestCase {
         let navigationController = NavigationController(rootViewController: UIViewController())
         navigationController.pushViewController(viewController, animated: false)
         return navigationController
+    }
+    
+    private func cleanImageViewCache() {
+        CachedImageView.imageCache.removeAllObjects()
     }
     
     private class HTTPClientStub: HTTPClient {
