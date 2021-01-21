@@ -6,6 +6,6 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import Foundation
+import PokemonDomain
 
 public typealias ListItemMapper = ResourceMapper<ListItem>

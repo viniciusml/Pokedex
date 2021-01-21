@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PokemonDomain
 
 public final class ListViewModel {
     typealias Observer<T> = (T) -> Void

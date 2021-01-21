@@ -112,8 +112,8 @@ public struct Sprites: Decodable, Equatable {
 
 // MARK: - Stat
 public struct Stat: Decodable, Equatable {
-    let baseStat, effort: Int
-    let stat: Species
+    public let baseStat, effort: Int
+    public let stat: Species
 
     public init(baseStat: Int, effort: Int, stat: Species) {
         self.baseStat = baseStat
@@ -129,8 +129,8 @@ public struct Stat: Decodable, Equatable {
 
 // MARK: - TypeElement
 public struct TypeElement: Decodable, Equatable {
-    let slot: Int
-    let type: Species
+    public let slot: Int
+    public let type: Species
 
     public init(slot: Int, type: Species) {
         self.slot = slot

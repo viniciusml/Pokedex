@@ -8,6 +8,7 @@
 
 import XCTest
 import Pokedex
+import PokemonDomain
 import ViewControllerPresentationSpy
 
 class ResourceListCollectionViewControllerTests: XCTestCase {

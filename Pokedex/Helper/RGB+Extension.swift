@@ -6,6 +6,7 @@
 //  Copyright © 2021 Vinicius Moreira Leal. All rights reserved.
 //
 
+import PokemonDomain
 import UIKit
 
 extension RGB {

@@ -8,6 +8,7 @@
 
 import Foundation
 @testable import Pokedex
+import PokemonDomain
 
 class RemoteListLoaderSpy: RemoteListLoader {
     private var completions = [(RemoteLoader<ListItem>.Result) -> Void]()

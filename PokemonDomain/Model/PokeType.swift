@@ -8,11 +8,11 @@
 
 import UIKit
 
-struct RGB {
-    let red: Float
-    let green: Float
-    let blue: Float
-    let alpha: Float
+public struct RGB {
+    public let red: Float
+    public let green: Float
+    public let blue: Float
+    public let alpha: Float
 }
 
 /// Enum representing possible Pokémon Types returned by the API, and a color according to each case.
@@ -38,7 +38,7 @@ public enum PokeType: Int {
     case unkown = 10001
     case shadow = 10002
 
-    var rgbColor: RGB {
+    public var rgbColor: RGB {
         switch self {
         case .normal: return RGB(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.667)
         case .fighting: return RGB(red: 1.0, green: 0.5, blue: 0.0, alpha: 1.0)

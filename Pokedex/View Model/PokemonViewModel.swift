@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PokemonDomain
 
 public class PokemonViewModel {
 

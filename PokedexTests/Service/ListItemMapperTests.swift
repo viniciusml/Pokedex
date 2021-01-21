@@ -8,6 +8,7 @@
 
 import XCTest
 import Pokedex
+import PokemonDomain
 
 class ListItemMapperTests: XCTestCase {
     

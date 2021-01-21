@@ -8,6 +8,7 @@
 
 import UIKit
 @testable import Pokedex
+import PokemonDomain
 
 extension PokemonItem {
     var formattedName: String {
