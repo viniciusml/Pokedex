@@ -6,7 +6,7 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public class PokemonViewModel {
 
@@ -74,9 +74,8 @@ extension PokemonViewModel {
         fetchedPokemon?.types.first?.type.name.capitalized
     }
     
-    // TODO: Remove UIKit
-    var backgroundColor: UIColor? {
-        fetchedPokemon?.types.first?.typeID()?.rgbColor.toUIColor
+    var backgroundColor: RGB? {
+        fetchedPokemon?.types.first?.typeID()?.rgbColor
     }
     
     var stats: String? {
