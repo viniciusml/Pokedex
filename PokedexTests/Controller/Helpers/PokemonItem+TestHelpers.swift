@@ -23,7 +23,7 @@ extension PokemonItem {
     }
     
     var backgroundColor: UIColor? {
-        types.first?.typeID()?.color
+        types.first?.typeID()?.rgbColor.toUIColor
     }
     
     var formattedStats: String {

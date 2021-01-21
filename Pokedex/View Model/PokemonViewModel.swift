@@ -76,7 +76,7 @@ extension PokemonViewModel {
     
     // TODO: Remove UIKit
     var backgroundColor: UIColor? {
-        fetchedPokemon?.types.first?.typeID()?.color
+        fetchedPokemon?.types.first?.typeID()?.rgbColor.toUIColor
     }
     
     var stats: String? {

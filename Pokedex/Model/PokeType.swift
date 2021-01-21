@@ -8,6 +8,13 @@
 
 import UIKit
 
+struct RGB {
+    let red: Float
+    let green: Float
+    let blue: Float
+    let alpha: Float
+}
+
 /// Enum representing possible Pokémon Types returned by the API, and a color according to each case.
 public enum PokeType: Int {
     case normal = 1
@@ -31,28 +38,28 @@ public enum PokeType: Int {
     case unkown = 10001
     case shadow = 10002
 
-    var color: UIColor {
+    var rgbColor: RGB {
         switch self {
-        case .normal: return .lightGray
-        case .fighting: return .orange
-        case .flying: return .lightGray
-        case .poison: return .darkGray
-        case .ground: return .brown
-        case .rock: return .brown
-        case .bug: return .green
-        case .ghost: return .purple
-        case .steel: return .darkGray
-        case .fire: return .red
-        case .water: return .blue
-        case .grass: return .green
-        case .electric: return .orange
-        case .psychic: return .purple
-        case .ice: return .cyan
-        case .dragon: return .orange
-        case .dark: return .darkGray
-        case .fairy: return .magenta
-        case .unkown: return .cellColor
-        case .shadow: return .white
+        case .normal: return RGB(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.667)
+        case .fighting: return RGB(red: 1.0, green: 0.5, blue: 0.0, alpha: 1.0)
+        case .flying: return RGB(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.667)
+        case .poison: return RGB(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.333)
+        case .ground: return RGB(red: 0.6, green: 0.4, blue: 0.2, alpha: 1.0)
+        case .rock: return RGB(red: 0.6, green: 0.4, blue: 0.2, alpha: 1.0)
+        case .bug: return RGB(red: 0.0, green: 0.1, blue: 0.0, alpha: 1.0)
+        case .ghost: return RGB(red: 0.5, green: 0.0, blue: 0.5, alpha: 1.0)
+        case .steel: return RGB(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.333)
+        case .fire: return RGB(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        case .water: return RGB(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
+        case .grass: return RGB(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+        case .electric: return RGB(red: 1.0, green: 0.5, blue: 0.0, alpha: 1.0)
+        case .psychic: return RGB(red: 0.5, green: 0.0, blue: 0.5, alpha: 1.0)
+        case .ice: return RGB(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        case .dragon: return RGB(red: 1.0, green: 0.5, blue: 0.0, alpha: 1.0)
+        case .dark: return RGB(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.333)
+        case .fairy: return RGB(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0)
+        case .unkown: return RGB(red: 0.07, green: 0.00, blue: 0.13, alpha: 1.0)
+        case .shadow: return RGB(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         }
     }
 }
