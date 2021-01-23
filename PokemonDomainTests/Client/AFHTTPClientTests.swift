@@ -6,8 +6,8 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
+import PokemonDomain
 import XCTest
-import Pokedex
 
 class AFHTTPClientTests: XCTestCase {
     

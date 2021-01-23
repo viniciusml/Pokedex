@@ -5,8 +5,14 @@ target 'Pokedex' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Pokedex
-  pod 'Alamofire', '~> 5.0'
+  target 'PokemonDomain' do
+    inherit! :search_paths
+  end
+  
+  target 'PokemonDomainTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
 
   target 'PokedexTests' do
     inherit! :search_paths

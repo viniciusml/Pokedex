@@ -98,9 +98,3 @@ public class CachedImageView: UIImageView {
         }
     }
 }
-
-extension CachedImageView {
-    convenience init() {
-        self.init(loader: RemoteImageLoader(client: AFHTTPClient()))
-    }
-}

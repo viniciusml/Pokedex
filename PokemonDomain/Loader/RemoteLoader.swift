@@ -9,7 +9,7 @@
 import Foundation
 
 /// Network Service.
-public class RemoteLoader<Resource> {
+open class RemoteLoader<Resource> {
     private let client: HTTPClient
     private let mapper: Mapper
     
@@ -26,7 +26,7 @@ public class RemoteLoader<Resource> {
         self.mapper = mapper
     }
     
-    public func load(from url: URL, completion: @escaping (Result) -> Void) {
+    open func load(from url: URL, completion: @escaping (Result) -> Void) {
         client.get(from: url) { [weak self] result in
             guard let self = self else { return }
             switch result {

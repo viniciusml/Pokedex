@@ -7,6 +7,7 @@
 //
 
 import Pokedex
+import PokemonDomain
 import XCTest
 
 class CachedImageViewTests: XCTestCase {

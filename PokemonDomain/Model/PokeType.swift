@@ -6,7 +6,7 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public struct RGB {
     public let red: Float

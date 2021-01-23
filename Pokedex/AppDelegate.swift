@@ -6,6 +6,7 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
+import PokemonDomain
 import UIKit
 
 @UIApplicationMain

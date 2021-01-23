@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Pokedex
 import PokemonDomain
 
 class PokemonItemMapperTests: XCTestCase {

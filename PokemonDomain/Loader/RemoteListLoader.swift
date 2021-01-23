@@ -6,8 +6,6 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import PokemonDomain
-
 public typealias RemoteListLoader = RemoteLoader<ListItem>
 
 extension RemoteListLoader {

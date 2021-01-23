@@ -7,8 +7,8 @@
 //
 
 import Foundation
-@testable import Pokedex
-import PokemonDomain
+import Pokedex
+@testable import PokemonDomain
 
 class RemotePokemonLoaderSpy: RemotePokemonLoader {
     private var messages = [(url: URL, completion: (RemoteLoader<PokemonItem>.Result) -> Void)]()

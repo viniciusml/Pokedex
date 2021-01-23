@@ -8,6 +8,7 @@
 
 import AccessibilitySnapshot
 import Pokedex
+import PokemonDomain
 import SnapshotTesting
 import XCTest
 

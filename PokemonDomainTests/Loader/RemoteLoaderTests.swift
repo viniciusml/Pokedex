@@ -6,7 +6,7 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import Pokedex
+import PokemonDomain
 import XCTest
 
 class RemoteLoaderTests: XCTestCase {
