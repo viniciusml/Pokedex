@@ -58,6 +58,7 @@
 		D834915825BE04FB00E13A9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D834915725BE04FB00E13A9F /* Assets.xcassets */; };
 		D834915C25BE04FB00E13A9F /* PokeWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D834914E25BE04FB00E13A9F /* PokeWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D834916925BE07CF00E13A9F /* ChosenPokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834916825BE07CF00E13A9F /* ChosenPokemon.swift */; };
+		D834917225BE10DF00E13A9F /* RemoteChosenPokemonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834917125BE10DF00E13A9F /* RemoteChosenPokemonLoader.swift */; };
 		D837B823257D71A400E9A2A2 /* ResourceListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */; };
 		D837B82B257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */; };
 		D83D67F6257EA42C0017F31C /* PokemonViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D67F5257EA42C0017F31C /* PokemonViewControllerTests.swift */; };
@@ -210,6 +211,7 @@
 		D834915725BE04FB00E13A9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D834915925BE04FB00E13A9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D834916825BE07CF00E13A9F /* ChosenPokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenPokemon.swift; sourceTree = "<group>"; };
+		D834917125BE10DF00E13A9F /* RemoteChosenPokemonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteChosenPokemonLoader.swift; sourceTree = "<group>"; };
 		D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceListUIComposer.swift; sourceTree = "<group>"; };
 		D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListLoaderSpy.swift; sourceTree = "<group>"; };
 		D83D67F5257EA42C0017F31C /* PokemonViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewControllerTests.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				D834915725BE04FB00E13A9F /* Assets.xcassets */,
 				D834915925BE04FB00E13A9F /* Info.plist */,
 				D834916825BE07CF00E13A9F /* ChosenPokemon.swift */,
+				D834917125BE10DF00E13A9F /* RemoteChosenPokemonLoader.swift */,
 			);
 			path = PokeWidget;
 			sourceTree = "<group>";
@@ -946,6 +949,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D834915625BE04FB00E13A9F /* PokeWidget.swift in Sources */,
+				D834917225BE10DF00E13A9F /* RemoteChosenPokemonLoader.swift in Sources */,
 				D834916925BE07CF00E13A9F /* ChosenPokemon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
