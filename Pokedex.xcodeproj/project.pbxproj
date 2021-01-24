@@ -50,6 +50,8 @@
 		D83490C725BCD48100E13A9F /* TrackMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */; };
 		D83490F325BCD6CD00E13A9F /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83490F225BCD6CD00E13A9F /* HTTPClientSpy.swift */; };
 		D834910825BCD85D00E13A9F /* AccessibilitySnapshot in Frameworks */ = {isa = PBXBuildFile; productRef = D834910725BCD85D00E13A9F /* AccessibilitySnapshot */; };
+		D834912F25BE00F100E13A9F /* ViewControllerPresentationSpy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D834912E25BE00F100E13A9F /* ViewControllerPresentationSpy.framework */; platformFilter = ios; settings = {ATTRIBUTES = (Required, ); }; };
+		D834913D25BE01AC00E13A9F /* ViewControllerPresentationSpy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D834912E25BE00F100E13A9F /* ViewControllerPresentationSpy.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D837B823257D71A400E9A2A2 /* ResourceListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */; };
 		D837B82B257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */; };
 		D83D67F6257EA42C0017F31C /* PokemonViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D67F5257EA42C0017F31C /* PokemonViewControllerTests.swift */; };
@@ -116,6 +118,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D834913C25BE019B00E13A9F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				D834913D25BE01AC00E13A9F /* ViewControllerPresentationSpy.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		8F1304762549FF0A003F3FBC /* RefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshViewController.swift; sourceTree = "<group>"; };
 		8F13047B254A0202003F3FBC /* ResourceListCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceListCellController.swift; sourceTree = "<group>"; };
@@ -163,6 +178,7 @@
 		8FE5A75F25458FBF00D1B71A /* RemoteListLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListLoader.swift; sourceTree = "<group>"; };
 		8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFHTTPClientTests.swift; sourceTree = "<group>"; };
 		D83490F225BCD6CD00E13A9F /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
+		D834912E25BE00F100E13A9F /* ViewControllerPresentationSpy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ViewControllerPresentationSpy.framework; sourceTree = "<group>"; };
 		D837B822257D71A400E9A2A2 /* ResourceListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceListUIComposer.swift; sourceTree = "<group>"; };
 		D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListLoaderSpy.swift; sourceTree = "<group>"; };
 		D83D67F5257EA42C0017F31C /* PokemonViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewControllerTests.swift; sourceTree = "<group>"; };
@@ -205,6 +221,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D834912F25BE00F100E13A9F /* ViewControllerPresentationSpy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +262,7 @@
 		8F3E963D242BF6ED00DCD62D = {
 			isa = PBXGroup;
 			children = (
+				D834912E25BE00F100E13A9F /* ViewControllerPresentationSpy.framework */,
 				8F3E9648242BF6ED00DCD62D /* Pokedex */,
 				8F3E965F242BF6F200DCD62D /* PokedexTests */,
 				8F7B09DF2430A54A003377F0 /* PokedexEndToEndTests */,
@@ -567,6 +585,7 @@
 				8F3E9658242BF6F200DCD62D /* Sources */,
 				8F3E9659242BF6F200DCD62D /* Frameworks */,
 				8F3E965A242BF6F200DCD62D /* Resources */,
+				D834913C25BE019B00E13A9F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1078,6 +1097,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3SNY4A7B39;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PokedexTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1103,6 +1126,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3SNY4A7B39;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PokedexTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (

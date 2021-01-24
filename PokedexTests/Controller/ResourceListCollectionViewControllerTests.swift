@@ -9,7 +9,7 @@
 import XCTest
 import Pokedex
 import PokemonDomain
-//import ViewControllerPresentationSpy // TODO: SPM?
+import ViewControllerPresentationSpy
 
 class ResourceListCollectionViewControllerTests: XCTestCase {
 
