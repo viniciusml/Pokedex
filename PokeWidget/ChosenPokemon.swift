@@ -12,3 +12,9 @@ struct ChosenPokemon {
     let totalPokemonNumber: Int
     let name: String
 }
+
+extension ChosenPokemon {
+    static var placeholder: ChosenPokemon {
+        ChosenPokemon(totalPokemonNumber: 1, name: "A Pokémon")
+    }
+}

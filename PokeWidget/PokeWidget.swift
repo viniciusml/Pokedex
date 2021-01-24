@@ -10,23 +10,23 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
+    func placeholder(in context: Context) -> PokemonEntry {
+        PokemonEntry(date: Date(), pokemon: .placeholder)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date())
+    func getSnapshot(in context: Context, completion: @escaping (PokemonEntry) -> ()) {
+        let entry = PokemonEntry(date: Date(), pokemon: .placeholder)
         completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
+    func getTimeline(in context: Context, completion: @escaping (Timeline<PokemonEntry>) -> ()) {
+        var entries: [PokemonEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate)
+            let entry = PokemonEntry(date: entryDate, pokemon: .placeholder)
             entries.append(entry)
         }
 
@@ -35,15 +35,19 @@ struct Provider: TimelineProvider {
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct PokemonEntry: TimelineEntry {
     let date: Date
+    let pokemon: ChosenPokemon
 }
 
 struct PokeWidgetEntryView : View {
     var entry: Provider.Entry
-
+    
     var body: some View {
-        Text(entry.date, style: .time)
+        VStack {
+            Text(entry.date, style: .time)
+            Text(entry.pokemon.name)
+        }
     }
 }
 
@@ -62,7 +66,7 @@ struct PokeWidget: Widget {
 
 struct PokeWidget_Previews: PreviewProvider {
     static var previews: some View {
-        PokeWidgetEntryView(entry: SimpleEntry(date: Date()))
+        PokeWidgetEntryView(entry: PokemonEntry(date: Date(), pokemon: .placeholder))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
