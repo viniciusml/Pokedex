@@ -9,7 +9,7 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: TimelineProvider {
+struct PokemonProvider: TimelineProvider {
     func placeholder(in context: Context) -> PokemonEntry {
         PokemonEntry(date: Date(), pokemon: .placeholder)
     }
@@ -41,7 +41,7 @@ struct PokemonEntry: TimelineEntry {
 }
 
 struct PokeWidgetEntryView : View {
-    var entry: Provider.Entry
+    var entry: PokemonProvider.Entry
     
     var body: some View {
         VStack {
@@ -56,7 +56,7 @@ struct PokeWidget: Widget {
     let kind: String = "PokeWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: PokemonProvider()) { entry in
             PokeWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("What's that Pokémon")
