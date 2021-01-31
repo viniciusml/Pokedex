@@ -8,6 +8,13 @@
 
 import WidgetKit
 import SwiftUI
+import PokeWidgetEngine
+
+extension ChosenPokemon {
+    static var placeholder: ChosenPokemon {
+        ChosenPokemon(id: 1, name: "A Pokémon")
+    }
+}
 
 struct PokemonProvider: TimelineProvider {
     func placeholder(in context: Context) -> PokemonEntry {
