@@ -24,7 +24,7 @@ class RemoteListLoaderSpy: RemoteListLoader {
         completions[index](.success(list))
     }
     
-    func completeListLoadingWithError(at index: Int) {
+    func completeListLoadingWithError(at index: Int = 0) {
         completions[index](.failure(.connectivity))
     }
 }

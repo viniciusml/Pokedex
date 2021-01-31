@@ -33,7 +33,8 @@ public struct RemoteChosenPokemonLoader {
                     case let .failure(error): break
                     }
                 }
-            case let .failure(error): break
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }

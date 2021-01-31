@@ -36,6 +36,29 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
         XCTAssertEqual(try expectedResult?.get(), ChosenPokemon(id: 2, name: "bulbasaur"))
     }
     
+    func test_load_failsUponListLoadingFailure() {
+        let client = HTTPClientMock()
+        let listLoader = RemoteListLoaderSpy(client: client)
+        let pokemonLoader = RemotePokemonLoaderSpy(client: client)
+        let idProvider = IDProviderStub(withStubbedID: 1)
+        let sut = RemoteChosenPokemonLoader(
+            listLoader: listLoader,
+            pokemonLoader: pokemonLoader,
+            idProvider: idProvider)
+        
+        let exp = expectation(description: "wait for result")
+        var expectedResult: Result<ChosenPokemon, Error>?
+        sut.load { receivedResult in
+            expectedResult = receivedResult
+            exp.fulfill()
+        }
+        
+        listLoader.completeListLoadingWithError()
+        
+        wait(for: [exp], timeout: 0.1)
+        XCTAssertEqual(expectedResult?.error as? RemoteLoader<ListItem>.Error, .connectivity)
+    }
+    
     // MARK: Helpers
     
     private struct IDProviderStub: IDProvider {
@@ -53,3 +76,12 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
     }
 }
 
+private extension Result {
+    var error: Failure? {
+        switch self {
+        case let .failure(error):
+            return error
+        case .success: return nil
+        }
+    }
+}
