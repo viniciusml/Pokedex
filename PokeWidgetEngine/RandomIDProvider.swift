@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class RandomIDProvider {
+public enum RandomIDProvider {
     
     public static func generateID(from min: Int, to max: Int) -> Int {
         Int.random(in: min...max)
