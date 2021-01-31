@@ -11,79 +11,71 @@ import PokeWidgetEngine
 import XCTest
 
 class RemoteChosenPokemonLoaderTests: XCTestCase {
+    var client: HTTPClient!
+    var listLoader: RemoteListLoaderSpy!
+    var pokemonLoader: RemotePokemonLoaderSpy!
+    
+    override func setUp() {
+        super.setUp()
+        
+        client = HTTPClientMock()
+        listLoader = RemoteListLoaderSpy(client: client)
+        pokemonLoader = RemotePokemonLoaderSpy(client: client)
+    }
     
     func test_load_producesCombinedSuccessfulResult() {
-        let client = HTTPClientMock()
-        let listLoader = RemoteListLoaderSpy(client: client)
-        let pokemonLoader = RemotePokemonLoaderSpy(client: client)
-        let idProvider = IDProviderStub(withStubbedID: 1)
-        let sut = RemoteChosenPokemonLoader(
-            listLoader: listLoader,
-            pokemonLoader: pokemonLoader,
-            idProvider: idProvider)
+        let sut = makeSUT()
         
-        let exp = expectation(description: "wait for result")
-        var expectedResult: Result<ChosenPokemon, Error>?
-        sut.load { receivedResult in
-            expectedResult = receivedResult
-            exp.fulfill()
-        }
+        let expectedResult = getResult(sut, when: {
+            listLoader.completeListLoading(with: makeList(count: 20))
+            pokemonLoader.completeItemLoading(with: makeItem(id: 2))
+        })
         
-        listLoader.completeListLoading(with: makeList(count: 20))
-        pokemonLoader.completeItemLoading(with: makeItem(id: 2))
-        
-        wait(for: [exp], timeout: 0.1)
         XCTAssertEqual(try expectedResult?.get(), ChosenPokemon(id: 2, name: "bulbasaur"))
     }
     
     func test_load_failsUponListLoadingFailure() {
-        let client = HTTPClientMock()
-        let listLoader = RemoteListLoaderSpy(client: client)
-        let pokemonLoader = RemotePokemonLoaderSpy(client: client)
-        let idProvider = IDProviderStub(withStubbedID: 1)
-        let sut = RemoteChosenPokemonLoader(
-            listLoader: listLoader,
-            pokemonLoader: pokemonLoader,
-            idProvider: idProvider)
+        let sut = makeSUT()
         
-        let exp = expectation(description: "wait for result")
-        var expectedResult: Result<ChosenPokemon, Error>?
-        sut.load { receivedResult in
-            expectedResult = receivedResult
-            exp.fulfill()
-        }
+        let expectedResult = getResult(sut, when: {
+            listLoader.completeListLoadingWithError()
+        })
         
-        listLoader.completeListLoadingWithError()
-        
-        wait(for: [exp], timeout: 0.1)
         XCTAssertEqual(expectedResult?.error as? RemoteLoader<ListItem>.Error, .connectivity)
     }
     
     func test_load_failsUponPokemonLoadingFailure() {
-        let client = HTTPClientMock()
-        let listLoader = RemoteListLoaderSpy(client: client)
-        let pokemonLoader = RemotePokemonLoaderSpy(client: client)
-        let idProvider = IDProviderStub(withStubbedID: 1)
-        let sut = RemoteChosenPokemonLoader(
-            listLoader: listLoader,
-            pokemonLoader: pokemonLoader,
-            idProvider: idProvider)
+        let sut = makeSUT()
         
-        let exp = expectation(description: "wait for result")
-        var expectedResult: Result<ChosenPokemon, Error>?
-        sut.load { receivedResult in
-            expectedResult = receivedResult
-            exp.fulfill()
-        }
+        let expectedResult = getResult(sut, when: {
+            listLoader.completeListLoading(with: makeList(count: 20))
+            pokemonLoader.completeItemLoadingWithError()
+        })
         
-        listLoader.completeListLoading(with: makeList(count: 20))
-        pokemonLoader.completeItemLoadingWithError()
-        
-        wait(for: [exp], timeout: 0.1)
         XCTAssertEqual(expectedResult?.error as? RemoteLoader<PokemonItem>.Error, .connectivity)
     }
     
     // MARK: Helpers
+    
+    private func makeSUT(withGeneratedID id: Int = 1) -> RemoteChosenPokemonLoader {
+        let idProvider = IDProviderStub(withStubbedID: 1)
+        return RemoteChosenPokemonLoader(
+            listLoader: listLoader,
+            pokemonLoader: pokemonLoader,
+            idProvider: idProvider)
+    }
+    
+    private func getResult(_ sut: RemoteChosenPokemonLoader, when action: () -> Void) -> RemoteChosenPokemonLoader.Result? {
+        let exp = expectation(description: "wait for result")
+        var result: Result<ChosenPokemon, Error>?
+        sut.load {
+            result = $0
+            exp.fulfill()
+        }
+        action()
+        wait(for: [exp], timeout: 0.1)
+        return result
+    }
     
     private struct IDProviderStub: IDProvider {
         let stubbedID: Int

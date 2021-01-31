@@ -10,6 +10,8 @@ import Foundation
 import PokemonDomain
 
 public struct RemoteChosenPokemonLoader {
+    public typealias Result = Swift.Result<ChosenPokemon, Error>
+    
     let listLoader: RemoteListLoader
     let pokemonLoader: RemotePokemonLoader
     let idProvider: IDProvider
@@ -20,7 +22,7 @@ public struct RemoteChosenPokemonLoader {
         self.idProvider = idProvider
     }
     
-    public func load(completion: @escaping (Result<ChosenPokemon, Error>) -> Void) {
+    public func load(completion: @escaping (Result) -> Void) {
         listLoader.load(from: .list) { listResult in
             switch listResult {
             case let .success(list):
