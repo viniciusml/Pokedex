@@ -8,9 +8,11 @@
 
 import Foundation
 
-public enum RandomIDProvider {
+public struct RandomIDProvider: IDProvider {
     
-    public static func generateID(from min: Int, to max: Int) -> Int {
+    public init() {}
+    
+    public func generateID(from min: Int, to max: Int) -> Int {
         Int.random(in: min...max)
     }
 }
