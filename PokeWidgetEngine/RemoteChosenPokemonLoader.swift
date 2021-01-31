@@ -30,7 +30,8 @@ public struct RemoteChosenPokemonLoader {
                     switch pokemonResult {
                     case let .success(pokemon):
                         completion(.success(pokemon.chosen))
-                    case let .failure(error): break
+                    case let .failure(error):
+                        completion(.failure(error))
                     }
                 }
             case let .failure(error):

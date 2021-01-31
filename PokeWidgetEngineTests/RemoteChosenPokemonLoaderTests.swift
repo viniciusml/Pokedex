@@ -59,6 +59,30 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
         XCTAssertEqual(expectedResult?.error as? RemoteLoader<ListItem>.Error, .connectivity)
     }
     
+    func test_load_failsUponPokemonLoadingFailure() {
+        let client = HTTPClientMock()
+        let listLoader = RemoteListLoaderSpy(client: client)
+        let pokemonLoader = RemotePokemonLoaderSpy(client: client)
+        let idProvider = IDProviderStub(withStubbedID: 1)
+        let sut = RemoteChosenPokemonLoader(
+            listLoader: listLoader,
+            pokemonLoader: pokemonLoader,
+            idProvider: idProvider)
+        
+        let exp = expectation(description: "wait for result")
+        var expectedResult: Result<ChosenPokemon, Error>?
+        sut.load { receivedResult in
+            expectedResult = receivedResult
+            exp.fulfill()
+        }
+        
+        listLoader.completeListLoading(with: makeList(count: 20))
+        pokemonLoader.completeItemLoadingWithError()
+        
+        wait(for: [exp], timeout: 0.1)
+        XCTAssertEqual(expectedResult?.error as? RemoteLoader<PokemonItem>.Error, .connectivity)
+    }
+    
     // MARK: Helpers
     
     private struct IDProviderStub: IDProvider {

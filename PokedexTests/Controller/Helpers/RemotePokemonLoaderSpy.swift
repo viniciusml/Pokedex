@@ -28,7 +28,7 @@ class RemotePokemonLoaderSpy: RemotePokemonLoader {
         messages[index].completion(.success(pokemon))
     }
     
-    func completeItemLoadingWithError(at index: Int) {
+    func completeItemLoadingWithError(at index: Int = 0) {
         messages[index].completion(.failure(.connectivity))
     }
 }
