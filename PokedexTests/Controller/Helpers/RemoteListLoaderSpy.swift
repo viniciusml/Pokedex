@@ -7,7 +7,6 @@
 //
 
 import Foundation
-@testable import Pokedex
 import PokemonDomain
 
 class RemoteListLoaderSpy: RemoteListLoader {
