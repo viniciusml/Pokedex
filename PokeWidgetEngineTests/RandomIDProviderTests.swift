@@ -14,7 +14,7 @@ class RandomIDProviderTests: XCTestCase {
     func test_generatesIDFromRange() {
         let range = makeRange(min: 1, max: 10)
         
-        (0...100).forEach { _ in
+        repeatFor(100) {
             let generatedID = generateID(from: range)
             XCTAssertTrue(range.contains(generatedID), "range does not contain expected generated ID: \(generatedID)")
         }
@@ -25,12 +25,12 @@ class RandomIDProviderTests: XCTestCase {
         var firstTimeGeneratedIDs = [Int]()
         var secondTimeGeneratedIDs = [Int]()
         
-        (0...10).forEach { _ in
+        repeatFor(10) {
             let generatedID = generateID(from: range)
             firstTimeGeneratedIDs.append(generatedID)
         }
         
-        (0...10).forEach { _ in
+        repeatFor(10) {
             let generatedID = generateID(from: range)
             secondTimeGeneratedIDs.append(generatedID)
         }
@@ -46,5 +46,9 @@ class RandomIDProviderTests: XCTestCase {
     
     private func makeRange(min: Int, max: Int) -> ClosedRange<Int> {
         (min...max)
+    }
+    
+    private func repeatFor(_ count: Int, action: () -> Void) {
+        (0...count).forEach { _ in action() }
     }
 }
