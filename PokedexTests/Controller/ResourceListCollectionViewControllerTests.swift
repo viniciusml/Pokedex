@@ -142,27 +142,27 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(receivedPokemonURL, "http://pokemon.com")
     }
     
-//    func test_loadActionFailure_displaysErrorAlertOnMainThread() {
-//        let (sut, loader) = makeSUT()
-//        let alertVerifier = AlertVerifier()
-//        
-//        let exp = expectation(description: "Wait for alert presentation")
-//        alertVerifier.testCompletion = { exp.fulfill() }
-//        
-//        sut.loadViewIfNeeded()
-//        loader.completeListLoadingWithError(at: 0)
-//        
-//        waitForExpectations(timeout: 0.0001)
-//        
-//        alertVerifier.verify(
-//            title: "Alert",
-//            message: "An error ocurred. Please try again",
-//            animated: true,
-//            actions: [
-//                .default("OK")],
-//            presentingViewController: sut
-//        )
-//    }
+    func test_loadActionFailure_displaysErrorAlertOnMainThread() {
+        let (sut, loader) = makeSUT()
+        let alertVerifier = AlertVerifier()
+        
+        let exp = expectation(description: "Wait for alert presentation")
+        alertVerifier.testCompletion = { exp.fulfill() }
+        
+        sut.loadViewIfNeeded()
+        loader.completeListLoadingWithError(at: 0)
+        
+        waitForExpectations(timeout: 0.0001)
+        
+        alertVerifier.verify(
+            title: "Alert",
+            message: "An error ocurred. Please try again",
+            animated: true,
+            actions: [
+                .default("OK")],
+            presentingViewController: sut
+        )
+    }
 
     // MARK: - Helpers
 
