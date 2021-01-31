@@ -29,11 +29,11 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             exp.fulfill()
         }
         
-        listLoader.completeListLoading(with: ListItem(count: 20, next: "", previous: nil, results: []))
-        pokemonLoader.completeItemLoading(with: PokemonItem(id: 2, name: "Bulbasaur", baseExperience: 0, height: 0, isDefault: true, order: 2, weight: 1, abilities: [], forms: [], species: Species(name: "", url: ""), sprites: Sprites(backFemale: nil, backShinyFemale: nil, backDefault: nil, frontFemale: nil, frontShinyFemale: nil, backShiny: nil, frontDefault: nil, frontShiny: nil), stats: [], types: []))
+        listLoader.completeListLoading(with: makeList(count: 20))
+        pokemonLoader.completeItemLoading(with: makeItem(id: 2))
         
         wait(for: [exp], timeout: 0.1)
-        XCTAssertEqual(try expectedResult?.get(), ChosenPokemon(id: 1, name: "Pokemon"))
+        XCTAssertEqual(try expectedResult?.get(), ChosenPokemon(id: 2, name: "bulbasaur"))
     }
     
     // MARK: Helpers
