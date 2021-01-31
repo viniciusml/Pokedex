@@ -85,6 +85,7 @@
 		D8A081BF25C723D700A1CE30 /* IDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A081BE25C723D700A1CE30 /* IDProvider.swift */; };
 		D8A081DC25C7284300A1CE30 /* RemotePokemonLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D67FA257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift */; };
 		D8A081E625C7289B00A1CE30 /* RemoteListLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */; };
+		D8A081F025C7317500A1CE30 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A7382544608D00D1B71A /* SharedTestHelpers.swift */; };
 		D8AB3FFB2582C9FD006AC67B /* PokedexSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */; };
 		D8AB401C2582D13D006AC67B /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = D8AB401B2582D13D006AC67B /* __Snapshots__ */; };
 		D8E93425259D25E9009AB1C3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93424259D25E9009AB1C3 /* PageViewController.swift */; };
@@ -1142,6 +1143,7 @@
 			files = (
 				D8A081DC25C7284300A1CE30 /* RemotePokemonLoaderSpy.swift in Sources */,
 				D8A0819F25C71C5E00A1CE30 /* RemoteChosenPokemonLoaderTests.swift in Sources */,
+				D8A081F025C7317500A1CE30 /* SharedTestHelpers.swift in Sources */,
 				D8A0817725C7156300A1CE30 /* RandomIDProviderTests.swift in Sources */,
 				D8A081E625C7289B00A1CE30 /* RemoteListLoaderSpy.swift in Sources */,
 			);
