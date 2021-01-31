@@ -41,7 +41,7 @@ class RandomIDProviderTests: XCTestCase {
     // MARK: - Helpers
     
     private func generateID(from range: ClosedRange<Int>) -> Int {
-        RandomIDProvider.generateID(from: range.first!, to: range.last!)
+        RandomIDProvider().generateID(from: range.first!, to: range.last!)
     }
     
     private func makeRange(min: Int, max: Int) -> ClosedRange<Int> {
