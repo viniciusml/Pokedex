@@ -11,13 +11,31 @@ import XCTest
 
 class RandomIDProviderTests: XCTestCase {
     
-    func test_provideID_generatedIDFromRange() {
+    func test_generatesIDFromRange() {
         let range = makeRange(min: 1, max: 10)
         
         (0...100).forEach { _ in
             let generatedID = generateID(from: range)
             XCTAssertTrue(range.contains(generatedID), "range does not contain expected generated ID: \(generatedID)")
         }
+    }
+    
+    func test_generatedRandomID() {
+        let range = makeRange(min: 1, max: 10)
+        var firstTimeGeneratedIDs = [Int]()
+        var secondTimeGeneratedIDs = [Int]()
+        
+        (0...10).forEach { _ in
+            let generatedID = generateID(from: range)
+            firstTimeGeneratedIDs.append(generatedID)
+        }
+        
+        (0...10).forEach { _ in
+            let generatedID = generateID(from: range)
+            secondTimeGeneratedIDs.append(generatedID)
+        }
+        
+        XCTAssertNotEqual(firstTimeGeneratedIDs, secondTimeGeneratedIDs)
     }
     
     // MARK: - Helpers

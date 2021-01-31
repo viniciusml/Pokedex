@@ -11,6 +11,6 @@ import Foundation
 public class RandomIDProvider {
     
     public static func generateID(from min: Int, to max: Int) -> Int {
-        1
+        Int.random(in: min...max)
     }
 }
