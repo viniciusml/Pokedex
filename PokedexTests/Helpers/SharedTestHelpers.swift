@@ -25,8 +25,8 @@ func makeItemsJSON(_ items: [String: Any]) -> Data {
     try! JSONSerialization.data(withJSONObject: items)
 }
 
-func makeList(count: Int, next: String = "http://pokemon-url.com", results: [ResultItem] = []) -> ListItem {
-    ListItem(count: 3, next: "http://pokemon-url.com", previous: nil, results: results)
+func makeList(count: Int, next: String = "http://pokemon-url.com", previous: String? = nil, results: [ResultItem] = []) -> ListItem {
+    ListItem(count: 3, next: "http://pokemon-url.com", previous: previous, results: results)
 }
 
 func makeItem(id: Int) -> PokemonItem {
