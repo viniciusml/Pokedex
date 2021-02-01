@@ -14,14 +14,17 @@ public struct RemoteChosenPokemonLoader {
     
     let listLoader: RemoteListLoader
     let pokemonLoader: RemotePokemonLoader
+    let imageDataLoader: RemoteImageDataLoader
     let idProvider: IDProvider
     
-    public init(listLoader: RemoteListLoader, pokemonLoader: RemotePokemonLoader, idProvider: IDProvider) {
+    public init(listLoader: RemoteListLoader, pokemonLoader: RemotePokemonLoader, imageDataLoader: RemoteImageDataLoader, idProvider: IDProvider) {
         self.listLoader = listLoader
         self.pokemonLoader = pokemonLoader
+        self.imageDataLoader = imageDataLoader
         self.idProvider = idProvider
     }
     
+    // TODO: Semaphores?
     public func load(completion: @escaping (Result) -> Void) {
         listLoader.load(from: .list) { listResult in
             switch listResult {
@@ -31,7 +34,14 @@ public struct RemoteChosenPokemonLoader {
                 pokemonLoader.load(from: .pokemon(id)) { pokemonResult in
                     switch pokemonResult {
                     case let .success(pokemon):
-                        completion(.success(pokemon.chosen))
+                        
+                        let url = URL(string: pokemon.sprites.frontDefault!)!
+                        imageDataLoader.load(from: url) { imageDataResult in
+                            if let imageData = try? imageDataResult.get() {
+                                completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData)))
+                            }
+                        }
+                        
                     case let .failure(error):
                         completion(.failure(error))
                     }
@@ -53,8 +63,14 @@ extension URL {
     }
 }
 
-extension PokemonItem {
-    var chosen: ChosenPokemon {
-        ChosenPokemon(id: id, name: name)
+public typealias RemoteImageDataLoader = RemoteLoader<Data>
+
+extension RemoteImageDataLoader {
+    public convenience init(client: HTTPClient) {
+        self.init(client: client, mapper: DataMapper.map)
     }
+}
+
+public struct DataMapper {
+    public static func map(_ data: Data) throws -> Data { data }
 }

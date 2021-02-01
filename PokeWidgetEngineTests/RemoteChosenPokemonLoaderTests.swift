@@ -7,13 +7,14 @@
 //
 
 import PokemonDomain
-import PokeWidgetEngine
+@testable import PokeWidgetEngine // TODO remove this
 import XCTest
 
 class RemoteChosenPokemonLoaderTests: XCTestCase {
     var client: HTTPClient!
     var listLoader: RemoteListLoaderSpy!
     var pokemonLoader: RemotePokemonLoaderSpy!
+    var imageDataLoader: RemoteImageDataLoaderSpy!
     
     override func setUp() {
         super.setUp()
@@ -21,17 +22,22 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
         client = HTTPClientMock()
         listLoader = RemoteListLoaderSpy(client: client)
         pokemonLoader = RemotePokemonLoaderSpy(client: client)
+        imageDataLoader = RemoteImageDataLoaderSpy(client: client)
     }
     
-    func test_load_producesCombinedSuccessfulResult() {
+    func test_load_producesCombinedSuccessfulResult() throws {
         let sut = makeSUT()
         
         let expectedResult = getResult(sut, when: {
             listLoader.completeListLoading(with: makeList(count: 20))
             pokemonLoader.completeItemLoading(with: makeItem(id: 2))
+            imageDataLoader.completeItemLoading(with: .nonEmptyData)
         })
         
-        XCTAssertEqual(try expectedResult?.get(), ChosenPokemon(id: 2, name: "bulbasaur"))
+        let result = try XCTUnwrap(try expectedResult?.get())
+        XCTAssertEqual(result.id, 2)
+        XCTAssertEqual(result.name, "bulbasaur")
+        XCTAssertEqual(String(data: result.imageData, encoding: .utf8), "test data")
     }
     
     func test_load_failsUponListLoadingFailure() {
@@ -62,6 +68,7 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
         return RemoteChosenPokemonLoader(
             listLoader: listLoader,
             pokemonLoader: pokemonLoader,
+            imageDataLoader: imageDataLoader,
             idProvider: idProvider)
     }
     
@@ -92,6 +99,16 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
     }
 }
 
+private extension Data {
+    static var nonEmptyData: Data {
+        Data("test data".utf8)
+    }
+    
+    static var emptyData: Data {
+        Data()
+    }
+}
+
 private extension Result {
     var error: Failure? {
         switch self {
@@ -99,5 +116,29 @@ private extension Result {
             return error
         case .success: return nil
         }
+    }
+}
+
+class RemoteImageDataLoaderSpy: RemoteImageDataLoader {
+    private var messages = [(url: URL, completion: (RemoteLoader<Data>.Result) -> Void)]()
+    
+    var loadCallCount: Int {
+        messages.count
+    }
+    
+    var url: URL? {
+        messages.first?.url
+    }
+    
+    override func load(from url: URL, completion: @escaping (RemoteLoader<Data>.Result) -> Void) {
+        messages.append((url, completion))
+    }
+    
+    func completeItemLoading(with imageData: Data, at index: Int = 0) {
+        messages[index].completion(.success(imageData))
+    }
+    
+    func completeItemLoadingWithError(at index: Int = 0) {
+        messages[index].completion(.failure(.connectivity))
     }
 }

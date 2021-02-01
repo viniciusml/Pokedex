@@ -11,9 +11,11 @@ import Foundation
 public struct ChosenPokemon: Equatable {
     public let id: Int
     public let name: String
+    public let imageData: Data
     
-    public init(id: Int, name: String) {
+    public init(id: Int, name: String, imageData: Data) {
         self.id = id
         self.name = name
+        self.imageData = imageData
     }
 }
