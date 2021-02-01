@@ -40,6 +40,21 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
         XCTAssertEqual(String(data: result.imageData, encoding: .utf8), "test data")
     }
     
+    func test_load_producesPartialResultWithImageDataLoadingFailure() throws {
+        let sut = makeSUT()
+        
+        let expectedResult = getResult(sut, when: {
+            listLoader.completeListLoading(with: makeList(count: 20))
+            pokemonLoader.completeItemLoading(with: makeItem(id: 2))
+            imageDataLoader.completeItemLoadingWithError()
+        })
+        
+        let result = try XCTUnwrap(try expectedResult?.get())
+        XCTAssertEqual(result.id, 2)
+        XCTAssertEqual(result.name, "bulbasaur")
+        XCTAssertTrue(result.imageData.isEmpty)
+    }
+    
     func test_load_failsUponListLoadingFailure() {
         let sut = makeSUT()
         
@@ -102,10 +117,6 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
 private extension Data {
     static var nonEmptyData: Data {
         Data("test data".utf8)
-    }
-    
-    static var emptyData: Data {
-        Data()
     }
 }
 
