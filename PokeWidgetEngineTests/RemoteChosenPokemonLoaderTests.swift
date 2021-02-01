@@ -55,6 +55,20 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
         XCTAssertTrue(result.imageData.isEmpty)
     }
     
+    func test_load_producesPartialResultWithInvalidURLImageDataLoading() throws {
+        let sut = makeSUT()
+        
+        let expectedResult = getResult(sut, when: {
+            listLoader.completeListLoading(with: makeList(count: 20))
+            pokemonLoader.completeItemLoading(with: makeItem(id: 2, frontDefaultURL: false, fallbackURL: false))
+        })
+        
+        let result = try XCTUnwrap(try expectedResult?.get())
+        XCTAssertEqual(result.id, 2)
+        XCTAssertEqual(result.name, "bulbasaur")
+        XCTAssertTrue(result.imageData.isEmpty)
+    }
+    
     func test_load_failsUponListLoadingFailure() {
         let sut = makeSUT()
         

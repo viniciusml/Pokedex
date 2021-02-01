@@ -35,13 +35,18 @@ public struct RemoteChosenPokemonLoader {
                     switch pokemonResult {
                     case let .success(pokemon):
                         
-                        let url = URL(string: pokemon.sprites.frontDefault!)!
-                        imageDataLoader.load(from: url) { imageDataResult in
-                            if let imageData = try? imageDataResult.get() {
-                                completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData)))
-                            } else {
-                                completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
+                        if let frontDefault = pokemon.sprites.frontDefault,
+                           let frontDefaultURL = URL(string: frontDefault) {
+                            
+                            imageDataLoader.load(from: frontDefaultURL) { imageDataResult in
+                                if let imageData = try? imageDataResult.get() {
+                                    completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData)))
+                                } else {
+                                    completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
+                                }
                             }
+                        } else {
+                            completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
                         }
                         
                     case let .failure(error):
