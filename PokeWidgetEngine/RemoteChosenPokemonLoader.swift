@@ -45,6 +45,16 @@ public struct RemoteChosenPokemonLoader {
                                     completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
                                 }
                             }
+                        } else if let urlString = pokemon.sprites.frontShiny,
+                                          let url = URL(string: urlString) {
+                            
+                            imageDataLoader.load(from: url) { imageDataResult in
+                                if let imageData = try? imageDataResult.get() {
+                                    completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData)))
+                                } else {
+                                    completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
+                                }
+                            }
                         } else {
                             completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
                         }

@@ -40,6 +40,21 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
         XCTAssertEqual(String(data: result.imageData, encoding: .utf8), "test data")
     }
     
+    func test_load_producesCombinedSuccessfulResultWithFallbackImageURL() throws {
+        let sut = makeSUT()
+        
+        let expectedResult = getResult(sut, when: {
+            listLoader.completeListLoading(with: makeList(count: 20))
+            pokemonLoader.completeItemLoading(with: makeItem(id: 2, frontDefaultURL: false, fallbackURL: true))
+            imageDataLoader.completeItemLoading(with: .nonEmptyData)
+        })
+        
+        let result = try XCTUnwrap(try expectedResult?.get())
+        XCTAssertEqual(result.id, 2)
+        XCTAssertEqual(result.name, "bulbasaur")
+        XCTAssertEqual(String(data: result.imageData, encoding: .utf8), "test data")
+    }
+    
     func test_load_producesPartialResultWithImageDataLoadingFailure() throws {
         let sut = makeSUT()
         
