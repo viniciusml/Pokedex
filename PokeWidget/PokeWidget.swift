@@ -12,7 +12,7 @@ import PokeWidgetEngine
 
 extension ChosenPokemon {
     static var placeholder: ChosenPokemon {
-        ChosenPokemon(id: 1, name: "A Pokémon")
+        ChosenPokemon(id: 1, name: "A Pokémon", imageData: .init())
     }
 }
 

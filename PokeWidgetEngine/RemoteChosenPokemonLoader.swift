@@ -34,30 +34,7 @@ public struct RemoteChosenPokemonLoader {
                 pokemonLoader.load(from: .pokemon(id)) { pokemonResult in
                     switch pokemonResult {
                     case let .success(pokemon):
-                        
-                        if let frontDefault = pokemon.sprites.frontDefault,
-                           let frontDefaultURL = URL(string: frontDefault) {
-                            
-                            imageDataLoader.load(from: frontDefaultURL) { imageDataResult in
-                                if let imageData = try? imageDataResult.get() {
-                                    completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData)))
-                                } else {
-                                    completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
-                                }
-                            }
-                        } else if let urlString = pokemon.sprites.frontShiny,
-                                          let url = URL(string: urlString) {
-                            
-                            imageDataLoader.load(from: url) { imageDataResult in
-                                if let imageData = try? imageDataResult.get() {
-                                    completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData)))
-                                } else {
-                                    completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
-                                }
-                            }
-                        } else {
-                            completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: Data())))
-                        }
+                        loadImage(for: pokemon, completion: completion)
                         
                     case let .failure(error):
                         completion(.failure(error))
@@ -68,9 +45,44 @@ public struct RemoteChosenPokemonLoader {
             }
         }
     }
+    
+    private func spriteURL(from pokemon: PokemonItem) -> URL? {
+        pokemon.sprites.frontDefault?.asURL ?? pokemon.sprites.allSprites.first?.asURL
+    }
+    
+    private func loadImage(for pokemon: PokemonItem, completion: @escaping (Result) -> Void) {
+        guard let spriteURL = spriteURL(from: pokemon) else {
+            return completeWith(pokemon, completion: completion)
+        }
+        
+        imageDataLoader.load(from: spriteURL) { imageDataResult in
+            switch imageDataResult {
+            case let .success(imageData):
+                completeWith(pokemon, imageData: imageData, completion: completion)
+            case .failure:
+                completeWith(pokemon, completion: completion)
+            }
+        }
+    }
+    
+    private func completeWith(_ pokemon: PokemonItem, imageData: Data? = nil, completion: @escaping (Result) -> Void) {
+        completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData ?? .emptyData)))
+    }
 }
 
-extension URL {
+private extension String {
+    var asURL: URL? {
+        URL(string: self)
+    }
+}
+
+private extension Data {
+    static var emptyData: Data {
+        Data()
+    }
+}
+
+private extension URL {
     static var list: URL {
         URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1")!
     }

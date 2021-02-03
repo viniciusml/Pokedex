@@ -48,17 +48,7 @@ public class PokemonViewModel {
     }
     
     private func mapAvailableImages(from sprite: Sprites) {
-        let availableImages = [sprite.frontDefault,
-                               sprite.frontFemale,
-                               sprite.frontShiny,
-                               sprite.frontShinyFemale,
-                               sprite.backDefault,
-                               sprite.backFemale,
-                               sprite.backShiny,
-                               sprite.backShinyFemale]
-                                .compactMap { $0 }
-        
-        onImageCheckCompleted?(availableImages)
+        onImageCheckCompleted?(sprite.allSprites)
     }
 }
 

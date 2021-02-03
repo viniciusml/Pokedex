@@ -110,6 +110,20 @@ public struct Sprites: Decodable, Equatable {
     }
 }
 
+extension Sprites {
+    public var allSprites: [String] {
+        [frontDefault,
+         frontFemale,
+         frontShiny,
+         frontShinyFemale,
+         backDefault,
+         backFemale,
+         backShiny,
+         backShinyFemale]
+            .compactMap { $0 }
+    }
+}
+
 // MARK: - Stat
 public struct Stat: Decodable, Equatable {
     public let baseStat, effort: Int
