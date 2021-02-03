@@ -91,15 +91,3 @@ private extension URL {
         URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/")!
     }
 }
-
-public typealias RemoteImageDataLoader = RemoteLoader<Data>
-
-extension RemoteImageDataLoader {
-    public convenience init(client: HTTPClient) {
-        self.init(client: client, mapper: DataMapper.map)
-    }
-}
-
-public struct DataMapper {
-    public static func map(_ data: Data) throws -> Data { data }
-}
