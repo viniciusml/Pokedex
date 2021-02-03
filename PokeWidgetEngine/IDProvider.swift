@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol IDProvider {
-    func generateID(from min: Int, to max: Int) -> Int
+    func generateID(upTo max: Int) -> Int
 }

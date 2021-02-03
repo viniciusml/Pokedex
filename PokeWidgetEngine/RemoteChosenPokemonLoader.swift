@@ -29,7 +29,7 @@ public struct RemoteChosenPokemonLoader {
         listLoader.load(from: .list) { listResult in
             switch listResult {
             case let .success(list):
-                let id = idProvider.generateID(from: 1, to: list.count)
+                let id = idProvider.generateID(upTo: list.count)
                 
                 pokemonLoader.load(from: .pokemon(id)) { pokemonResult in
                     switch pokemonResult {

@@ -10,9 +10,13 @@ import Foundation
 
 public struct RandomIDProvider: IDProvider {
     
+    private var initialID: Int {
+        1
+    }
+    
     public init() {}
     
-    public func generateID(from min: Int, to max: Int) -> Int {
-        Int.random(in: min...max)
+    public func generateID(upTo max: Int) -> Int {
+        Int.random(in: initialID...max)
     }
 }

@@ -135,7 +135,7 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             self.stubbedID = id
         }
         
-        func generateID(from min: Int, to max: Int) -> Int { stubbedID }
+        func generateID(upTo max: Int) -> Int { stubbedID }
     }
     
     private struct HTTPClientMock: HTTPClient {
