@@ -128,16 +128,6 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
         return result
     }
     
-    private struct IDProviderStub: IDProvider {
-        let stubbedID: Int
-        
-        init(withStubbedID id: Int) {
-            self.stubbedID = id
-        }
-        
-        func generateID(upTo max: Int) -> Int { stubbedID }
-    }
-    
     private struct HTTPClientMock: HTTPClient {
         func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {}
     }
