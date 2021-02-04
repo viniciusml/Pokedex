@@ -51,9 +51,16 @@ struct PokeWidgetEntryView : View {
     var entry: PokemonProvider.Entry
     
     var body: some View {
-        VStack {
-            Text(entry.date, style: .time)
-            Text(entry.pokemon.name)
+        ZStack(alignment: .bottom) {
+            Image(uiImage: UIImage())
+                .resizable()
+            VStack {
+                ZStack {
+                    Color(.red)
+                        .frame(height: 40)
+                    Text(entry.pokemon.name)
+                }
+            }
         }
     }
 }
