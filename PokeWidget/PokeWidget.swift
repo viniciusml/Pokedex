@@ -52,8 +52,9 @@ struct PokeWidgetEntryView : View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Image(uiImage: UIImage())
+            Image(uiImage: UIImage(named: "placeholder")!)
                 .resizable()
+                .aspectRatio(contentMode: .fill)
             VStack {
                 ZStack {
                     Color(.red)
