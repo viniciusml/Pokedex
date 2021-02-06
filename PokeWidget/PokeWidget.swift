@@ -33,7 +33,7 @@ struct PokemonProvider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<PokemonEntry>) -> ()) {
         let currentDate = Date()
-        let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!
+        let refreshDate = Calendar.current.date(byAdding: .hour, value: 5, to: currentDate)!
         
         loadChosenPokemon { pokemon in
             let entry = PokemonEntry(date: currentDate, pokemon: pokemon ?? .failed)
@@ -44,9 +44,7 @@ struct PokemonProvider: TimelineProvider {
     }
     
     func loadChosenPokemon(completion: @escaping ((ChosenPokemon?) -> Void)) {
-        loader.load { result in
-            completion(try? result.get())
-        }
+        loader.load { completion(try? $0.get()) }
     }
 }
 
@@ -59,15 +57,27 @@ struct PokeWidgetEntryView : View {
     var entry: PokemonProvider.Entry
     
     var body: some View {
-        VStack {
-            Image(uiImage: UIImage(named: "placeholder")!)
-                .resizable()
-                .scaledToFill()
-            Text(entry.pokemon.name)
-                .font(.medium)
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 15)
-        }.background(Color(.defaultRed))
+        ZStack {
+            Color(.defaultRed)
+            VStack {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: contentMode)
+                Text(entry.pokemon.name)
+                    .font(.medium)
+                    .multilineTextAlignment(.center)
+                    .frame(height: 40)
+                    .padding(.bottom, 15)
+            }
+        }
+    }
+    
+    private var image: UIImage {
+        entry.pokemon.imageData.isEmpty ? UIImage(named: "placeholder")! : UIImage(data: entry.pokemon.imageData)!
+    }
+    
+    private var contentMode: ContentMode {
+        entry.pokemon.imageData.isEmpty ? .fill : .fit
     }
 }
 
