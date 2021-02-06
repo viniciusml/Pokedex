@@ -15,3 +15,11 @@ extension Font {
 extension UIColor {
     static let defaultRed = UIColor(red: 251 / 255, green: 109 / 255, blue: 108 / 255, alpha: 0.4)
 }
+
+extension UIImage {
+    static let placeholder = UIImage(named: "placeholder")!
+    
+    static func imageWith(_ data: Data) -> UIImage {
+        UIImage(data: data) ?? placeholder
+    }
+}

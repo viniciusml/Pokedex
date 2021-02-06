@@ -93,6 +93,10 @@
 		D8E917B525CF053400461920 /* RemoteChosenPokemonLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A0819E25C71C5E00A1CE30 /* RemoteChosenPokemonLoaderTests.swift */; };
 		D8E917C825CF05D200461920 /* RemoteListLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B82A257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift */; };
 		D8E917DB25CF05E000461920 /* RemotePokemonLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D67FA257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift */; };
+		D8E9180225CF120D00461920 /* ChosenPokemon+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E917EE25CF11FC00461920 /* ChosenPokemon+Helper.swift */; };
+		D8E9182025CF125F00461920 /* RemoteChosenPokemonLoader+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9180C25CF124E00461920 /* RemoteChosenPokemonLoader+Helper.swift */; };
+		D8E9182B25CF12A500461920 /* PokemonEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9182A25CF12A500461920 /* PokemonEntry.swift */; };
+		D8E9183625CF12D100461920 /* PokeWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9183525CF12D100461920 /* PokeWidgetEntryView.swift */; };
 		D8E93425259D25E9009AB1C3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93424259D25E9009AB1C3 /* PageViewController.swift */; };
 		D8E9342B259D260F009AB1C3 /* PageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */; };
 		D8E93432259D3331009AB1C3 /* CachedImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */; };
@@ -274,6 +278,10 @@
 		D8AB3FFC2582C9FD006AC67B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AB401B2582D13D006AC67B /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		D8E916FE25CEFF6A00461920 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D8E917EE25CF11FC00461920 /* ChosenPokemon+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChosenPokemon+Helper.swift"; sourceTree = "<group>"; };
+		D8E9180C25CF124E00461920 /* RemoteChosenPokemonLoader+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteChosenPokemonLoader+Helper.swift"; sourceTree = "<group>"; };
+		D8E9182A25CF12A500461920 /* PokemonEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonEntry.swift; sourceTree = "<group>"; };
+		D8E9183525CF12D100461920 /* PokeWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeWidgetEntryView.swift; sourceTree = "<group>"; };
 		D8E93424259D25E9009AB1C3 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewControllerTests.swift; sourceTree = "<group>"; };
 		D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageViewTests.swift; sourceTree = "<group>"; };
@@ -591,6 +599,10 @@
 				D834915725BE04FB00E13A9F /* Assets.xcassets */,
 				D834915925BE04FB00E13A9F /* Info.plist */,
 				D8E916FE25CEFF6A00461920 /* Constants.swift */,
+				D8E917EE25CF11FC00461920 /* ChosenPokemon+Helper.swift */,
+				D8E9180C25CF124E00461920 /* RemoteChosenPokemonLoader+Helper.swift */,
+				D8E9182A25CF12A500461920 /* PokemonEntry.swift */,
+				D8E9183525CF12D100461920 /* PokeWidgetEntryView.swift */,
 			);
 			path = PokeWidget;
 			sourceTree = "<group>";
@@ -1131,7 +1143,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E9182025CF125F00461920 /* RemoteChosenPokemonLoader+Helper.swift in Sources */,
 				D834915625BE04FB00E13A9F /* PokeWidget.swift in Sources */,
+				D8E9180225CF120D00461920 /* ChosenPokemon+Helper.swift in Sources */,
+				D8E9182B25CF12A500461920 /* PokemonEntry.swift in Sources */,
+				D8E9183625CF12D100461920 /* PokeWidgetEntryView.swift in Sources */,
 				D8E9172525CEFF9300461920 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
