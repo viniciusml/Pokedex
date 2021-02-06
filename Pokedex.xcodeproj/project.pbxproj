@@ -252,8 +252,6 @@
 		D873AC3D25AB575F0083E73E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		D873AC4325AB679C0083E73E /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
 		D873AC5B25AB7B9C0083E73E /* HTTPClientMainQueueDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientMainQueueDecorator.swift; sourceTree = "<group>"; };
-		D8A0813C25C7152500A1CE30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D8A0814825C7152500A1CE30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8A0816B25C7155500A1CE30 /* RandomIDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomIDProvider.swift; sourceTree = "<group>"; };
 		D8A0817625C7156300A1CE30 /* RandomIDProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomIDProviderTests.swift; sourceTree = "<group>"; };
 		D8A0819325C71C5000A1CE30 /* RemoteChosenPokemonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteChosenPokemonLoader.swift; sourceTree = "<group>"; };
@@ -350,8 +348,6 @@
 				D869D0FC25BA202A001CEF99 /* PokemonDomain */,
 				D869D10725BA202A001CEF99 /* PokemonDomainTests */,
 				D834915425BE04FB00E13A9F /* PokeWidget */,
-				D8A0813A25C7152500A1CE30 /* PokeWidgetEngine */,
-				D8A0814525C7152500A1CE30 /* PokeWidgetEngineTests */,
 				D834914F25BE04FB00E13A9F /* Frameworks */,
 				8F3E9647242BF6ED00DCD62D /* Products */,
 			);
@@ -626,22 +622,6 @@
 				8F7B0A0E24311FA4003377F0 /* PokeType.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		D8A0813A25C7152500A1CE30 /* PokeWidgetEngine */ = {
-			isa = PBXGroup;
-			children = (
-				D8A0813C25C7152500A1CE30 /* Info.plist */,
-			);
-			path = PokeWidgetEngine;
-			sourceTree = "<group>";
-		};
-		D8A0814525C7152500A1CE30 /* PokeWidgetEngineTests */ = {
-			isa = PBXGroup;
-			children = (
-				D8A0814825C7152500A1CE30 /* Info.plist */,
-			);
-			path = PokeWidgetEngineTests;
 			sourceTree = "<group>";
 		};
 		D8AB3FF92582C9FD006AC67B /* PokedexSnapshotTests */ = {
