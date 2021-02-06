@@ -14,9 +14,20 @@
 - Target: iOS 14+
 
 ## App
-![Pokémon List](https://github.com/viniciusml/Pokedex/blob/master/Resources/list.jpg?raw=true)
 
-![Pokémon](https://github.com/viniciusml/Pokedex/blob/master/Resources/pokemon.jpg?raw=true)
+### Screenshots
+
+<div>
+<img src="https://github.com/viniciusml/Pokedex/blob/master/Resources/list.png" width=300 />
+<img src="https://github.com/viniciusml/Pokedex/blob/master/Resources/pokemon.png" width=300 />
+</div>
+
+### Demo
+
+<div>
+<img src="https://github.com/viniciusml/Pokedex/blob/master/Resources/app.gif" width=300 />
+<img src="https://github.com/viniciusml/Pokedex/blob/master/Resources/widget.gif" width=300 />
+</div>
 
 ## List Loading
 
