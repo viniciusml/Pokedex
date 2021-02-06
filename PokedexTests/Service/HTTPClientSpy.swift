@@ -2,14 +2,14 @@
 //  HTTPClientSpy.swift
 //  PokedexTests
 //
-//  Created by Vinicius Moreira Leal on 28/03/2020.
-//  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
+//  Created by Vinicius Moreira Leal on 23/01/2021.
+//  Copyright © 2021 Vinicius Moreira Leal. All rights reserved.
 //
 
 import Foundation
-import Pokedex
+import PokemonDomain
 
-class HTTPClientSpy: HTTPClient {    
+class HTTPClientSpy: HTTPClient {
     private var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
     
     var requestedURLs: [URL] {

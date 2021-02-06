@@ -5,13 +5,18 @@
 ![CI](https://github.com/viniciusml/Pokedex/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/viniciusml/Pokedex/branch/master/graph/badge.svg?token=0MEJ7ZMR7X)](undefined)
 
-> Unit tests were written in TDD methodology for the Networking implementation.
+> Entire app was written following a  TDD methodology.
 
 > MVVM was used as design pattern.
 
-> Other patterns utilised: Delegate and Observer.
+> WidgetKit was used to display widget with a randomly fetched Pokémon.
 
-- Target: iOS 10+
+- Target: iOS 14+
+
+## App
+![Pokémon List](https://github.com/viniciusml/Pokedex/blob/master/Resources/list.jpg?raw=true)
+
+![Pokémon](https://github.com/viniciusml/Pokedex/blob/master/Resources/pokemon.jpg?raw=true)
 
 ## List Loading
 

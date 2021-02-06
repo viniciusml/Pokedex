@@ -64,7 +64,7 @@ public class PokemonViewController: UIViewController {
         mainView.idLabel.text = viewModel.id
         mainView.idLabel.accessibilityLabel = "Id: \(viewModel.id?.replacingOccurrences(of: "#", with: "") ?? "")"
         
-        mainView.backgroundColor = viewModel.backgroundColor
+        mainView.backgroundColor = viewModel.backgroundColor?.toUIColor
         mainView.typeLabel.text = viewModel.type
         mainView.typeLabel.accessibilityLabel = "Type: \(viewModel.type ?? "")"
         

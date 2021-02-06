@@ -8,6 +8,7 @@
 
 import XCTest
 import Pokedex
+import PokemonDomain
 import ViewControllerPresentationSpy
 
 class ResourceListCollectionViewControllerTests: XCTestCase {
@@ -40,7 +41,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let item1 = makeResourceItem(name: "Pokemon1")
         let item2 = makeResourceItem(name: "Pokemon2")
         let item3 = makeResourceItem(name: "Pokemon3")
-        let list = ListItem(count: 4, next: "http://pokemon-url.com", previous: nil, results: [item0, item1, item2, item3])
+        let list = makeList(count: 4, next: "http://pokemon-url.com", previous: nil, results: [item0, item1, item2, item3])
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -61,8 +62,8 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let item1 = makeResourceItem(name: "Pokemon1")
         let item2 = makeResourceItem(name: "Pokemon2")
         let item3 = makeResourceItem(name: "Pokemon3")
-        let list1 = ListItem(count: 1, next: "http://pokemon-url.com", previous: nil, results: [item0])
-        let list2 = ListItem(count: 4, next: "http://pokemon-url.com", previous: nil, results: [item0, item1, item2, item3])
+        let list1 = makeList(count: 1, next: "http://pokemon-url.com", previous: nil, results: [item0])
+        let list2 = makeList(count: 4, next: "http://pokemon-url.com", previous: nil, results: [item0, item1, item2, item3])
         
         let (sut, loader) = makeSUT()
 
@@ -79,7 +80,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_loadListCompletion_doesNotAlterCurrentLoadingStateOnError() {
         let item0 = makeResourceItem(name: "Pokemon")
-        let list = ListItem(count: 1, next: "http://pokemon-url.com", previous: nil, results: [item0])
+        let list = makeList(count: 1, next: "http://pokemon-url.com", previous: nil, results: [item0])
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -93,7 +94,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_loadActions_preloadsNewDataWhenLastModelItemNearVisible() {
         let items = makeResourceItems(20)
-        let list = ListItem(count: 20, next: "http://pokemon-url.com", previous: nil, results: items)
+        let list = makeList(count: 20, next: "http://pokemon-url.com", previous: nil, results: items)
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -109,9 +110,9 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_listPrefetchCompletion_rendersSuccessfullyAdditionalPageLoadedList() {
         let firstPageItems = makeResourceItems(40)
-        let list1 = ListItem(count: 40, next: "http://pokemon-url.com", previous: nil, results: firstPageItems)
+        let list1 = makeList(count: 40, next: "http://pokemon-url.com", previous: nil, results: firstPageItems)
         let secondPageItems = makeResourceItems(20)
-        let list2 = ListItem(count: 20, next: "http://pokemon-url.com", previous: "previous page", results: secondPageItems)
+        let list2 = makeList(count: 20, next: "http://pokemon-url.com", previous: "previous page", results: secondPageItems)
 
         let (sut, loader) = makeSUT()
         sut.loadViewIfNeeded()
@@ -128,7 +129,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let item0 = makeResourceItem(name: "Pokemon", url: "http://pokemon.com")
         let item1 = makeResourceItem(name: "Pokemon1", url: "http://pokemon1.com")
         let item2 = makeResourceItem(name: "Pokemon2", url: "http://pokemon2.com")
-        let list = ListItem(count: 3, next: "http://pokemon-url.com", previous: nil, results: [item0, item1, item2])
+        let list = makeList(count: 3, next: "http://pokemon-url.com", previous: nil, results: [item0, item1, item2])
         
         var receivedPokemonURL = String()
         let (sut, loader) = makeSUT { receivedPokemonURL = $0 }
@@ -205,58 +206,5 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
             array.append(makeResourceItem(name: "Pokemon\(i)"))
         }
         return array
-    }
-}
-
-extension ResourceListCollectionViewController {
-    func simulateUserInitiatedReload() {
-        collectionView.refreshControl?.simulatePullToRefresh()
-    }
-
-    var isShowingLoadingIndicator: Bool {
-        collectionView.refreshControl?.isRefreshing == true
-    }
-
-    var prefetchTrigger: Int { 10 }
-
-    func numberOfRenderedResourceItems() -> Int {
-        collectionView.numberOfItems(inSection: resourceItemsSection)
-    }
-
-    private var resourceItemsSection: Int { 0 }
-
-    func listItem(at item: Int) -> UICollectionViewCell? {
-        let ds = collectionView.dataSource
-        let index = IndexPath(item: item, section: resourceItemsSection)
-        return ds?.collectionView(collectionView, cellForItemAt: index)
-    }
-
-    func simulateResourceItemViewNearVisible(at item: Int) {
-        let dl = collectionView.delegate
-        let index = IndexPath(item: item, section: resourceItemsSection)
-        let cell = listItem(at: item)!
-        dl?.collectionView?(collectionView, willDisplay: cell, forItemAt: index)
-    }
-
-    func simulateResourceItemSelection(item: Int) {
-        let dl = collectionView.delegate
-        let indexPath = IndexPath(item: item, section: resourceItemsSection)
-        dl?.collectionView?(collectionView, didSelectItemAt: indexPath)
-    }
-}
-
-extension ListCell {
-    var pokemonName: String? {
-        nameLabel.text
-    }
-}
-
-private extension UIRefreshControl {
-    func simulatePullToRefresh() {
-        allTargets.forEach { target in
-            actions(forTarget: target, forControlEvent: .valueChanged)?.forEach {
-                (target as NSObject).perform(Selector($0))
-            }
-        }
     }
 }

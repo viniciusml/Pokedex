@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import Pokedex
+@testable import PokemonDomain
 
 class RemotePokemonLoaderSpy: RemotePokemonLoader {
     private var messages = [(url: URL, completion: (RemoteLoader<PokemonItem>.Result) -> Void)]()
@@ -28,7 +28,7 @@ class RemotePokemonLoaderSpy: RemotePokemonLoader {
         messages[index].completion(.success(pokemon))
     }
     
-    func completeItemLoadingWithError(at index: Int) {
+    func completeItemLoadingWithError(at index: Int = 0) {
         messages[index].completion(.failure(.connectivity))
     }
 }

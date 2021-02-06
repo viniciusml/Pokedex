@@ -6,7 +6,8 @@
 //  Copyright © 2020 Vinicius Moreira Leal. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import PokemonDomain
 
 public class PokemonViewModel {
 
@@ -47,17 +48,7 @@ public class PokemonViewModel {
     }
     
     private func mapAvailableImages(from sprite: Sprites) {
-        let availableImages = [sprite.frontDefault,
-                               sprite.frontFemale,
-                               sprite.frontShiny,
-                               sprite.frontShinyFemale,
-                               sprite.backDefault,
-                               sprite.backFemale,
-                               sprite.backShiny,
-                               sprite.backShinyFemale]
-                                .compactMap { $0 }
-        
-        onImageCheckCompleted?(availableImages)
+        onImageCheckCompleted?(sprite.allSprites)
     }
 }
 
@@ -74,9 +65,8 @@ extension PokemonViewModel {
         fetchedPokemon?.types.first?.type.name.capitalized
     }
     
-    // TODO: Remove UIKit
-    var backgroundColor: UIColor? {
-        fetchedPokemon?.types.first?.typeID()?.color
+    var backgroundColor: RGB? {
+        fetchedPokemon?.types.first?.typeID()?.rgbColor
     }
     
     var stats: String? {

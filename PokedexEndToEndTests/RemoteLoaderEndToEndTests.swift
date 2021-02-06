@@ -8,11 +8,12 @@
 
 import XCTest
 import Pokedex
+import PokemonDomain
 
 class RemoteLoaderEndToEndTests: XCTestCase {
     
     func test_endToEndLoadResourceList_matchesFixedTestData() {
-        let client = AFHTTPClient()
+        let client = AFHTTPClient(sessionConfiguration: URLSessionConfiguration.ephemeral)
         let loader = RemoteListLoader(client: client)
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")!
 

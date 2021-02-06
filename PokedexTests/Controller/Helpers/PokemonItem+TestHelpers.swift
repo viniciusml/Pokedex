@@ -8,6 +8,7 @@
 
 import UIKit
 @testable import Pokedex
+import PokemonDomain
 
 extension PokemonItem {
     var formattedName: String {
@@ -23,7 +24,7 @@ extension PokemonItem {
     }
     
     var backgroundColor: UIColor? {
-        types.first?.typeID()?.color
+        types.first?.typeID()?.rgbColor.toUIColor
     }
     
     var formattedStats: String {

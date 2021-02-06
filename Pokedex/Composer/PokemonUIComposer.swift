@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PokemonDomain
 
 public final class PokemonUIComposer {
     private init() {}
@@ -29,5 +30,11 @@ public final class PokemonUIComposer {
 private extension String {
     static var placeholder: String {
         "placeholder"
+    }
+}
+
+extension CachedImageView {
+    convenience init() {
+        self.init(loader: RemoteImageLoader(client: AFHTTPClient()))
     }
 }
