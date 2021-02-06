@@ -13,6 +13,11 @@
 
 - Target: iOS 14+
 
+## App
+![Pokémon List](https://github.com/viniciusml/Pokedex/blob/master/Resources/list.jpg?raw=true)
+
+![Pokémon](https://github.com/viniciusml/Pokedex/blob/master/Resources/pokemon.jpg?raw=true)
+
 ## List Loading
 
 ### Data (Input):
