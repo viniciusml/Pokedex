@@ -12,7 +12,7 @@ import PokeWidgetEngine
 
 extension ChosenPokemon {
     static var placeholder: ChosenPokemon {
-        ChosenPokemon(id: 1, name: "A Pokémon", imageData: .init())
+        ChosenPokemon(id: 1, name: "What's that Pokémon?", imageData: .init())
     }
 }
 
@@ -51,18 +51,15 @@ struct PokeWidgetEntryView : View {
     var entry: PokemonProvider.Entry
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+        VStack {
             Image(uiImage: UIImage(named: "placeholder")!)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-            VStack {
-                ZStack {
-                    Color(.red)
-                        .frame(height: 40)
-                    Text(entry.pokemon.name)
-                }
-            }
-        }
+                .scaledToFill()
+            Text(entry.pokemon.name)
+                .font(.medium)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 15)
+        }.background(Color(.defaultRed))
     }
 }
 

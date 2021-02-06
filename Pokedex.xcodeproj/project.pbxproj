@@ -92,6 +92,7 @@
 		D8A0825225C73E3A00A1CE30 /* PokeWidgetEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A0813925C7152500A1CE30 /* PokeWidgetEngine.framework */; };
 		D8AB3FFB2582C9FD006AC67B /* PokedexSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */; };
 		D8AB401C2582D13D006AC67B /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = D8AB401B2582D13D006AC67B /* __Snapshots__ */; };
+		D8E9172525CEFF9300461920 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E916FE25CEFF6A00461920 /* Constants.swift */; };
 		D8E93425259D25E9009AB1C3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93424259D25E9009AB1C3 /* PageViewController.swift */; };
 		D8E9342B259D260F009AB1C3 /* PageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */; };
 		D8E93432259D3331009AB1C3 /* CachedImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */; };
@@ -272,6 +273,7 @@
 		D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexSnapshotTests.swift; sourceTree = "<group>"; };
 		D8AB3FFC2582C9FD006AC67B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AB401B2582D13D006AC67B /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		D8E916FE25CEFF6A00461920 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D8E93424259D25E9009AB1C3 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewControllerTests.swift; sourceTree = "<group>"; };
 		D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageViewTests.swift; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 				D834915525BE04FB00E13A9F /* PokeWidget.swift */,
 				D834915725BE04FB00E13A9F /* Assets.xcassets */,
 				D834915925BE04FB00E13A9F /* Info.plist */,
+				D8E916FE25CEFF6A00461920 /* Constants.swift */,
 			);
 			path = PokeWidget;
 			sourceTree = "<group>";
@@ -1113,6 +1116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D834915625BE04FB00E13A9F /* PokeWidget.swift in Sources */,
+				D8E9172525CEFF9300461920 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
