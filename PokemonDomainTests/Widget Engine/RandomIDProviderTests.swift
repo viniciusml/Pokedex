@@ -6,7 +6,7 @@
 //  Copyright © 2021 Vinicius Moreira Leal. All rights reserved.
 //
 
-import PokeWidgetEngine
+import PokemonDomain
 import XCTest
 
 class RandomIDProviderTests: XCTestCase {
