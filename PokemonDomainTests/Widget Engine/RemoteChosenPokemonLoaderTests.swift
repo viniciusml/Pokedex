@@ -7,7 +7,6 @@
 //
 
 import PokemonDomain
-import PokeWidgetEngine
 import XCTest
 
 class RemoteChosenPokemonLoaderTests: XCTestCase {

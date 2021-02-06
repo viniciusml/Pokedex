@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import PokemonDomain
 
 public struct RemoteChosenPokemonLoader {
     public typealias Result = Swift.Result<ChosenPokemon, Error>
