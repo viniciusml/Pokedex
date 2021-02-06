@@ -13,6 +13,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    private lazy var httpClient: HTTPClient = {
+        HTTPClientMainQueueDecorator(AFHTTPClient())
+    }()
+    
+    convenience init(httpClient: HTTPClient) {
+        self.init()
+        self.httpClient = httpClient
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -26,13 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = NavigationController()
         
-        let httpClient = HTTPClientMainQueueDecorator(AFHTTPClient())
         let listLoader = RemoteListLoader(client: httpClient)
         let imageLoader = RemoteImageLoader(client: httpClient)
         
         let listViewController = ResourceListUIComposer.resourceListComposedWith(
             listLoader: listLoader, selection: { pokemonURLString in
-                let loader = RemotePokemonLoader(client: httpClient)
+                let loader = RemotePokemonLoader(client: self.httpClient)
                 let pokemonViewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, imageLoader: imageLoader, urlString: pokemonURLString)
                 navigationController.pushViewController(pokemonViewController, animated: true)
             })

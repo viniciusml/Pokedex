@@ -94,6 +94,13 @@
 		D8E9182B25CF12A500461920 /* PokemonEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9182A25CF12A500461920 /* PokemonEntry.swift */; };
 		D8E9183625CF12D100461920 /* PokeWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9183525CF12D100461920 /* PokeWidgetEntryView.swift */; };
 		D8E9186E25CF1DDA00461920 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9186D25CF1DDA00461920 /* AppDelegateTests.swift */; };
+		D8E9188C25CF231900461920 /* HTTPClientStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9188B25CF231900461920 /* HTTPClientStub.swift */; };
+		D8E9189425CF233F00461920 /* HTTPClientStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9188B25CF231900461920 /* HTTPClientStub.swift */; };
+		D8E9189625CF235100461920 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9189525CF235100461920 /* Data+Helpers.swift */; };
+		D8E918A525CF236700461920 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9189525CF235100461920 /* Data+Helpers.swift */; };
+		D8E918AE25CF459C00461920 /* ResourceListCollectionViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E918AD25CF459C00461920 /* ResourceListCollectionViewController+TestHelpers.swift */; };
+		D8E918B725CF45C200461920 /* ListCell+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E918B625CF45C200461920 /* ListCell+TestHelpers.swift */; };
+		D8E918C025CF45DA00461920 /* UIRefreshControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E918BF25CF45DA00461920 /* UIRefreshControl+TestHelpers.swift */; };
 		D8E93425259D25E9009AB1C3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93424259D25E9009AB1C3 /* PageViewController.swift */; };
 		D8E9342B259D260F009AB1C3 /* PageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */; };
 		D8E93432259D3331009AB1C3 /* CachedImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */; };
@@ -269,6 +276,11 @@
 		D8E9182A25CF12A500461920 /* PokemonEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonEntry.swift; sourceTree = "<group>"; };
 		D8E9183525CF12D100461920 /* PokeWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeWidgetEntryView.swift; sourceTree = "<group>"; };
 		D8E9186D25CF1DDA00461920 /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
+		D8E9188B25CF231900461920 /* HTTPClientStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientStub.swift; sourceTree = "<group>"; };
+		D8E9189525CF235100461920 /* Data+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Helpers.swift"; sourceTree = "<group>"; };
+		D8E918AD25CF459C00461920 /* ResourceListCollectionViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResourceListCollectionViewController+TestHelpers.swift"; sourceTree = "<group>"; };
+		D8E918B625CF45C200461920 /* ListCell+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListCell+TestHelpers.swift"; sourceTree = "<group>"; };
+		D8E918BF25CF45DA00461920 /* UIRefreshControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+TestHelpers.swift"; sourceTree = "<group>"; };
 		D8E93424259D25E9009AB1C3 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewControllerTests.swift; sourceTree = "<group>"; };
 		D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageViewTests.swift; sourceTree = "<group>"; };
@@ -633,6 +645,8 @@
 				D8AB401B2582D13D006AC67B /* __Snapshots__ */,
 				D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */,
 				D8AB3FFC2582C9FD006AC67B /* Info.plist */,
+				D8E9188B25CF231900461920 /* HTTPClientStub.swift */,
+				D8E9189525CF235100461920 /* Data+Helpers.swift */,
 			);
 			path = PokedexSnapshotTests;
 			sourceTree = "<group>";
@@ -685,6 +699,9 @@
 				D83D680A257ECC4A0017F31C /* PokemonItem+TestHelpers.swift */,
 				D83D6805257EC1CE0017F31C /* PokemonViewController+TestHelpers.swift */,
 				D8F6AE5B259F9BB5009AE563 /* RemoteImageLoaderSpy.swift */,
+				D8E918AD25CF459C00461920 /* ResourceListCollectionViewController+TestHelpers.swift */,
+				D8E918B625CF45C200461920 /* ListCell+TestHelpers.swift */,
+				D8E918BF25CF45DA00461920 /* UIRefreshControl+TestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -995,6 +1012,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E918AE25CF459C00461920 /* ResourceListCollectionViewController+TestHelpers.swift in Sources */,
+				D8E918C025CF45DA00461920 /* UIRefreshControl+TestHelpers.swift in Sources */,
+				D8E918B725CF45C200461920 /* ListCell+TestHelpers.swift in Sources */,
 				8F7B09EB2430B425003377F0 /* ResourceListCollectionViewControllerTests.swift in Sources */,
 				D8E9186E25CF1DDA00461920 /* AppDelegateTests.swift in Sources */,
 				D873AC4425AB679C0083E73E /* UIImage+TestHelpers.swift in Sources */,
@@ -1002,11 +1022,13 @@
 				8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */,
 				D83D680B257ECC4A0017F31C /* PokemonItem+TestHelpers.swift in Sources */,
 				D83490F325BCD6CD00E13A9F /* HTTPClientSpy.swift in Sources */,
+				D8E918A525CF236700461920 /* Data+Helpers.swift in Sources */,
 				D83D67FB257EA9BA0017F31C /* RemotePokemonLoaderSpy.swift in Sources */,
 				D8F6AE40259F52C6009AE563 /* ImageMapperTests.swift in Sources */,
 				D8F6AE5C259F9BB5009AE563 /* RemoteImageLoaderSpy.swift in Sources */,
 				D8E9342B259D260F009AB1C3 /* PageViewControllerTests.swift in Sources */,
 				8FE5A7392544608D00D1B71A /* SharedTestHelpers.swift in Sources */,
+				D8E9189425CF233F00461920 /* HTTPClientStub.swift in Sources */,
 				D83D67F6257EA42C0017F31C /* PokemonViewControllerTests.swift in Sources */,
 				D837B82B257D72BC00E9A2A2 /* RemoteListLoaderSpy.swift in Sources */,
 				D8E93432259D3331009AB1C3 /* CachedImageViewTests.swift in Sources */,
@@ -1087,6 +1109,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E9188C25CF231900461920 /* HTTPClientStub.swift in Sources */,
+				D8E9189625CF235100461920 /* Data+Helpers.swift in Sources */,
 				D8AB3FFB2582C9FD006AC67B /* PokedexSnapshotTests.swift in Sources */,
 				D873AC4925AB67C40083E73E /* UIImage+TestHelpers.swift in Sources */,
 			);
