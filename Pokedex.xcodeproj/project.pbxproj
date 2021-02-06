@@ -93,6 +93,7 @@
 		D8E9182025CF125F00461920 /* RemoteChosenPokemonLoader+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9180C25CF124E00461920 /* RemoteChosenPokemonLoader+Helper.swift */; };
 		D8E9182B25CF12A500461920 /* PokemonEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9182A25CF12A500461920 /* PokemonEntry.swift */; };
 		D8E9183625CF12D100461920 /* PokeWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9183525CF12D100461920 /* PokeWidgetEntryView.swift */; };
+		D8E9186E25CF1DDA00461920 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9186D25CF1DDA00461920 /* AppDelegateTests.swift */; };
 		D8E93425259D25E9009AB1C3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93424259D25E9009AB1C3 /* PageViewController.swift */; };
 		D8E9342B259D260F009AB1C3 /* PageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */; };
 		D8E93432259D3331009AB1C3 /* CachedImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */; };
@@ -267,6 +268,7 @@
 		D8E9180C25CF124E00461920 /* RemoteChosenPokemonLoader+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteChosenPokemonLoader+Helper.swift"; sourceTree = "<group>"; };
 		D8E9182A25CF12A500461920 /* PokemonEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonEntry.swift; sourceTree = "<group>"; };
 		D8E9183525CF12D100461920 /* PokeWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeWidgetEntryView.swift; sourceTree = "<group>"; };
+		D8E9186D25CF1DDA00461920 /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
 		D8E93424259D25E9009AB1C3 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		D8E9342A259D260F009AB1C3 /* PageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewControllerTests.swift; sourceTree = "<group>"; };
 		D8E93431259D3331009AB1C3 /* CachedImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageViewTests.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				D8E93430259D3312009AB1C3 /* View */,
 				D8E9343B259D3356009AB1C3 /* Controller */,
 				8FE5A7692545B30D00D1B71A /* Helpers */,
+				D8E9186D25CF1DDA00461920 /* AppDelegateTests.swift */,
 			);
 			path = PokedexTests;
 			sourceTree = "<group>";
@@ -704,9 +707,9 @@
 			buildConfigurationList = 8F3E9665242BF6F200DCD62D /* Build configuration list for PBXNativeTarget "Pokedex" */;
 			buildPhases = (
 				8F3E9644242BF6ED00DCD62D /* Resources */,
-				8F3E9642242BF6ED00DCD62D /* Sources */,
 				8F3E9643242BF6ED00DCD62D /* Frameworks */,
 				D834916025BE04FB00E13A9F /* Embed App Extensions */,
+				8F3E9642242BF6ED00DCD62D /* Sources */,
 			);
 			buildRules = (
 			);
@@ -723,10 +726,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F3E9668242BF6F200DCD62D /* Build configuration list for PBXNativeTarget "PokedexTests" */;
 			buildPhases = (
-				8F3E9658242BF6F200DCD62D /* Sources */,
 				8F3E9659242BF6F200DCD62D /* Frameworks */,
 				8F3E965A242BF6F200DCD62D /* Resources */,
 				D834913C25BE019B00E13A9F /* CopyFiles */,
+				8F3E9658242BF6F200DCD62D /* Sources */,
 			);
 			buildRules = (
 			);
@@ -993,6 +996,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F7B09EB2430B425003377F0 /* ResourceListCollectionViewControllerTests.swift in Sources */,
+				D8E9186E25CF1DDA00461920 /* AppDelegateTests.swift in Sources */,
 				D873AC4425AB679C0083E73E /* UIImage+TestHelpers.swift in Sources */,
 				D83D6806257EC1CE0017F31C /* PokemonViewController+TestHelpers.swift in Sources */,
 				8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */,

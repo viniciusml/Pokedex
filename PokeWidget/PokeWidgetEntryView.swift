@@ -25,6 +25,7 @@ struct PokeWidgetEntryView : View {
                     .padding(.bottom, 15)
             }
         }
+        .widgetURL(URL(string: "urlsceheme://pokemon/\(entry.pokemon.id)"))
     }
     
     private var image: UIImage {

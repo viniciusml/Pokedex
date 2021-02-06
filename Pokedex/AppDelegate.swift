@@ -16,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        configureWindow(with: launchOptions)
+
+        return true
+    }
+    
+    func configureWindow(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = NavigationController()
         
@@ -31,9 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         navigationController.setViewControllers([listViewController], animated: false)
         
+        if let id = launchOptions?[UIApplication.LaunchOptionsKey.url] as? URL {
+            debugPrint("🔴🟢 \(id) 🔴🟢")
+        }
+        
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-
-        return true
     }
 }
