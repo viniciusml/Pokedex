@@ -38,6 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        showPokemonViewController(withURL: url.absoluteString)
+        return true
+    }
+    
     func configureWindow(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -62,6 +67,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             pokemonLoader: loader,
             imageLoader: imageLoader,
             urlString: pokemonURLString)
-        navigationController.pushViewController(pokemonViewController, animated: true)
+        
+        let newViewControllerStack = [navigationController.viewControllers.first, pokemonViewController].compactMap { $0 }
+        navigationController.setViewControllers(newViewControllerStack, animated: true)
     }
 }
