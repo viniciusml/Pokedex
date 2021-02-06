@@ -7,7 +7,7 @@
 //
 
 import PokemonDomain
-@testable import PokeWidgetEngine // TODO remove this
+import PokeWidgetEngine
 import XCTest
 
 class RemoteChosenPokemonLoaderTests: XCTestCase {
