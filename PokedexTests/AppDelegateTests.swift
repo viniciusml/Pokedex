@@ -19,11 +19,7 @@ class AppDelegateTests: XCTestCase {
         
         sut.configureWindow()
         
-        let root = sut.window?.rootViewController
-        
-        let rootNavigation = try XCTUnwrap(root as? NavigationController)
-        let listViewController = try XCTUnwrap(rootNavigation.topViewController as? ResourceListCollectionViewController)
-        
+        let listViewController = try getListViewController(from: sut.window)
         XCTAssertEqual(listViewController.numberOfRenderedResourceItems(), 8)
     }
     
@@ -33,16 +29,22 @@ class AppDelegateTests: XCTestCase {
         sut.window = UIWindow()
         
         sut.configureWindow()
-        
-        let root = sut.window?.rootViewController
-        
-        let rootNavigation = try XCTUnwrap(root as? NavigationController)
-        let listViewController = try XCTUnwrap(rootNavigation.topViewController as? ResourceListCollectionViewController)
+        let listViewController = try getListViewController(from: sut.window)
         
         listViewController.simulateResourceItemSelection(item: 1)
         RunLoop.current.run(until: Date())
         
         let navigationController = listViewController.navigationController
         XCTAssertTrue(navigationController?.topViewController is PokemonViewController)
+    }
+    
+    // MARK: Helpers
+    
+    private func getListViewController(from window: UIWindow?, file: StaticString = #filePath, line: UInt = #line) throws -> ResourceListCollectionViewController {
+        let root = window?.rootViewController
+        let rootNavigation = try XCTUnwrap(root as? NavigationController, "expected root as NavigationController, found \(String(describing: root)) instead")
+        let listViewController = try XCTUnwrap(rootNavigation.topViewController as? ResourceListCollectionViewController, "expected topViewController as ResourceListCollectionViewController, found \(String(describing: rootNavigation.topViewController)) instead")
+        
+        return listViewController
     }
 }
