@@ -38,6 +38,19 @@ class AppDelegateTests: XCTestCase {
         XCTAssertTrue(navigationController?.topViewController is PokemonViewController)
     }
     
+    func test_appDidFinishLaunching_withURL_navigatesToPokemonViewController() throws {
+        let client = HTTPClientStub(.online([.listData]))
+        let sut = AppDelegate(httpClient: client)
+        sut.window = UIWindow()
+        
+        sut.configureWindow(with: [.url: URL(string: "https://pokeapi.co/api/v2/pokemon/1/") as Any])
+        RunLoop.current.run(until: Date())
+        
+        let root = sut.window?.rootViewController
+        let rootNavigation = try XCTUnwrap(root as? NavigationController, "expected root as NavigationController, found \(String(describing: root)) instead")
+        XCTAssertTrue(rootNavigation.topViewController is PokemonViewController)
+    }
+    
     // MARK: Helpers
     
     private func getListViewController(from window: UIWindow?, file: StaticString = #filePath, line: UInt = #line) throws -> ResourceListCollectionViewController {

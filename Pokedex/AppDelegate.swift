@@ -18,6 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         HTTPClientMainQueueDecorator(AFHTTPClient())
     }()
     
+    private lazy var navigationController: NavigationController = {
+        NavigationController()
+    }()
+    
+    private lazy var imageLoader: RemoteImageLoader = {
+        RemoteImageLoader(client: httpClient)
+    }()
+    
     convenience init(httpClient: HTTPClient) {
         self.init()
         self.httpClient = httpClient
@@ -33,24 +41,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func configureWindow(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = NavigationController()
         
         let listLoader = RemoteListLoader(client: httpClient)
-        let imageLoader = RemoteImageLoader(client: httpClient)
         
         let listViewController = ResourceListUIComposer.resourceListComposedWith(
-            listLoader: listLoader, selection: { pokemonURLString in
-                let loader = RemotePokemonLoader(client: self.httpClient)
-                let pokemonViewController = PokemonUIComposer.pokemonComposedWith(pokemonLoader: loader, imageLoader: imageLoader, urlString: pokemonURLString)
-                navigationController.pushViewController(pokemonViewController, animated: true)
-            })
+            listLoader: listLoader, selection: showPokemonViewController(withURL:))
         navigationController.setViewControllers([listViewController], animated: false)
         
-        if let id = launchOptions?[UIApplication.LaunchOptionsKey.url] as? URL {
-            debugPrint("🔴🟢 \(id) 🔴🟢")
+        if let url = launchOptions?[.url] as? URL {
+            showPokemonViewController(withURL: url.absoluteString)
         }
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+    }
+    
+    private func showPokemonViewController(withURL pokemonURLString: String) {
+        let loader = RemotePokemonLoader(client: self.httpClient)
+        let pokemonViewController = PokemonUIComposer.pokemonComposedWith(
+            pokemonLoader: loader,
+            imageLoader: imageLoader,
+            urlString: pokemonURLString)
+        navigationController.pushViewController(pokemonViewController, animated: true)
     }
 }
