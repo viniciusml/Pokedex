@@ -146,6 +146,13 @@
 			remoteGlobalIDString = 8F3E9645242BF6ED00DCD62D;
 			remoteInfo = Pokedex;
 		};
+		D8E9185D25CF196100461920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F3E963E242BF6ED00DCD62D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D869D0FA25BA202A001CEF99;
+			remoteInfo = PokemonDomain;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -780,6 +787,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D8E9185E25CF196100461920 /* PBXTargetDependency */,
 			);
 			name = PokeWidgetExtension;
 			productName = PokeWidgetExtension;
@@ -1132,6 +1140,11 @@
 			isa = PBXTargetDependency;
 			target = 8F3E9645242BF6ED00DCD62D /* Pokedex */;
 			targetProxy = D8AB3FFD2582C9FD006AC67B /* PBXContainerItemProxy */;
+		};
+		D8E9185E25CF196100461920 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D869D0FA25BA202A001CEF99 /* PokemonDomain */;
+			targetProxy = D8E9185D25CF196100461920 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
