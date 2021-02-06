@@ -6,14 +6,13 @@
 //  Copyright © 2021 Vinicius Moreira Leal. All rights reserved.
 //
 
-import PokeWidgetEngine
 import PokemonDomain
 import XCTest
 
 class RemoteChosenPokemonLoaderEndToEndTests: XCTestCase {
     
     func test_endToEndLoadChosenPokemon_matchesFixedTestData() {
-        let client = AFHTTPClient()
+        let client = AFHTTPClient(sessionConfiguration: URLSessionConfiguration.ephemeral)
         
         let listLoader = RemoteListLoader(client: client)
         let pokemonLoader = RemotePokemonLoader(client: client)
