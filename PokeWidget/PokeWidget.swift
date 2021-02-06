@@ -75,10 +75,3 @@ struct PokeWidget: Widget {
         .description("This is a random Pokémon.")
     }
 }
-
-struct PokeWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        PokeWidgetEntryView(entry: PokemonEntry(date: Date(), pokemon: .placeholder))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
-    }
-}
