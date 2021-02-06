@@ -8,15 +8,20 @@
 
 import WidgetKit
 import SwiftUI
-import PokeWidgetEngine
 
 extension ChosenPokemon {
     static var placeholder: ChosenPokemon {
         ChosenPokemon(id: 1, name: "What's that Pokémon?", imageData: .init())
     }
+    
+    static var failed: ChosenPokemon {
+        ChosenPokemon(id: 1, name: "No Pokémon found", imageData: .init())
+    }
 }
 
 struct PokemonProvider: TimelineProvider {
+    let loader: RemoteChosenPokemonLoader
+    
     func placeholder(in context: Context) -> PokemonEntry {
         PokemonEntry(date: Date(), pokemon: .placeholder)
     }
@@ -27,18 +32,21 @@ struct PokemonProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<PokemonEntry>) -> ()) {
-        var entries: [PokemonEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = PokemonEntry(date: entryDate, pokemon: .placeholder)
-            entries.append(entry)
+        let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!
+        
+        loadChosenPokemon { pokemon in
+            let entry = PokemonEntry(date: currentDate, pokemon: pokemon ?? .failed)
+            
+            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+            completion(timeline)
         }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+    }
+    
+    func loadChosenPokemon(completion: @escaping ((ChosenPokemon?) -> Void)) {
+        loader.load { result in
+            completion(try? result.get())
+        }
     }
 }
 
@@ -68,10 +76,29 @@ struct PokeWidget: Widget {
     let kind: String = "PokeWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: PokemonProvider()) { entry in
+        StaticConfiguration(kind: kind, provider: PokemonProvider(loader: .makeLoader())) { entry in
             PokeWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("What's that Pokémon")
         .description("This is a random Pokémon.")
+    }
+}
+
+import PokemonDomain
+
+extension RemoteChosenPokemonLoader {
+    
+    static func makeLoader() -> RemoteChosenPokemonLoader {
+        let client = AFHTTPClient()
+        let listLoader = RemoteListLoader(client: client)
+        let pokemonLoader = RemotePokemonLoader(client: client)
+        let imageDataLoader = RemoteImageDataLoader(client: client)
+        let randomIDProvider = RandomIDProvider()
+        
+        return RemoteChosenPokemonLoader(
+            listLoader: listLoader,
+            pokemonLoader: pokemonLoader,
+            imageDataLoader: imageDataLoader,
+            idProvider: randomIDProvider)
     }
 }
