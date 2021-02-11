@@ -4,15 +4,11 @@
 //
 //  Created by Vinicius Moreira Leal on 31/01/2021.
 //  Copyright © 2021 Vinicius Moreira Leal. All rights reserved.
-//
+//  Kleisi composition reference: https://swiftrocks.com/avoiding-callback-hell-in-swift
 
 import Foundation
 
 public struct RemoteChosenPokemonLoader {
-    public typealias Result = Swift.Result<ChosenPokemon, Swift.Error>
-    private typealias RemoteLoaderError = RemoteLoader<Any>.Error
-    private typealias Operation<T, U> = ((T, ((U) -> Void)?) -> Void)?
-    
     let listLoader: RemoteListLoader
     let pokemonLoader: RemotePokemonLoader
     let imageDataLoader: RemoteImageDataLoader
@@ -26,12 +22,8 @@ public struct RemoteChosenPokemonLoader {
     }
     
     public func load(completion: ((ChosenPokemon) -> Void)?) {
-        let loadPipeline = merge(merge(loadRandomID, to: loadPokemon), to: loadImage)
+        let loadPipeline = loadRandomID >>->> loadPokemon >>->> loadImage
         loadPipeline?(.list, completion)
-    }
-    
-    private func spriteURL(from pokemon: PokemonItem) -> URL? {
-        pokemon.sprites.frontDefault?.asURL ?? pokemon.sprites.allSprites.first?.asURL
     }
     
     private func loadRandomID(from list: URL, completion: ((Int) -> Void)?) {
@@ -66,16 +58,12 @@ public struct RemoteChosenPokemonLoader {
         }
     }
     
-    private func completeWith(_ pokemon: PokemonItem, imageData: Data? = nil, completion: ((ChosenPokemon) -> Void)?) {
-        completion?(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData ?? .emptyData))
+    private func spriteURL(from pokemon: PokemonItem) -> URL? {
+        pokemon.sprites.frontDefault?.asURL ?? pokemon.sprites.allSprites.first?.asURL
     }
     
-    private func merge<T, U, V>(_ lhs: Operation<T, U>, to rhs: Operation<U, V>) -> Operation<T, V> {
-        return { (input, completion) in
-            lhs?(input) { output in
-                rhs?(output, completion)
-            }
-        }
+    private func completeWith(_ pokemon: PokemonItem, imageData: Data? = nil, completion: ((ChosenPokemon) -> Void)?) {
+        completion?(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData ?? .emptyData))
     }
 }
 
