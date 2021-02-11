@@ -77,6 +77,7 @@
 		D873AC3E25AB575F0083E73E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873AC3D25AB575F0083E73E /* NavigationController.swift */; };
 		D873AC4425AB679C0083E73E /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873AC4325AB679C0083E73E /* UIImage+TestHelpers.swift */; };
 		D873AC4925AB67C40083E73E /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873AC4325AB679C0083E73E /* UIImage+TestHelpers.swift */; };
+		D884AAF025D5D5AE003D1E68 /* Composition+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D884AAEF25D5D5AE003D1E68 /* Composition+Helpers.swift */; };
 		D8AB3FFB2582C9FD006AC67B /* PokedexSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */; };
 		D8AB401C2582D13D006AC67B /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = D8AB401B2582D13D006AC67B /* __Snapshots__ */; };
 		D8E9172525CEFF9300461920 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E916FE25CEFF6A00461920 /* Constants.swift */; };
@@ -260,6 +261,7 @@
 		D873AC3D25AB575F0083E73E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		D873AC4325AB679C0083E73E /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
 		D873AC5B25AB7B9C0083E73E /* HTTPClientMainQueueDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientMainQueueDecorator.swift; sourceTree = "<group>"; };
+		D884AAEF25D5D5AE003D1E68 /* Composition+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+Helpers.swift"; sourceTree = "<group>"; };
 		D8A0816B25C7155500A1CE30 /* RandomIDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomIDProvider.swift; sourceTree = "<group>"; };
 		D8A0817625C7156300A1CE30 /* RandomIDProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomIDProviderTests.swift; sourceTree = "<group>"; };
 		D8A0819325C71C5000A1CE30 /* RemoteChosenPokemonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteChosenPokemonLoader.swift; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 				D8A0819325C71C5000A1CE30 /* RemoteChosenPokemonLoader.swift */,
 				D8A081B325C7236000A1CE30 /* ChosenPokemon.swift */,
 				D8A081BE25C723D700A1CE30 /* IDProvider.swift */,
+				D884AAEF25D5D5AE003D1E68 /* Composition+Helpers.swift */,
 			);
 			path = "Widget Engine";
 			sourceTree = "<group>";
@@ -1065,6 +1068,7 @@
 			files = (
 				D8348EBF25BC797C00E13A9F /* RemoteLoader.swift in Sources */,
 				D8E9175F25CF04F000461920 /* ChosenPokemon.swift in Sources */,
+				D884AAF025D5D5AE003D1E68 /* Composition+Helpers.swift in Sources */,
 				D835FEFD25CB3CA80051AD6A /* DataMapper.swift in Sources */,
 				D869D16825BA2508001CEF99 /* PokemonItem.swift in Sources */,
 				D835FEF225CB3C4A0051AD6A /* RemoteImageDataLoader.swift in Sources */,
@@ -1558,6 +1562,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.viniciusLeal.PokemonDomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1579,6 +1584,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.viniciusLeal.PokemonDomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
