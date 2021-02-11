@@ -4,13 +4,11 @@
 //
 //  Created by Vinicius Moreira Leal on 31/01/2021.
 //  Copyright © 2021 Vinicius Moreira Leal. All rights reserved.
-//
+//  Kleisi composition reference: https://swiftrocks.com/avoiding-callback-hell-in-swift
 
 import Foundation
 
 public struct RemoteChosenPokemonLoader {
-    public typealias Result = Swift.Result<ChosenPokemon, Error>
-    
     let listLoader: RemoteListLoader
     let pokemonLoader: RemotePokemonLoader
     let imageDataLoader: RemoteImageDataLoader
@@ -23,33 +21,29 @@ public struct RemoteChosenPokemonLoader {
         self.idProvider = idProvider
     }
     
-    // TODO: Semaphores?
-    public func load(completion: @escaping (Result) -> Void) {
+    public func load(completion: ((ChosenPokemon) -> Void)?) {
+        let loadPipeline = loadRandomID >>->> loadPokemon >>->> loadImage
+        loadPipeline?(.list, completion)
+    }
+    
+    private func loadRandomID(from list: URL, completion: ((Int) -> Void)?) {
         listLoader.load(from: .list) { listResult in
-            switch listResult {
-            case let .success(list):
+            if let list = try? listResult.get() {
                 let id = idProvider.generateID(upTo: list.count)
-                
-                pokemonLoader.load(from: .pokemon(id)) { pokemonResult in
-                    switch pokemonResult {
-                    case let .success(pokemon):
-                        loadImage(for: pokemon, completion: completion)
-                        
-                    case let .failure(error):
-                        completion(.failure(error))
-                    }
-                }
-            case let .failure(error):
-                completion(.failure(error))
+                completion?(id)
             }
         }
     }
     
-    private func spriteURL(from pokemon: PokemonItem) -> URL? {
-        pokemon.sprites.frontDefault?.asURL ?? pokemon.sprites.allSprites.first?.asURL
+    private func loadPokemon(with id: Int, completion: ((PokemonItem) -> Void)?) {
+        pokemonLoader.load(from: .pokemon(id)) { pokemonResult in
+            if let pokemon = try? pokemonResult.get() {
+                completion?(pokemon)
+            }
+        }
     }
     
-    private func loadImage(for pokemon: PokemonItem, completion: @escaping (Result) -> Void) {
+    private func loadImage(for pokemon: PokemonItem, completion: ((ChosenPokemon) -> Void)?) {
         guard let spriteURL = spriteURL(from: pokemon) else {
             return completeWith(pokemon, completion: completion)
         }
@@ -64,8 +58,12 @@ public struct RemoteChosenPokemonLoader {
         }
     }
     
-    private func completeWith(_ pokemon: PokemonItem, imageData: Data? = nil, completion: @escaping (Result) -> Void) {
-        completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData ?? .emptyData)))
+    private func spriteURL(from pokemon: PokemonItem) -> URL? {
+        pokemon.sprites.frontDefault?.asURL ?? pokemon.sprites.allSprites.first?.asURL
+    }
+    
+    private func completeWith(_ pokemon: PokemonItem, imageData: Data? = nil, completion: ((ChosenPokemon) -> Void)?) {
+        completion?(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData ?? .emptyData))
     }
 }
 

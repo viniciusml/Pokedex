@@ -26,16 +26,18 @@ struct PokemonProvider: TimelineProvider {
         let currentDate = Date()
         let refreshDate = Calendar.current.date(byAdding: .hour, value: 5, to: currentDate)!
         
+        var chosenPokemon: ChosenPokemon = .failed
         loadChosenPokemon { pokemon in
-            let entry = PokemonEntry(date: currentDate, pokemon: pokemon ?? .failed)
+            chosenPokemon = pokemon
+            let entry = PokemonEntry(date: currentDate, pokemon: chosenPokemon)
             
             let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
             completion(timeline)
         }
     }
     
-    func loadChosenPokemon(completion: @escaping ((ChosenPokemon?) -> Void)) {
-        loader.load { completion(try? $0.get()) }
+    func loadChosenPokemon(completion: @escaping ((ChosenPokemon) -> Void)) {
+        loader.load(completion: completion)
     }
 }
 

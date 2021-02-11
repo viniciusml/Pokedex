@@ -27,7 +27,7 @@ class RemoteChosenPokemonLoaderEndToEndTests: XCTestCase {
         
         let exp = expectation(description: "Wait for load completion")
         
-        var receivedResult: RemoteChosenPokemonLoader.Result?
+        var receivedResult: ChosenPokemon?
         loader.load { result in
             receivedResult = result
             exp.fulfill()
@@ -36,16 +36,13 @@ class RemoteChosenPokemonLoaderEndToEndTests: XCTestCase {
         wait(for: [exp], timeout: 5.0)
         
         switch receivedResult {
-        case let .success(item):
+        case let .some(item):
             XCTAssertEqual(item.name, "diglett")
             XCTAssertEqual(item.id, 50)
             XCTAssertNotNil(item.imageData)
             
-        case let .failure(error):
-            XCTFail("Expected successful list result, got \(error) instead")
-            
-        default:
-            XCTFail("Expected successful pokemon result, got no result instead")
+        case .none:
+            XCTFail("Expected successful pokemon result, got none instead")
         }
     }
 }

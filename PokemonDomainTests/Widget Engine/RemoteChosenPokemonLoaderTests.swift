@@ -33,7 +33,7 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             imageDataLoader.completeItemLoading(with: .nonEmptyData)
         })
         
-        let result = try XCTUnwrap(try expectedResult?.get())
+        let result = try XCTUnwrap(expectedResult)
         XCTAssertEqual(result.id, 2)
         XCTAssertEqual(result.name, "bulbasaur")
         XCTAssertEqual(String(data: result.imageData, encoding: .utf8), "test data")
@@ -48,7 +48,7 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             imageDataLoader.completeItemLoading(with: .nonEmptyData)
         })
         
-        let result = try XCTUnwrap(try expectedResult?.get())
+        let result = try XCTUnwrap(expectedResult)
         XCTAssertEqual(result.id, 2)
         XCTAssertEqual(result.name, "bulbasaur")
         XCTAssertEqual(String(data: result.imageData, encoding: .utf8), "test data")
@@ -63,7 +63,7 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             imageDataLoader.completeItemLoadingWithError()
         })
         
-        let result = try XCTUnwrap(try expectedResult?.get())
+        let result = try XCTUnwrap(expectedResult)
         XCTAssertEqual(result.id, 2)
         XCTAssertEqual(result.name, "bulbasaur")
         XCTAssertTrue(result.imageData.isEmpty)
@@ -77,7 +77,7 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             pokemonLoader.completeItemLoading(with: makeItem(id: 2, frontDefaultURL: false, fallbackURL: false))
         })
         
-        let result = try XCTUnwrap(try expectedResult?.get())
+        let result = try XCTUnwrap(expectedResult)
         XCTAssertEqual(result.id, 2)
         XCTAssertEqual(result.name, "bulbasaur")
         XCTAssertTrue(result.imageData.isEmpty)
@@ -90,7 +90,7 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             listLoader.completeListLoadingWithError()
         })
         
-        XCTAssertEqual(expectedResult?.error as? RemoteLoader<ListItem>.Error, .connectivity)
+        XCTAssertNil(expectedResult)
     }
     
     func test_load_failsUponPokemonLoadingFailure() {
@@ -101,7 +101,7 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             pokemonLoader.completeItemLoadingWithError()
         })
         
-        XCTAssertEqual(expectedResult?.error as? RemoteLoader<PokemonItem>.Error, .connectivity)
+        XCTAssertNil(expectedResult)
     }
     
     // MARK: Helpers
@@ -115,15 +115,10 @@ class RemoteChosenPokemonLoaderTests: XCTestCase {
             idProvider: idProvider)
     }
     
-    private func getResult(_ sut: RemoteChosenPokemonLoader, when action: () -> Void) -> RemoteChosenPokemonLoader.Result? {
-        let exp = expectation(description: "wait for result")
-        var result: Result<ChosenPokemon, Error>?
-        sut.load {
-            result = $0
-            exp.fulfill()
-        }
+    private func getResult(_ sut: RemoteChosenPokemonLoader, when action: () -> Void) -> ChosenPokemon? {
+        var result: ChosenPokemon?
+        sut.load { result = $0 }
         action()
-        wait(for: [exp], timeout: 0.1)
         return result
     }
     
