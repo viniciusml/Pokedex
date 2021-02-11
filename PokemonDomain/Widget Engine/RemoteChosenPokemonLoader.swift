@@ -9,7 +9,9 @@
 import Foundation
 
 public struct RemoteChosenPokemonLoader {
-    public typealias Result = Swift.Result<ChosenPokemon, Error>
+    public typealias Result = Swift.Result<ChosenPokemon, Swift.Error>
+    private typealias RemoteLoaderError = RemoteLoader<Any>.Error
+    private typealias Operation<T, U> = ((T, ((U) -> Void)?) -> Void)?
     
     let listLoader: RemoteListLoader
     let pokemonLoader: RemotePokemonLoader
@@ -23,33 +25,33 @@ public struct RemoteChosenPokemonLoader {
         self.idProvider = idProvider
     }
     
-    // TODO: Semaphores?
-    public func load(completion: @escaping (Result) -> Void) {
-        listLoader.load(from: .list) { listResult in
-            switch listResult {
-            case let .success(list):
-                let id = idProvider.generateID(upTo: list.count)
-                
-                pokemonLoader.load(from: .pokemon(id)) { pokemonResult in
-                    switch pokemonResult {
-                    case let .success(pokemon):
-                        loadImage(for: pokemon, completion: completion)
-                        
-                    case let .failure(error):
-                        completion(.failure(error))
-                    }
-                }
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
+    public func load(completion: ((ChosenPokemon) -> Void)?) {
+        let loadPipeline = merge(merge(loadRandomID, to: loadPokemon), to: loadImage)
+        loadPipeline?(.list, completion)
     }
     
     private func spriteURL(from pokemon: PokemonItem) -> URL? {
         pokemon.sprites.frontDefault?.asURL ?? pokemon.sprites.allSprites.first?.asURL
     }
     
-    private func loadImage(for pokemon: PokemonItem, completion: @escaping (Result) -> Void) {
+    private func loadRandomID(from list: URL, completion: ((Int) -> Void)?) {
+        listLoader.load(from: .list) { listResult in
+            if let list = try? listResult.get() {
+                let id = idProvider.generateID(upTo: list.count)
+                completion?(id)
+            }
+        }
+    }
+    
+    private func loadPokemon(with id: Int, completion: ((PokemonItem) -> Void)?) {
+        pokemonLoader.load(from: .pokemon(id)) { pokemonResult in
+            if let pokemon = try? pokemonResult.get() {
+                completion?(pokemon)
+            }
+        }
+    }
+    
+    private func loadImage(for pokemon: PokemonItem, completion: ((ChosenPokemon) -> Void)?) {
         guard let spriteURL = spriteURL(from: pokemon) else {
             return completeWith(pokemon, completion: completion)
         }
@@ -64,8 +66,16 @@ public struct RemoteChosenPokemonLoader {
         }
     }
     
-    private func completeWith(_ pokemon: PokemonItem, imageData: Data? = nil, completion: @escaping (Result) -> Void) {
-        completion(.success(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData ?? .emptyData)))
+    private func completeWith(_ pokemon: PokemonItem, imageData: Data? = nil, completion: ((ChosenPokemon) -> Void)?) {
+        completion?(ChosenPokemon(id: pokemon.id, name: pokemon.name, imageData: imageData ?? .emptyData))
+    }
+    
+    private func merge<T, U, V>(_ lhs: Operation<T, U>, to rhs: Operation<U, V>) -> Operation<T, V> {
+        return { (input, completion) in
+            lhs?(input) { output in
+                rhs?(output, completion)
+            }
+        }
     }
 }
 
