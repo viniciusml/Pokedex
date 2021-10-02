@@ -50,8 +50,6 @@
 		D83490C725BCD48100E13A9F /* TrackMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */; };
 		D83490F325BCD6CD00E13A9F /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83490F225BCD6CD00E13A9F /* HTTPClientSpy.swift */; };
 		D834910825BCD85D00E13A9F /* AccessibilitySnapshot in Frameworks */ = {isa = PBXBuildFile; productRef = D834910725BCD85D00E13A9F /* AccessibilitySnapshot */; };
-		D834912F25BE00F100E13A9F /* ViewControllerPresentationSpy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D834912E25BE00F100E13A9F /* ViewControllerPresentationSpy.framework */; platformFilter = ios; settings = {ATTRIBUTES = (Required, ); }; };
-		D834913D25BE01AC00E13A9F /* ViewControllerPresentationSpy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D834912E25BE00F100E13A9F /* ViewControllerPresentationSpy.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D834915125BE04FB00E13A9F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D834915025BE04FB00E13A9F /* WidgetKit.framework */; };
 		D834915325BE04FB00E13A9F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D834915225BE04FB00E13A9F /* SwiftUI.framework */; };
 		D834915625BE04FB00E13A9F /* PokeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834915525BE04FB00E13A9F /* PokeWidget.swift */; };
@@ -80,6 +78,8 @@
 		D884AAF025D5D5AE003D1E68 /* Composition+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D884AAEF25D5D5AE003D1E68 /* Composition+Helpers.swift */; };
 		D8AB3FFB2582C9FD006AC67B /* PokedexSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */; };
 		D8AB401C2582D13D006AC67B /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = D8AB401B2582D13D006AC67B /* __Snapshots__ */; };
+		D8E797FA270908190080E13B /* ViewControllerPresentationSpy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E797F9270908190080E13B /* ViewControllerPresentationSpy.framework */; platformFilter = ios; };
+		D8E797FB270909390080E13B /* ViewControllerPresentationSpy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8E797F9270908190080E13B /* ViewControllerPresentationSpy.framework */; platformFilter = ios; };
 		D8E9172525CEFF9300461920 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E916FE25CEFF6A00461920 /* Constants.swift */; };
 		D8E9173925CF04E700461920 /* RandomIDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A0816B25C7155500A1CE30 /* RandomIDProvider.swift */; };
 		D8E9174C25CF04EC00461920 /* RemoteChosenPokemonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A0819325C71C5000A1CE30 /* RemoteChosenPokemonLoader.swift */; };
@@ -171,7 +171,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				D834913D25BE01AC00E13A9F /* ViewControllerPresentationSpy.framework in CopyFiles */,
+				D8E797FB270909390080E13B /* ViewControllerPresentationSpy.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,7 +235,6 @@
 		8FE5A75F25458FBF00D1B71A /* RemoteListLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListLoader.swift; sourceTree = "<group>"; };
 		8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFHTTPClientTests.swift; sourceTree = "<group>"; };
 		D83490F225BCD6CD00E13A9F /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
-		D834912E25BE00F100E13A9F /* ViewControllerPresentationSpy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ViewControllerPresentationSpy.framework; sourceTree = "<group>"; };
 		D834914E25BE04FB00E13A9F /* PokeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PokeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D834915025BE04FB00E13A9F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		D834915225BE04FB00E13A9F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -272,6 +271,7 @@
 		D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexSnapshotTests.swift; sourceTree = "<group>"; };
 		D8AB3FFC2582C9FD006AC67B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AB401B2582D13D006AC67B /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		D8E797F9270908190080E13B /* ViewControllerPresentationSpy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ViewControllerPresentationSpy.framework; sourceTree = "<group>"; };
 		D8E916FE25CEFF6A00461920 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D8E917EE25CF11FC00461920 /* ChosenPokemon+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChosenPokemon+Helper.swift"; sourceTree = "<group>"; };
 		D8E9180C25CF124E00461920 /* RemoteChosenPokemonLoader+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteChosenPokemonLoader+Helper.swift"; sourceTree = "<group>"; };
@@ -306,7 +306,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D834912F25BE00F100E13A9F /* ViewControllerPresentationSpy.framework in Frameworks */,
+				D8E797FA270908190080E13B /* ViewControllerPresentationSpy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +356,7 @@
 		8F3E963D242BF6ED00DCD62D = {
 			isa = PBXGroup;
 			children = (
-				D834912E25BE00F100E13A9F /* ViewControllerPresentationSpy.framework */,
+				D8E797F9270908190080E13B /* ViewControllerPresentationSpy.framework */,
 				8F3E9648242BF6ED00DCD62D /* Pokedex */,
 				8F3E965F242BF6F200DCD62D /* PokedexTests */,
 				8F7B09DF2430A54A003377F0 /* PokedexEndToEndTests */,
@@ -1441,7 +1441,6 @@
 		D834915E25BE04FB00E13A9F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -1465,7 +1464,6 @@
 		D834915F25BE04FB00E13A9F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
