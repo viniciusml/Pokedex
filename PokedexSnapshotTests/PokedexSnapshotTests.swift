@@ -37,7 +37,7 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_listViewController_whileWaitingResponse_accessibilityElements() throws {
-        try XCTSkipIf(UIDevice.isIphone12Pro, "Skipped on CI")
+        try XCTSkipIf(UIDevice.isIphone13Pro, "Skipped on CI")
         assertSnapshot(matching: makeListViewController(.loading), as: .accessibilityImage)
     }
     
@@ -50,7 +50,7 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_pokemonViewController_withSuccessfulResponse_accessibilityElements() throws {
-        try XCTSkipIf(UIDevice.isIphone12Pro, "Skipped on CI")
+        try XCTSkipIf(UIDevice.isIphone13Pro, "Skipped on CI")
         assertSnapshot(matching: makePokemonViewController(.online([.pokemonData, .pokemonImageData])), as: .accessibilityImage(drawHierarchyInKeyWindow: true))
     }
     
@@ -87,8 +87,8 @@ class PokedexSnapshotTests: XCTestCase {
 }
 
 extension UIDevice {
-    static var isIphone12Pro: Bool {
-        modelIdentifier() == "iPhone13,3" // iPhone 12 Pro model identifier
+    static var isIphone13Pro: Bool {
+        modelIdentifier() == "iPhone14,2" // iPhone 13 Pro model identifier
     }
     
     // https://www.theiphonewiki.com/wiki/Models
