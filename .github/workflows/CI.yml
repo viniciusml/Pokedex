@@ -9,13 +9,13 @@ on:
 jobs:
   build-and-test:
 
-    runs-on: macos-latest
+    runs-on: macos-11
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_12.2.app
+      run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
     - name: Build and test
-      run: xcodebuild clean build test -project Pokedex.xcodeproj -derivedDataPath Build/ -enableCodeCoverage=YES -scheme "CI" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=14.2,name=iPhone 12 Pro" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
+      run: xcodebuild clean build test -project Pokedex.xcodeproj -derivedDataPath Build/ -enableCodeCoverage=YES -scheme "CI" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=15.0,name=iPhone 13 Pro" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
