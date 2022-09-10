@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install xclogparser
+    - run: brew install xclogparser
+
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
