@@ -27,6 +27,15 @@
           "revision": "c466812aa2e22898f27557e2e780d3aad7a27203",
           "version": "1.8.2"
         }
+      },
+      {
+        "package": "ViewControllerPresentationSpy",
+        "repositoryURL": "https://github.com/jonreid/ViewControllerPresentationSpy",
+        "state": {
+          "branch": null,
+          "revision": "34c42a620cea5408a3d7d1fd05a6d52037f4cb51",
+          "version": "6.1.0"
+        }
       }
     ]
   },
