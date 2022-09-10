@@ -29,6 +29,7 @@
 		8FD7ECC0247DB90D00DAD0C8 /* TrackMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */; };
 		8FE5A7392544608D00D1B71A /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A7382544608D00D1B71A /* SharedTestHelpers.swift */; };
 		8FE5A76D2545B37500D1B71A /* TrackMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7ECBF247DB90D00DAD0C8 /* TrackMemoryLeaks.swift */; };
+		D81137A028CCB897002A5AAB /* ViewControllerPresentationSpy in Frameworks */ = {isa = PBXBuildFile; productRef = D811379F28CCB897002A5AAB /* ViewControllerPresentationSpy */; };
 		D8348E8B25BC795D00E13A9F /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E9673242C06BF00DCD62D /* HTTPClient.swift */; };
 		D8348E9225BC796100E13A9F /* AFHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2C912242D4F2F00CDAD9F /* AFHTTPClient.swift */; };
 		D8348EA525BC796700E13A9F /* HTTPClientMainQueueDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873AC5B25AB7B9C0083E73E /* HTTPClientMainQueueDecorator.swift */; };
@@ -78,8 +79,6 @@
 		D884AAF025D5D5AE003D1E68 /* Composition+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D884AAEF25D5D5AE003D1E68 /* Composition+Helpers.swift */; };
 		D8AB3FFB2582C9FD006AC67B /* PokedexSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */; };
 		D8AB401C2582D13D006AC67B /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = D8AB401B2582D13D006AC67B /* __Snapshots__ */; };
-		D8E797FA270908190080E13B /* ViewControllerPresentationSpy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E797F9270908190080E13B /* ViewControllerPresentationSpy.framework */; platformFilter = ios; };
-		D8E797FB270909390080E13B /* ViewControllerPresentationSpy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8E797F9270908190080E13B /* ViewControllerPresentationSpy.framework */; platformFilter = ios; };
 		D8E9172525CEFF9300461920 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E916FE25CEFF6A00461920 /* Constants.swift */; };
 		D8E9173925CF04E700461920 /* RandomIDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A0816B25C7155500A1CE30 /* RandomIDProvider.swift */; };
 		D8E9174C25CF04EC00461920 /* RemoteChosenPokemonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A0819325C71C5000A1CE30 /* RemoteChosenPokemonLoader.swift */; };
@@ -171,7 +170,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				D8E797FB270909390080E13B /* ViewControllerPresentationSpy.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,7 +269,6 @@
 		D8AB3FFA2582C9FD006AC67B /* PokedexSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexSnapshotTests.swift; sourceTree = "<group>"; };
 		D8AB3FFC2582C9FD006AC67B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AB401B2582D13D006AC67B /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
-		D8E797F9270908190080E13B /* ViewControllerPresentationSpy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ViewControllerPresentationSpy.framework; sourceTree = "<group>"; };
 		D8E916FE25CEFF6A00461920 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D8E917EE25CF11FC00461920 /* ChosenPokemon+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChosenPokemon+Helper.swift"; sourceTree = "<group>"; };
 		D8E9180C25CF124E00461920 /* RemoteChosenPokemonLoader+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteChosenPokemonLoader+Helper.swift"; sourceTree = "<group>"; };
@@ -306,7 +303,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8E797FA270908190080E13B /* ViewControllerPresentationSpy.framework in Frameworks */,
+				D81137A028CCB897002A5AAB /* ViewControllerPresentationSpy in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +353,6 @@
 		8F3E963D242BF6ED00DCD62D = {
 			isa = PBXGroup;
 			children = (
-				D8E797F9270908190080E13B /* ViewControllerPresentationSpy.framework */,
 				8F3E9648242BF6ED00DCD62D /* Pokedex */,
 				8F3E965F242BF6F200DCD62D /* PokedexTests */,
 				8F7B09DF2430A54A003377F0 /* PokedexEndToEndTests */,
@@ -757,6 +753,9 @@
 				8F3E965E242BF6F200DCD62D /* PBXTargetDependency */,
 			);
 			name = PokedexTests;
+			packageProductDependencies = (
+				D811379F28CCB897002A5AAB /* ViewControllerPresentationSpy */,
+			);
 			productName = PokedexTests;
 			productReference = 8F3E965C242BF6F200DCD62D /* PokedexTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -908,6 +907,7 @@
 			packageReferences = (
 				D834904525BCD20500E13A9F /* XCRemoteSwiftPackageReference "Alamofire" */,
 				D834910625BCD85D00E13A9F /* XCRemoteSwiftPackageReference "AccessibilitySnapshot" */,
+				D811379E28CCB897002A5AAB /* XCRemoteSwiftPackageReference "ViewControllerPresentationSpy" */,
 			);
 			productRefGroup = 8F3E9647242BF6ED00DCD62D /* Products */;
 			projectDirPath = "";
@@ -1715,6 +1715,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D811379E28CCB897002A5AAB /* XCRemoteSwiftPackageReference "ViewControllerPresentationSpy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jonreid/ViewControllerPresentationSpy";
+			requirement = {
+				kind = exactVersion;
+				version = 6.1.0;
+			};
+		};
 		D834904525BCD20500E13A9F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1734,6 +1742,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D811379F28CCB897002A5AAB /* ViewControllerPresentationSpy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D811379E28CCB897002A5AAB /* XCRemoteSwiftPackageReference "ViewControllerPresentationSpy" */;
+			productName = ViewControllerPresentationSpy;
+		};
 		D834904625BCD20500E13A9F /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D834904525BCD20500E13A9F /* XCRemoteSwiftPackageReference "Alamofire" */;
