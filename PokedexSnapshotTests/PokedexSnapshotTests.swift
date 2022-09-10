@@ -37,7 +37,6 @@ class PokedexSnapshotTests: XCTestCase {
     }
     
     func test_listViewController_whileWaitingResponse_accessibilityElements() throws {
-        try XCTSkipIf(UIDevice.isIphone13Pro, "Skipped on CI")
         assertSnapshot(matching: makeListViewController(.loading), as: .accessibilityImage)
     }
     
