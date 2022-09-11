@@ -15,6 +15,7 @@ final class PokedexTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        app.launchArguments.append("UITest")
         app.launch()
     }
 
