@@ -23,7 +23,7 @@ struct PokemonDetailsScreen {
         app.navigationBars["Pokédex"].buttons["Pokédex"]
     }
 
-    func title(_ identifier: String) -> XCUIElement {
+    func pokemonIdentifier(_ identifier: String) -> XCUIElement {
         app.staticTexts[identifier]
     }
 }
