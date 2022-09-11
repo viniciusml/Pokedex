@@ -82,6 +82,16 @@
                ReferencedContainer = "container:Pokedex.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D81137A428CE0474002A5AAB"
+               BuildableName = "PokedexUITests.xctest"
+               BlueprintName = "PokedexUITests"
+               ReferencedContainer = "container:Pokedex.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
