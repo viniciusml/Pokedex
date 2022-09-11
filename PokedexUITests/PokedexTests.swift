@@ -12,14 +12,32 @@ final class PokedexTests: XCTestCase {
 
     private let app = XCUIApplication()
 
-    func testPokedex() {
-        let pokedexScreen = PokedexScreen(app)
+    override func setUp() {
+        super.setUp()
 
+        app.launch()
+    }
+
+    func testPokedex_firstPokemon() {
+        let pokedexScreen = PokedexScreen(app)
+        XCTAssertTrue(pokedexScreen.title.displayed)
+
+        pokedexScreen.pokemonCell("Pokémon name: bulbasaur").tap()
+
+        let pokemonDetailScreen = PokemonDetailsScreen(app)
+        XCTAssertFalse(pokedexScreen.title.displayed)
+        XCTAssertTrue(pokemonDetailScreen.title("Bulbasaur").displayed)
+
+        pokemonDetailScreen.pokemonSpriteContainer.swipeLeft()
+        pokemonDetailScreen.pokemonSpriteContainer.swipeLeft()
+        pokemonDetailScreen.pokemonSpriteContainer.swipeLeft()
+
+        pokemonDetailScreen.backButton.tap()
         XCTAssertTrue(pokedexScreen.title.displayed)
     }
 }
 
-extension XCUIElement {
+private extension XCUIElement {
 
     var displayed: Bool {
         guard exists, !frame.isEmpty else { return false }

@@ -34,6 +34,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8F3E9645242BF6ED00DCD62D"
+            BuildableName = "Pokedex.app"
+            BlueprintName = "Pokedex"
+            ReferencedContainer = "container:Pokedex.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

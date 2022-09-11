@@ -18,4 +18,8 @@ struct PokedexScreen {
     var title: XCUIElement {
         app.staticTexts["Pokédex"]
     }
+
+    func pokemonCell(_ identifier: String) -> XCUIElement {
+        app.collectionViews.cells.containing(.staticText, identifier: identifier).element
+    }
 }

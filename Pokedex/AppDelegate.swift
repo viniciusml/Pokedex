@@ -46,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func configureWindow(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         
         window = UIWindow(frame: UIScreen.main.bounds)
+//        UIView.setAnimationsEnabled(false)
+//        window?.layer.speed = 2000
         
         let listLoader = RemoteListLoader(client: httpClient)
         
