@@ -22,8 +22,4 @@ struct PokemonDetailsScreen {
     var backButton: XCUIElement {
         app.navigationBars["Pokédex"].buttons["Pokédex"]
     }
-
-    func pokemonIdentifier(_ identifier: String) -> XCUIElement {
-        app.staticTexts[identifier]
-    }
 }
