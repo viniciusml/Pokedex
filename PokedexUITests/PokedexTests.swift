@@ -27,7 +27,7 @@ final class PokedexTests: XCTestCase {
 
         let pokemonDetailScreen = PokemonDetailsScreen(app)
         XCTAssertFalse(pokedexScreen.title.displayed)
-        XCTAssertTrue(pokemonDetailScreen.pokemonIdentifier("Id: 1").displayed)
+        XCTAssertTrue(pokemonDetailScreen.pokemonIdentifier("Id: 1").exists)
 
         pokemonDetailScreen.pokemonSpriteContainer.swipeLeft()
         pokemonDetailScreen.pokemonSpriteContainer.swipeLeft()
