@@ -46,7 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func configureWindow(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        
+        window?.disableAnimationsForUITests()
+
         let listLoader = RemoteListLoader(client: httpClient)
         
         let listViewController = ResourceListUIComposer.resourceListComposedWith(
@@ -70,5 +71,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let newViewControllerStack = [navigationController.viewControllers.first, pokemonViewController].compactMap { $0 }
         navigationController.setViewControllers(newViewControllerStack, animated: true)
+    }
+}
+
+private extension UIWindow {
+
+    func disableAnimationsForUITests() {
+        if ProcessInfo.processInfo.arguments.contains("UITest") {
+            UIView.setAnimationsEnabled(false)
+            window?.layer.speed = 2000
+        }
     }
 }
