@@ -24,20 +24,26 @@ public enum UITestMacro: Macro {
     }
 }
 
-public struct HTTPClientType {
+public protocol ConditionRepresentable: Equatable {}
+
+public protocol TypeProviding {
+    var current: any ConditionRepresentable { get }
+}
+
+public struct HTTPClientType: TypeProviding {
     
-    public enum ClientType {
+    public enum Condition: ConditionRepresentable {
         case prod
         case stubbed
     }
     
-    private init() {}
+    public init() {}
     
-    public static var current: ClientType {
+    public var current: any ConditionRepresentable {
         if UITestMacro.active {
-            return .stubbed
+            return Condition.stubbed
         } else {
-            return .prod
+            return Condition.prod
         }
     }
 }

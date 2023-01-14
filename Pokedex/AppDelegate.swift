@@ -9,13 +9,23 @@
 import PokemonDomain
 import UIKit
 
+private class EmptyClient: HTTPClient {
+    
+    func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
+        fatalError("unimplemented")
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
     private lazy var httpClient: HTTPClient = {
-        HTTPClientMainQueueDecorator(AFHTTPClient())
+        HTTPClientWithStubbedComposite(
+            prod: HTTPClientMainQueueDecorator(AFHTTPClient()),
+            stubbed: EmptyClient(),
+            typeProvider: HTTPClientType())
     }()
     
     private lazy var navigationController: NavigationController = {

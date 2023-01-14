@@ -11,20 +11,22 @@ import Foundation
 public class HTTPClientWithStubbedComposite: HTTPClient {
     private let prod: HTTPClient
     private let stubbed: HTTPClient
-    private let clientType: HTTPClientType.ClientType
+    private let typeProvider: TypeProviding
     
-    public init(prod: HTTPClient, stubbed: HTTPClient, clientType: HTTPClientType.ClientType) {
+    public init(prod: HTTPClient, stubbed: HTTPClient, typeProvider: TypeProviding) {
         self.prod = prod
         self.stubbed = stubbed
-        self.clientType = clientType
+        self.typeProvider = typeProvider
     }
     
     public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-        switch clientType {
-        case .prod:
-            prod.get(from: url, completion: completion)
-        case .stubbed:
+        switch typeProvider.current {
+        case HTTPClientType.Condition.stubbed:
             stubbed.get(from: url, completion: completion)
+        case HTTPClientType.Condition.prod:
+            prod.get(from: url, completion: completion)
+        default:
+            prod.get(from: url, completion: completion)
         }
     }
 }

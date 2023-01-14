@@ -12,20 +12,29 @@ import XCTest
 final class DomainMacroTests: XCTestCase {
     
     func testDebugBuild() {
+        let sut = HTTPClientType()
+        
         with(macro: UITestMacro.self) {
-            XCTAssertEqual(HTTPClientType.current, .stubbed)
+            assertCurrent(in: sut, equalTo: HTTPClientType.Condition.stubbed)
         }
     }
     
     func testProductionBuild() {
-        XCTAssertEqual(HTTPClientType.current, .prod)
+        let sut = HTTPClientType()
+        
+        assertCurrent(in: sut, equalTo: HTTPClientType.Condition.prod)
     }
     
     // MARK: - Helpers
     
-    func with<T: Macro>(macro: T.Type, block: () -> Void) {
+    private func with<T: Macro>(macro: T.Type, block: () -> Void) {
         macro.isOverridden = true
         block()
         macro.isOverridden = false
+    }
+    
+    private func assertCurrent<T: ConditionRepresentable>(in typeProvider: TypeProviding, equalTo expectedValue: T) {
+        
+        XCTAssertEqual(typeProvider.current as? T, expectedValue)
     }
 }
