@@ -112,6 +112,11 @@
 		D8F6AE46259F53E2009AE563 /* RemoteImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE45259F53E2009AE563 /* RemoteImageLoader.swift */; };
 		D8F6AE4C259F7962009AE563 /* PokemonImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE4B259F7962009AE563 /* PokemonImageViewController.swift */; };
 		D8F6AE5C259F9BB5009AE563 /* RemoteImageLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE5B259F9BB5009AE563 /* RemoteImageLoaderSpy.swift */; };
+		EC9EDB92296F5F670071B911 /* DomainMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9EDB91296F5F670071B911 /* DomainMacro.swift */; };
+		EC9EDB94296F5F750071B911 /* DomainMacroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9EDB93296F5F750071B911 /* DomainMacroTests.swift */; };
+		ECDF8A2929734858004574F9 /* HTTPClientWithStubbedComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF8A2829734858004574F9 /* HTTPClientWithStubbedComposite.swift */; };
+		ECDF8A2B29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF8A2A29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift */; };
+		ECDF8A2D297357FB004574F9 /* TypeProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF8A2C297357FB004574F9 /* TypeProviding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,6 +307,11 @@
 		D8F6AE45259F53E2009AE563 /* RemoteImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoader.swift; sourceTree = "<group>"; };
 		D8F6AE4B259F7962009AE563 /* PokemonImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonImageViewController.swift; sourceTree = "<group>"; };
 		D8F6AE5B259F9BB5009AE563 /* RemoteImageLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoaderSpy.swift; sourceTree = "<group>"; };
+		EC9EDB91296F5F670071B911 /* DomainMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainMacro.swift; sourceTree = "<group>"; };
+		EC9EDB93296F5F750071B911 /* DomainMacroTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainMacroTests.swift; sourceTree = "<group>"; };
+		ECDF8A2829734858004574F9 /* HTTPClientWithStubbedComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientWithStubbedComposite.swift; sourceTree = "<group>"; };
+		ECDF8A2A29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientWithStubbedCompositeTests.swift; sourceTree = "<group>"; };
+		ECDF8A2C297357FB004574F9 /* TypeProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeProviding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -541,6 +551,7 @@
 				8FE2C912242D4F2F00CDAD9F /* AFHTTPClient.swift */,
 				D873AC5B25AB7B9C0083E73E /* HTTPClientMainQueueDecorator.swift */,
 				8FE5A72E2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift */,
+				ECDF8A2829734858004574F9 /* HTTPClientWithStubbedComposite.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -571,6 +582,7 @@
 			isa = PBXGroup;
 			children = (
 				8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */,
+				ECDF8A2A29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -651,6 +663,8 @@
 				D869D14825BA2173001CEF99 /* Model */,
 				D8348EE025BC79C200E13A9F /* Mapper */,
 				D869D0FE25BA202A001CEF99 /* Info.plist */,
+				EC9EDB91296F5F670071B911 /* DomainMacro.swift */,
+				ECDF8A2C297357FB004574F9 /* TypeProviding.swift */,
 			);
 			path = PokemonDomain;
 			sourceTree = "<group>";
@@ -664,6 +678,7 @@
 				D8348F2025BC7AA100E13A9F /* Mapper */,
 				D8348F6725BC7B4200E13A9F /* Helpers */,
 				D869D10A25BA202A001CEF99 /* Info.plist */,
+				EC9EDB93296F5F750071B911 /* DomainMacroTests.swift */,
 			);
 			path = PokemonDomainTests;
 			sourceTree = "<group>";
@@ -1155,14 +1170,17 @@
 				D835FEF225CB3C4A0051AD6A /* RemoteImageDataLoader.swift in Sources */,
 				D8348ED925BC798500E13A9F /* RemoteListLoader.swift in Sources */,
 				D8E9177225CF04F400461920 /* IDProvider.swift in Sources */,
+				ECDF8A2929734858004574F9 /* HTTPClientWithStubbedComposite.swift in Sources */,
 				D8348EA525BC796700E13A9F /* HTTPClientMainQueueDecorator.swift in Sources */,
 				D8348EB225BC796B00E13A9F /* HTTPURLResponse+StatusCode.swift in Sources */,
 				D8348E9225BC796100E13A9F /* AFHTTPClient.swift in Sources */,
 				D8E9174C25CF04EC00461920 /* RemoteChosenPokemonLoader.swift in Sources */,
+				EC9EDB92296F5F670071B911 /* DomainMacro.swift in Sources */,
 				D869D17525BA250C001CEF99 /* PokeType.swift in Sources */,
 				D8348EF425BC79DF00E13A9F /* ListItemMapper.swift in Sources */,
 				D8E9173925CF04E700461920 /* RandomIDProvider.swift in Sources */,
 				D8348E8B25BC795D00E13A9F /* HTTPClient.swift in Sources */,
+				ECDF8A2D297357FB004574F9 /* TypeProviding.swift in Sources */,
 				D869D15B25BA2503001CEF99 /* ListItem.swift in Sources */,
 				D8348F0125BC79E600E13A9F /* PokemonItemMapper.swift in Sources */,
 				D8348EE725BC79D800E13A9F /* ResourceMapper.swift in Sources */,
@@ -1184,6 +1202,8 @@
 				D8348F6025BC7B3E00E13A9F /* PokemonItemMapperTests.swift in Sources */,
 				D8348F6E25BC7BBD00E13A9F /* HTTPClientSpy.swift in Sources */,
 				D8E917B525CF053400461920 /* RemoteChosenPokemonLoaderTests.swift in Sources */,
+				ECDF8A2B29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift in Sources */,
+				EC9EDB94296F5F750071B911 /* DomainMacroTests.swift in Sources */,
 				D8348F7B25BC7BC100E13A9F /* ServiceHelpers.swift in Sources */,
 				D83490C725BCD48100E13A9F /* TrackMemoryLeaks.swift in Sources */,
 				D8E917C825CF05D200461920 /* RemoteListLoaderSpy.swift in Sources */,
@@ -1620,6 +1640,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"UITEST=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = PokemonDomain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
