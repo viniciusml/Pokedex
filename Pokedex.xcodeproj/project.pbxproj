@@ -116,6 +116,7 @@
 		EC9EDB94296F5F750071B911 /* DomainMacroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9EDB93296F5F750071B911 /* DomainMacroTests.swift */; };
 		ECDF8A2929734858004574F9 /* HTTPClientWithStubbedComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF8A2829734858004574F9 /* HTTPClientWithStubbedComposite.swift */; };
 		ECDF8A2B29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF8A2A29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift */; };
+		ECDF8A2D297357FB004574F9 /* TypeProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF8A2C297357FB004574F9 /* TypeProviding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,6 +311,7 @@
 		EC9EDB93296F5F750071B911 /* DomainMacroTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainMacroTests.swift; sourceTree = "<group>"; };
 		ECDF8A2829734858004574F9 /* HTTPClientWithStubbedComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientWithStubbedComposite.swift; sourceTree = "<group>"; };
 		ECDF8A2A29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientWithStubbedCompositeTests.swift; sourceTree = "<group>"; };
+		ECDF8A2C297357FB004574F9 /* TypeProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeProviding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -662,6 +664,7 @@
 				D8348EE025BC79C200E13A9F /* Mapper */,
 				D869D0FE25BA202A001CEF99 /* Info.plist */,
 				EC9EDB91296F5F670071B911 /* DomainMacro.swift */,
+				ECDF8A2C297357FB004574F9 /* TypeProviding.swift */,
 			);
 			path = PokemonDomain;
 			sourceTree = "<group>";
@@ -1177,6 +1180,7 @@
 				D8348EF425BC79DF00E13A9F /* ListItemMapper.swift in Sources */,
 				D8E9173925CF04E700461920 /* RandomIDProvider.swift in Sources */,
 				D8348E8B25BC795D00E13A9F /* HTTPClient.swift in Sources */,
+				ECDF8A2D297357FB004574F9 /* TypeProviding.swift in Sources */,
 				D869D15B25BA2503001CEF99 /* ListItem.swift in Sources */,
 				D8348F0125BC79E600E13A9F /* PokemonItemMapper.swift in Sources */,
 				D8348EE725BC79D800E13A9F /* ResourceMapper.swift in Sources */,
