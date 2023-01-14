@@ -35,6 +35,18 @@ final class HTTPClientWithStubbedCompositeTests: XCTestCase {
         XCTAssertEqual(prodClient.requestedURLs, [])
     }
     
+    func testNoMatchingTypeUsesProdClient() {
+        let condition = HTTPClientTypeProviderStub.Default.condition
+        HTTPClientTypeProviderStub.stubbedConditionRepresentable = condition
+        let url = anyURL()
+        
+        let (sut, prodClient, stubbedClient) = makeSUT(clientTypeCondition: condition)
+        sut.get(from: url) { _ in }
+        
+        XCTAssertEqual(prodClient.requestedURLs, [url])
+        XCTAssertEqual(stubbedClient.requestedURLs, [])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(clientTypeCondition: any ConditionRepresentable, file: StaticString = #file, line: UInt = #line) -> (sut: HTTPClientWithStubbedComposite, prodClient: HTTPClientSpy, stubbedClient: HTTPClientSpy) {
@@ -54,10 +66,10 @@ final class HTTPClientWithStubbedCompositeTests: XCTestCase {
             case condition
         }
         
-        static var stubbedConditionRepresentable: (any ConditionRepresentable)?
+        static var stubbedConditionRepresentable: (any ConditionRepresentable) = HTTPClientTypeProviderStub.Default.condition
         
         var current: any ConditionRepresentable {
-            HTTPClientTypeProviderStub.stubbedConditionRepresentable ?? HTTPClientTypeProviderStub.Default.condition
+            HTTPClientTypeProviderStub.stubbedConditionRepresentable
         }
     }
 }
