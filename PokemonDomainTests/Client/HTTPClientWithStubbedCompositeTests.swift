@@ -11,35 +11,53 @@ import XCTest
 
 final class HTTPClientWithStubbedCompositeTests: XCTestCase {
     
-//    func testProdTypeUsesProdClient() {
-//        let url = anyURL()
-//        
-//        let (sut, prodClient, stubbedClient) = makeSUT(clientType: .prod)
-//        sut.get(from: url) { _ in }
-//        
-//        XCTAssertEqual(prodClient.requestedURLs, [url])
-//        XCTAssertEqual(stubbedClient.requestedURLs, [])
-//    }
-//    
-//    func testStubbedTypeUsesStubbedClient() {
-//        let url = anyURL()
-//        
-//        let (sut, prodClient, stubbedClient) = makeSUT(clientType: .stubbed)
-//        sut.get(from: url) { _ in }
-//        
-//        XCTAssertEqual(stubbedClient.requestedURLs, [url])
-//        XCTAssertEqual(prodClient.requestedURLs, [])
-//    }
-//    
-//    // MARK: - Helpers
-//    
-//    private func makeSUT(clientType: HTTPClientType.ClientType, file: StaticString = #file, line: UInt = #line) -> (sut: HTTPClientWithStubbedComposite, prodClient: HTTPClientSpy, stubbedClient: HTTPClientSpy) {
-//        let prodClient = HTTPClientSpy()
-//        let stubbedClient = HTTPClientSpy()
-//        let sut = HTTPClientWithStubbedComposite(prod: prodClient, stubbed: stubbedClient, clientType: clientType)
-//        trackForMemoryLeaks(sut, file: file, line: line)
-//        trackForMemoryLeaks(prodClient, file: file, line: line)
-//        trackForMemoryLeaks(stubbedClient, file: file, line: line)
-//        return (sut, prodClient, stubbedClient)
-//    }
+    func testProdTypeUsesProdClient() {
+        let condition = HTTPClientTypeProvider.Condition.prod
+        HTTPClientTypeProviderStub.stubbedConditionRepresentable = condition
+        let url = anyURL()
+        
+        let (sut, prodClient, stubbedClient) = makeSUT(clientTypeCondition: condition)
+        sut.get(from: url) { _ in }
+        
+        XCTAssertEqual(prodClient.requestedURLs, [url])
+        XCTAssertEqual(stubbedClient.requestedURLs, [])
+    }
+    
+    func testStubbedTypeUsesStubbedClient() {
+        let condition = HTTPClientTypeProvider.Condition.stubbed
+        HTTPClientTypeProviderStub.stubbedConditionRepresentable = condition
+        let url = anyURL()
+        
+        let (sut, prodClient, stubbedClient) = makeSUT(clientTypeCondition: condition)
+        sut.get(from: url) { _ in }
+        
+        XCTAssertEqual(stubbedClient.requestedURLs, [url])
+        XCTAssertEqual(prodClient.requestedURLs, [])
+    }
+    
+    // MARK: - Helpers
+    
+    private func makeSUT(clientTypeCondition: any ConditionRepresentable, file: StaticString = #file, line: UInt = #line) -> (sut: HTTPClientWithStubbedComposite, prodClient: HTTPClientSpy, stubbedClient: HTTPClientSpy) {
+        let prodClient = HTTPClientSpy()
+        let stubbedClient = HTTPClientSpy()
+        let clientTypeProvider = HTTPClientTypeProviderStub()
+        let sut = HTTPClientWithStubbedComposite(prod: prodClient, stubbed: stubbedClient, typeProvider: clientTypeProvider)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(prodClient, file: file, line: line)
+        trackForMemoryLeaks(stubbedClient, file: file, line: line)
+        trackForMemoryLeaks(clientTypeProvider, file: file, line: line)
+        return (sut, prodClient, stubbedClient)
+    }
+    
+    private class HTTPClientTypeProviderStub: TypeProviding {
+        enum Default: ConditionRepresentable {
+            case condition
+        }
+        
+        static var stubbedConditionRepresentable: (any ConditionRepresentable)?
+        
+        var current: any ConditionRepresentable {
+            HTTPClientTypeProviderStub.stubbedConditionRepresentable ?? HTTPClientTypeProviderStub.Default.condition
+        }
+    }
 }
