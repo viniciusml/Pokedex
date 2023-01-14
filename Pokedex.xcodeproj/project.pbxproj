@@ -114,6 +114,8 @@
 		D8F6AE5C259F9BB5009AE563 /* RemoteImageLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6AE5B259F9BB5009AE563 /* RemoteImageLoaderSpy.swift */; };
 		EC9EDB92296F5F670071B911 /* DomainMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9EDB91296F5F670071B911 /* DomainMacro.swift */; };
 		EC9EDB94296F5F750071B911 /* DomainMacroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9EDB93296F5F750071B911 /* DomainMacroTests.swift */; };
+		ECDF8A2929734858004574F9 /* HTTPClientWithStubbedComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF8A2829734858004574F9 /* HTTPClientWithStubbedComposite.swift */; };
+		ECDF8A2B29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF8A2A29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,6 +308,8 @@
 		D8F6AE5B259F9BB5009AE563 /* RemoteImageLoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoaderSpy.swift; sourceTree = "<group>"; };
 		EC9EDB91296F5F670071B911 /* DomainMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainMacro.swift; sourceTree = "<group>"; };
 		EC9EDB93296F5F750071B911 /* DomainMacroTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainMacroTests.swift; sourceTree = "<group>"; };
+		ECDF8A2829734858004574F9 /* HTTPClientWithStubbedComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientWithStubbedComposite.swift; sourceTree = "<group>"; };
+		ECDF8A2A29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientWithStubbedCompositeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -545,6 +549,7 @@
 				8FE2C912242D4F2F00CDAD9F /* AFHTTPClient.swift */,
 				D873AC5B25AB7B9C0083E73E /* HTTPClientMainQueueDecorator.swift */,
 				8FE5A72E2543662A00D1B71A /* HTTPURLResponse+StatusCode.swift */,
+				ECDF8A2829734858004574F9 /* HTTPClientWithStubbedComposite.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 			isa = PBXGroup;
 			children = (
 				8FE5A7642545A84E00D1B71A /* AFHTTPClientTests.swift */,
+				ECDF8A2A29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -1161,6 +1167,7 @@
 				D835FEF225CB3C4A0051AD6A /* RemoteImageDataLoader.swift in Sources */,
 				D8348ED925BC798500E13A9F /* RemoteListLoader.swift in Sources */,
 				D8E9177225CF04F400461920 /* IDProvider.swift in Sources */,
+				ECDF8A2929734858004574F9 /* HTTPClientWithStubbedComposite.swift in Sources */,
 				D8348EA525BC796700E13A9F /* HTTPClientMainQueueDecorator.swift in Sources */,
 				D8348EB225BC796B00E13A9F /* HTTPURLResponse+StatusCode.swift in Sources */,
 				D8348E9225BC796100E13A9F /* AFHTTPClient.swift in Sources */,
@@ -1191,6 +1198,7 @@
 				D8348F6025BC7B3E00E13A9F /* PokemonItemMapperTests.swift in Sources */,
 				D8348F6E25BC7BBD00E13A9F /* HTTPClientSpy.swift in Sources */,
 				D8E917B525CF053400461920 /* RemoteChosenPokemonLoaderTests.swift in Sources */,
+				ECDF8A2B29734879004574F9 /* HTTPClientWithStubbedCompositeTests.swift in Sources */,
 				EC9EDB94296F5F750071B911 /* DomainMacroTests.swift in Sources */,
 				D8348F7B25BC7BC100E13A9F /* ServiceHelpers.swift in Sources */,
 				D83490C725BCD48100E13A9F /* TrackMemoryLeaks.swift in Sources */,
