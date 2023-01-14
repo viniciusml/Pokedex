@@ -33,11 +33,13 @@ final class HTTPClientWithStubbedCompositeTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(clientType: HTTPClientType.ClientType) -> (sut: HTTPClientWithStubbedComposite, prodClient: HTTPClientSpy, stubbedClient: HTTPClientSpy) {
+    private func makeSUT(clientType: HTTPClientType.ClientType, file: StaticString = #file, line: UInt = #line) -> (sut: HTTPClientWithStubbedComposite, prodClient: HTTPClientSpy, stubbedClient: HTTPClientSpy) {
         let prodClient = HTTPClientSpy()
         let stubbedClient = HTTPClientSpy()
         let sut = HTTPClientWithStubbedComposite(prod: prodClient, stubbed: stubbedClient, clientType: clientType)
-        
+        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(prodClient, file: file, line: line)
+        trackForMemoryLeaks(stubbedClient, file: file, line: line)
         return (sut, prodClient, stubbedClient)
     }
 }
