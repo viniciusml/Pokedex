@@ -21,9 +21,9 @@ public class HTTPClientWithStubbedComposite: HTTPClient {
     
     public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
         switch typeProvider.current {
-        case HTTPClientType.Condition.stubbed:
+        case HTTPClientTypeProvider.Condition.stubbed:
             stubbed.get(from: url, completion: completion)
-        case HTTPClientType.Condition.prod:
+        case HTTPClientTypeProvider.Condition.prod:
             prod.get(from: url, completion: completion)
         default:
             prod.get(from: url, completion: completion)

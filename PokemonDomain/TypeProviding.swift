@@ -14,7 +14,7 @@ public protocol TypeProviding {
     var current: any ConditionRepresentable { get }
 }
 
-public struct HTTPClientType: TypeProviding {
+public struct HTTPClientTypeProvider: TypeProviding {
     
     public enum Condition: ConditionRepresentable {
         case prod

@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         HTTPClientWithStubbedComposite(
             prod: HTTPClientMainQueueDecorator(AFHTTPClient()),
             stubbed: EmptyClient(),
-            typeProvider: HTTPClientType())
+            typeProvider: HTTPClientTypeProvider())
     }()
     
     private lazy var navigationController: NavigationController = {

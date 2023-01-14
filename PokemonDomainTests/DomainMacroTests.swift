@@ -12,17 +12,17 @@ import XCTest
 final class DomainMacroTests: XCTestCase {
     
     func testDebugBuild() {
-        let sut = HTTPClientType()
+        let sut = HTTPClientTypeProvider()
         
         with(macro: UITestMacro.self) {
-            assertCurrent(in: sut, equalTo: HTTPClientType.Condition.stubbed)
+            assertCurrent(in: sut, equalTo: HTTPClientTypeProvider.Condition.stubbed)
         }
     }
     
     func testProductionBuild() {
-        let sut = HTTPClientType()
+        let sut = HTTPClientTypeProvider()
         
-        assertCurrent(in: sut, equalTo: HTTPClientType.Condition.prod)
+        assertCurrent(in: sut, equalTo: HTTPClientTypeProvider.Condition.prod)
     }
     
     // MARK: - Helpers
