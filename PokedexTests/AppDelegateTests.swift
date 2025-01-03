@@ -44,11 +44,11 @@ class AppDelegateTests: XCTestCase {
         sut.window = UIWindow()
         
         sut.configureWindow(with: [.url: URL(string: "https://pokeapi.co/api/v2/pokemon/1/") as Any])
-        RunLoop.current.run(until: Date())
+        RunLoop.current.run(until: Date() + 0.3)
         
         let root = sut.window?.rootViewController
         let rootNavigation = try XCTUnwrap(root as? NavigationController, "expected root as NavigationController, found \(String(describing: root)) instead")
-        XCTAssertTrue(rootNavigation.topViewController is PokemonViewController)
+        XCTAssertTrue(rootNavigation.topViewController is PokemonViewController, "TopViewController is: \(String(describing: rootNavigation.topViewController))")
     }
     
     // MARK: Helpers
