@@ -32,6 +32,12 @@ extension ResourceListCollectionViewController {
         return ds?.collectionView(collectionView, cellForItemAt: index)
     }
     
+    func loadAndDisplayViewIfNeeded() {
+        loadViewIfNeeded()
+        beginAppearanceTransition(true, animated: false)
+        endAppearanceTransition()
+    }
+    
     func simulateResourceItemViewNearVisible(at item: Int) {
         let dl = collectionView.delegate
         let index = IndexPath(item: item, section: resourceItemsSection)
