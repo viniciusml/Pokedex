@@ -69,7 +69,7 @@ public class CachedImageView: UIImageView {
     ///
     /// - parameter urlString: Image's url.
 
-    open func loadImage(urlString: String) {
+    open func loadImage(urlString: String, urlFactory: @escaping (String) -> URL? = URL.init(string:)) {
         image = nil
 
         let urlKey = urlString as NSString
@@ -79,7 +79,7 @@ public class CachedImageView: UIImageView {
             return
         }
 
-        guard let url = URL(string: urlString) else {
+        guard let url = urlFactory(urlString) else {
             image = placeholderImage
             return
         }

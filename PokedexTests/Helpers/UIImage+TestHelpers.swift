@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIImage {
-    static func make(withColor color: UIColor) -> (image: UIImage, data: Data) {
+    static func make(withColor color: UIColor) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()!
@@ -17,10 +17,10 @@ extension UIImage {
         context.fill(rect)
         let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return (img!, img!.pngData()!)
+        return img!
     }
     
     static func makeImageData() -> Data {
-        UIImage.make(withColor: .red).data
+        UIImage.make(withColor: .red).pngData()!
     }
 }

@@ -28,7 +28,7 @@ class CachedImageViewTests: XCTestCase {
         let placeholderImage = makePlaceholderImage()
         let (sut, _) = makeSUT(placeholderImageName: placeholderImage.name)
         
-        sut.loadImage(urlString: invalidURLString)
+        sut.loadImage(urlString: invalidURLString, urlFactory: invalidURLFactory)
         
         XCTAssertEqual(sut.image?.pngData()!, placeholderImage.image.pngData()!)
     }
@@ -36,7 +36,7 @@ class CachedImageViewTests: XCTestCase {
     func test_loadImage_withoutPlaceholder_doesNotShowImageOnURLCreationFailure() {
         let (sut, client) = makeSUT()
         
-        sut.loadImage(urlString: invalidURLString)
+        sut.loadImage(urlString: invalidURLString, urlFactory: invalidURLFactory)
         
         XCTAssertTrue(client.requestedURLs.isEmpty)
         XCTAssertNil(sut.image)
@@ -44,12 +44,12 @@ class CachedImageViewTests: XCTestCase {
     
     func test_loadImage_deliversImageOnClientSuccess() {
         let (sut, client) = makeSUT()
-        let (image, data) = UIImage.make(withColor: .red)
+        let data = UIImage.makeImageData()
         
         sut.loadImage(urlString: validURLString)
         client.complete(withStatusCode: 200, data: data)
         
-        XCTAssertEqual(sut.image?.pngData(), image.pngData())
+        XCTAssertEqual(sut.image?.pngData(), UIImage(data: data)?.pngData())
     }
     
     func test_loadImage_withPlaceholder_showsPlaceholderOnClientFailure() {
@@ -73,35 +73,35 @@ class CachedImageViewTests: XCTestCase {
     
     func test_loadImage_withSuccess_savesImageToCache() {
         let (sut, client) = makeSUT()
-        let (image, data) = UIImage.make(withColor: .red)
+        let data = UIImage.makeImageData()
         
         sut.loadImage(urlString: validURLString)
         client.complete(withStatusCode: 200, data: data)
         
         let cachedImage = CachedImageView.imageCache.object(forKey: validURLString as NSString)?.image
-        XCTAssertEqual(cachedImage?.pngData(), image.pngData())
+        XCTAssertEqual(cachedImage?.pngData(), UIImage(data: data)?.pngData())
     }
     
     func test_loadImage_withPreviouslyCachedImage_doesNotLoadImageAgain() {
         let (sut, client) = makeSUT()
-        let (image, data) = UIImage.make(withColor: .red)
+        let data = UIImage.makeImageData()
         
         sut.loadImage(urlString: validURLString)
         client.complete(withStatusCode: 200, data: data)
         
         let cachedImage = CachedImageView.imageCache.object(forKey: validURLString as NSString)?.image
-        XCTAssertEqual(cachedImage?.pngData(), image.pngData())
+        XCTAssertEqual(cachedImage?.pngData(), UIImage(data: data)?.pngData())
         
         sut.loadImage(urlString: validURLString)
         XCTAssertEqual(client.requestedURLs.count, 1)
-        XCTAssertEqual(sut.image?.pngData(), image.pngData())
+        XCTAssertEqual(sut.image?.pngData(), UIImage(data: data)?.pngData())
     }
     
     func test_loadImage_doesNotCompleteAfterSUTHasBeenDeallocated() {
         let client = HTTPClientSpy()
         let loader = RemoteImageLoader(client: client)
         var sut: CachedImageView? = CachedImageView(loader: loader)
-        let imageData = UIImage.make(withColor: .red).data
+        let imageData = UIImage.makeImageData()
         
         sut?.loadImage(urlString: validURLString)
         sut = nil
@@ -131,7 +131,11 @@ class CachedImageViewTests: XCTestCase {
     }
     
     private var invalidURLString: String {
-        "any invalid url string"
+        "" // Empty strings are invalid URLs
+    }
+    
+    private var invalidURLFactory: (String) -> URL? = { _ in
+        nil
     }
     
     private func clearImageCache() {
@@ -139,7 +143,7 @@ class CachedImageViewTests: XCTestCase {
     }
 }
 
-private class MockImage: UIImage {
+private class MockImage: UIImage, @unchecked Sendable {
     convenience init?(imageName: String) {
         self.init(cgImage: UIImage(named: imageName)!.cgImage!)
     }

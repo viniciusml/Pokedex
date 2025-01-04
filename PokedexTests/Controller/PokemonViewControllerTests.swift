@@ -59,7 +59,7 @@ class PokemonViewControllerTests: XCTestCase {
     
     func test_loadImage_displaysLoadedImages() {
         let item = makeItem(id: 1)
-        let image = UIImage.make(withColor: .red).image
+        let image = UIImage.make(withColor: .red)
         let (sut, loader, imageLoader) = makeSUT()
         
         sut.loadViewIfNeeded()
