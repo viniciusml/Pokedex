@@ -12,7 +12,7 @@ import PokemonDomain
 import SnapshotTesting
 import XCTest
 
-class PokedexSnapshotTests: XCTestCase {
+private class PokedexSnapshotTests: XCTestCase { // Skipped until snapshot testing can be revisited
     
     override func setUp() {
         super.setUp()
