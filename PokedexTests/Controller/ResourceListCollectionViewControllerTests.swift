@@ -150,7 +150,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(receivedPokemonURL, "http://pokemon.com")
     }
     
-    func test_loadActionFailure_displaysErrorAlertOnMainThread() {
+    @MainActor func test_loadActionFailure_displaysErrorAlertOnMainThread() {
         let (sut, loader) = makeSUT()
         let alertVerifier = AlertVerifier()
         

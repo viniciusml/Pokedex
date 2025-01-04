@@ -35,7 +35,7 @@ class PokemonViewControllerTests: XCTestCase {
         assertThat(sut, hasViewConfiguredFor: item)
     }
     
-    func test_loadActionFailure_displaysErrorAlertOnMainThread() {
+    @MainActor func test_loadActionFailure_displaysErrorAlertOnMainThread() {
         let (sut, loader, _) = makeSUT()
         let alertVerifier = AlertVerifier()
         
