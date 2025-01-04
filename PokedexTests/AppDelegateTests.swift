@@ -31,8 +31,8 @@ class AppDelegateTests: XCTestCase {
         sut.configureWindow()
         let listViewController = try getListViewController(from: sut.window)
         
+        RunLoop.current.run(until: Date() + 0.3)
         listViewController.simulateResourceItemSelection(item: 1)
-        RunLoop.current.run(until: Date())
         
         let navigationController = listViewController.navigationController
         XCTAssertTrue(navigationController?.topViewController is PokemonViewController)
