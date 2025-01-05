@@ -9,7 +9,7 @@
 import PokemonDomain
 import XCTest
 
-class RandomIDProviderTests: XCTestCase {
+final class RandomIDProviderTests: XCTestCase {
     
     func test_generatesIDFromRange() {
         let range = makeRange(min: 1, max: 10)

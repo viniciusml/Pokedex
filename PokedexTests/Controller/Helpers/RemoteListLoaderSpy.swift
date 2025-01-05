@@ -9,7 +9,7 @@
 import Foundation
 import PokemonDomain
 
-class RemoteListLoaderSpy: RemoteListLoader {
+final class RemoteListLoaderSpy: RemoteListLoader {
     private var completions = [(RemoteLoader<ListItem>.Result) -> Void]()
     
     var loadCallCount: Int {

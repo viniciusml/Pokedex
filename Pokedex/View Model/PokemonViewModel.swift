@@ -9,7 +9,7 @@
 import Foundation
 import PokemonDomain
 
-public class PokemonViewModel {
+public final class PokemonViewModel {
 
     // MARK: - Properties
 

@@ -9,7 +9,7 @@
 import XCTest
 import PokemonDomain
 
-class ListItemMapperTests: XCTestCase {
+final class ListItemMapperTests: XCTestCase {
     
     func test_map_throwsErrorOn200HTTPResponseWithInvalidJSON() {
         let invalidJSON = Data("invalid json".utf8)

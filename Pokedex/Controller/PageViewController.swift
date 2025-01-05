@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class PageViewController: UIPageViewController {
+public final class PageViewController: UIPageViewController {
     
     private(set) var pages: [UIViewController] = []
     private var pageControlIndex = 0

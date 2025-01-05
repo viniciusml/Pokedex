@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HTTPClientWithStubbedComposite: HTTPClient {
+public final class HTTPClientWithStubbedComposite: HTTPClient {
     private let prod: HTTPClient
     private let stubbed: HTTPClient
     private let typeProvider: TypeProviding

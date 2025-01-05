@@ -67,23 +67,22 @@ public class CachedImageView: UIImageView {
 
     /// Load an image from a URL string and cache it to reduce network overhead.
     ///
-    /// - parameter urlString: Image's url.
-
-    open func loadImage(urlString: String) {
+    /// - parameter url: Image's url (optional).
+    open func loadImage(url: URL?) {
         image = nil
 
-        let urlKey = urlString as NSString
+        guard let url else {
+            image = placeholderImage
+            return
+        }
+        
+        let urlKey = url.absoluteString as NSString
 
         if let cachedItem = CachedImageView.imageCache.object(forKey: urlKey) {
             image = cachedItem.image
             return
         }
 
-        guard let url = URL(string: urlString) else {
-            image = placeholderImage
-            return
-        }
-        
         loader.load(from: url) { [weak self] result in
             guard let self = self else { return }
             

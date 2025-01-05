@@ -9,7 +9,7 @@
 import PokemonDomain
 import XCTest
 
-class RemoteChosenPokemonLoaderEndToEndTests: XCTestCase {
+final class RemoteChosenPokemonLoaderEndToEndTests: XCTestCase {
     
     func test_endToEndLoadChosenPokemon_matchesFixedTestData() {
         let client = AFHTTPClient(sessionConfiguration: URLSessionConfiguration.ephemeral)

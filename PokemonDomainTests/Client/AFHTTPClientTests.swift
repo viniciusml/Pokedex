@@ -9,7 +9,7 @@
 import PokemonDomain
 import XCTest
 
-class AFHTTPClientTests: XCTestCase {
+final class AFHTTPClientTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -120,7 +120,7 @@ class AFHTTPClientTests: XCTestCase {
         URLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
     }
     
-    private class URLProtocolStub: URLProtocol {
+    private final class URLProtocolStub: URLProtocol {
         private static var stub: Stub?
         private static var requestObserver: ((URLRequest) -> Void)?
         
@@ -148,12 +148,12 @@ class AFHTTPClientTests: XCTestCase {
             requestObserver = nil
         }
         
-        override class func canInit(with request: URLRequest) -> Bool {
+        override final class func canInit(with request: URLRequest) -> Bool {
             requestObserver?(request)
             return true
         }
         
-        override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+        override final class func canonicalRequest(for request: URLRequest) -> URLRequest {
             request
         }
         

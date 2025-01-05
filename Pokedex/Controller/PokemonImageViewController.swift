@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PokemonImageViewController: UIViewController {
+final class PokemonImageViewController: UIViewController {
     
     private let photoImageView: CachedImageView
     let imageURLString: String
@@ -29,7 +29,7 @@ class PokemonImageViewController: UIViewController {
         view.addSubview(photoImageView)
         photoImageView.fillSuperview()
         
-        photoImageView.loadImage(urlString: imageURLString)
+        photoImageView.loadImage(url: URL(string: imageURLString))
     }
 }
 

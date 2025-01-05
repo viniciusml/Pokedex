@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Adapter for network requests that enables Network Client abstraction and Spy class implementation for unit testing.
+/// Adapter for network requests that enables Network Client abstraction and Spy final class implementation for unit testing.
 public protocol HTTPClient {
     typealias Result = Swift.Result<(Data, HTTPURLResponse), Error>
     

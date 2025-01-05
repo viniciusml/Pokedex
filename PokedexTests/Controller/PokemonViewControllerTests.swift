@@ -11,7 +11,7 @@ import PokemonDomain
 import ViewControllerPresentationSpy
 import XCTest
 
-class PokemonViewControllerTests: XCTestCase {
+final class PokemonViewControllerTests: XCTestCase {
     
     func test_loadActions_requestsItemFromLoader() {
         let expectedURL = URL(string: "https://pokeapi.co/api/v2/pokemon/1")
@@ -35,7 +35,7 @@ class PokemonViewControllerTests: XCTestCase {
         assertThat(sut, hasViewConfiguredFor: item)
     }
     
-    func test_loadActionFailure_displaysErrorAlertOnMainThread() {
+    @MainActor func test_loadActionFailure_displaysErrorAlertOnMainThread() {
         let (sut, loader, _) = makeSUT()
         let alertVerifier = AlertVerifier()
         
@@ -59,7 +59,7 @@ class PokemonViewControllerTests: XCTestCase {
     
     func test_loadImage_displaysLoadedImages() {
         let item = makeItem(id: 1)
-        let image = UIImage.make(withColor: .red).image
+        let image = UIImage.make(withColor: .red)
         let (sut, loader, imageLoader) = makeSUT()
         
         sut.loadViewIfNeeded()

@@ -9,7 +9,9 @@
 import UIKit
 
 final public class RefreshViewController: NSObject {
-    private let loadingIndicator: UIRefreshControl = {
+    
+    @usableFromInline
+    static let loadingIndicatorFactory: UIRefreshControl = {
         $0.isAccessibilityElement = true
         $0.accessibilityLabel = "Loading Pokémons"
         return $0
@@ -17,10 +19,16 @@ final public class RefreshViewController: NSObject {
     
     private(set) lazy var view = binded(loadingIndicator)
     
+    private var loadingIndicator: UIRefreshControl = RefreshViewController.loadingIndicatorFactory
     private let viewModel: ListViewModel
     
-    init(viewModel: ListViewModel) {
+    public init(viewModel: ListViewModel) {
         self.viewModel = viewModel
+    }
+    
+    convenience public init(viewModel: ListViewModel, loadingIndicator: UIRefreshControl = RefreshViewController.loadingIndicatorFactory) {
+        self.init(viewModel: viewModel)
+        self.loadingIndicator = loadingIndicator
     }
     
     @objc func refresh() {

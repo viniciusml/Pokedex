@@ -9,7 +9,7 @@
 import XCTest
 import Pokedex
 
-class ImageMapperTests: XCTestCase {
+final class ImageMapperTests: XCTestCase {
     
     func test_map_throwsErrorOn200HTTPResponseWithInvalidData() {
         XCTAssertThrowsError(
@@ -18,17 +18,17 @@ class ImageMapperTests: XCTestCase {
     }
     
     func test_map_deliversItemsOn200HTTPResponseWithValidData() throws {
-        let (image, data) = validImage
+        let data = validImageData
         
         let result = try ImageMapper.map(data)
         
-        XCTAssertEqual(result.pngData(), image.pngData())
+        XCTAssertEqual(result.pngData(), UIImage(data: data)?.pngData())
     }
     
     // MARK: - Helpers
     
-    private var validImage: (image: UIImage, data: Data) {
-        UIImage.make(withColor: .black)
+    private var validImageData: Data {
+        UIImage.makeImageData()
     }
     
     private var invalidImageData: Data {

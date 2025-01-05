@@ -11,7 +11,7 @@ import Foundation
 
 /// Network Client (Alamofire) abstraction to structure Network Adapter's methods and handle response cases.
 ///
-public class AFHTTPClient: HTTPClient {
+public final class AFHTTPClient: HTTPClient {
     private let session: Session
     private let queue = DispatchQueue(label: "com.pokedex", qos: .utility, attributes: .concurrent)
     

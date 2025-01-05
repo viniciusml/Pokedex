@@ -10,7 +10,7 @@
 import PokemonDomain
 import XCTest
 
-class AppDelegateTests: XCTestCase {
+final class AppDelegateTests: XCTestCase {
     
     func test_appDidFinishLaunching_configuresRootViewController() throws {
         let client = HTTPClientStub(.online([.listData]))
@@ -18,6 +18,7 @@ class AppDelegateTests: XCTestCase {
         sut.window = UIWindow()
         
         sut.configureWindow()
+        waitUntilWindowBecomesVisible()
         
         let listViewController = try getListViewController(from: sut.window)
         XCTAssertEqual(listViewController.numberOfRenderedResourceItems(), 8)
@@ -31,8 +32,8 @@ class AppDelegateTests: XCTestCase {
         sut.configureWindow()
         let listViewController = try getListViewController(from: sut.window)
         
+        waitUntilWindowBecomesVisible()
         listViewController.simulateResourceItemSelection(item: 1)
-        RunLoop.current.run(until: Date())
         
         let navigationController = listViewController.navigationController
         XCTAssertTrue(navigationController?.topViewController is PokemonViewController)
@@ -44,11 +45,11 @@ class AppDelegateTests: XCTestCase {
         sut.window = UIWindow()
         
         sut.configureWindow(with: [.url: URL(string: "https://pokeapi.co/api/v2/pokemon/1/") as Any])
-        RunLoop.current.run(until: Date())
+        waitUntilWindowBecomesVisible()
         
         let root = sut.window?.rootViewController
         let rootNavigation = try XCTUnwrap(root as? NavigationController, "expected root as NavigationController, found \(String(describing: root)) instead")
-        XCTAssertTrue(rootNavigation.topViewController is PokemonViewController)
+        XCTAssertTrue(rootNavigation.topViewController is PokemonViewController, "TopViewController is: \(String(describing: rootNavigation.topViewController))")
     }
     
     // MARK: Helpers
@@ -59,5 +60,9 @@ class AppDelegateTests: XCTestCase {
         let listViewController = try XCTUnwrap(rootNavigation.topViewController as? ResourceListCollectionViewController, "expected topViewController as ResourceListCollectionViewController, found \(String(describing: rootNavigation.topViewController)) instead")
         
         return listViewController
+    }
+    
+    private func waitUntilWindowBecomesVisible() {
+        RunLoop.current.run(until: Date() + 0.3)
     }
 }

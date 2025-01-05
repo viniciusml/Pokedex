@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ResourceListCollectionViewController: UICollectionViewController {
+public final class ResourceListCollectionViewController: UICollectionViewController {
 
     private var refreshController: RefreshViewController?
     var collectionModel = [ResourceListCellController]() {
@@ -35,9 +35,14 @@ public class ResourceListCollectionViewController: UICollectionViewController {
         title = "Pokédex"
 
         collectionView.refreshControl = refreshController?.view
-        refreshController?.refresh()
         collectionView.register(ListCell.self)
         collectionView.backgroundColor = .white
+    }
+    
+    public override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        
+        refreshController?.refresh()
     }
 
     // MARK: - Helpers

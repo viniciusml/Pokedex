@@ -1,43 +1,51 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "AccessibilitySnapshot",
-        "repositoryURL": "https://github.com/cashapp/AccessibilitySnapshot.git",
-        "state": {
-          "branch": null,
-          "revision": "fb797dda564408b7da23349b25d192339402286e",
-          "version": "0.4.1"
-        }
-      },
-      {
-        "package": "Alamofire",
-        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
-        "state": {
-          "branch": null,
-          "revision": "eaf6e622dd41b07b251d8f01752eab31bc811493",
-          "version": "5.4.1"
-        }
-      },
-      {
-        "package": "SnapshotTesting",
-        "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
-        "state": {
-          "branch": null,
-          "revision": "c466812aa2e22898f27557e2e780d3aad7a27203",
-          "version": "1.8.2"
-        }
-      },
-      {
-        "package": "ViewControllerPresentationSpy",
-        "repositoryURL": "https://github.com/jonreid/ViewControllerPresentationSpy",
-        "state": {
-          "branch": null,
-          "revision": "34c42a620cea5408a3d7d1fd05a6d52037f4cb51",
-          "version": "6.1.0"
-        }
+  "originHash" : "10454dc313b75286398f52a378e73805af3bef9079b35163da561ba5f4e9663f",
+  "pins" : [
+    {
+      "identity" : "accessibilitysnapshot",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cashapp/AccessibilitySnapshot.git",
+      "state" : {
+        "revision" : "07020833b49662840e92d6b1ad2bcfa9916a10d6",
+        "version" : "0.8.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
+      }
+    },
+    {
+      "identity" : "ios-snapshot-test-case",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uber/ios-snapshot-test-case.git",
+      "state" : {
+        "revision" : "7b10770333a961be6e5a41c9ce04b8c6d3990126",
+        "version" : "8.0.0"
+      }
+    },
+    {
+      "identity" : "swift-snapshot-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-snapshot-testing.git",
+      "state" : {
+        "revision" : "c466812aa2e22898f27557e2e780d3aad7a27203",
+        "version" : "1.8.2"
+      }
+    },
+    {
+      "identity" : "viewcontrollerpresentationspy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jonreid/ViewControllerPresentationSpy",
+      "state" : {
+        "revision" : "e58d38ab5a32f7c0baf63cbcc5f7cdf02bb12a99",
+        "version" : "7.0.1"
+      }
+    }
+  ],
+  "version" : 3
 }

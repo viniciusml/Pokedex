@@ -12,9 +12,13 @@ import PokemonDomain
 public final class ResourceListUIComposer {
     private init() {}
     
-    public static func resourceListComposedWith(listLoader: RemoteListLoader, selection: @escaping ((String) -> Void)) -> ResourceListCollectionViewController {
+    public static func resourceListComposedWith(
+        listLoader: RemoteListLoader,
+        refreshController: @escaping (ListViewModel) -> RefreshViewController = RefreshViewController.init(viewModel:),
+        selection: @escaping ((String) -> Void)
+    ) -> ResourceListCollectionViewController {
         let listViewModel = ListViewModel(listLoader: listLoader, url: URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")!)
-        let refreshController = RefreshViewController(viewModel: listViewModel)
+        let refreshController = refreshController(listViewModel)
         let listViewController = ResourceListCollectionViewController(
             refreshController: refreshController,
             selection: selection)

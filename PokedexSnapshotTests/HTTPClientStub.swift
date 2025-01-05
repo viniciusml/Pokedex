@@ -9,7 +9,7 @@
 import Foundation
 import PokemonDomain
 
-class HTTPClientStub: HTTPClient {
+final class HTTPClientStub: HTTPClient {
     enum State {
         case online([Data]), offline, loading
     }

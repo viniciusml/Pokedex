@@ -9,7 +9,7 @@
 import XCTest
 import Pokedex
 
-class PageViewControllerTests: XCTestCase {
+final class PageViewControllerTests: XCTestCase {
     
     func test_init_hasZeroPages() {
         XCTAssertTrue(makeSUT().viewControllers!.isEmpty)

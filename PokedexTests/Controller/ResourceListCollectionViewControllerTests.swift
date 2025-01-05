@@ -11,7 +11,7 @@ import Pokedex
 import PokemonDomain
 import ViewControllerPresentationSpy
 
-class ResourceListCollectionViewControllerTests: XCTestCase {
+final class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_resourceListView_hasTitle() {
         let (sut, _) = makeSUT()
@@ -26,7 +26,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
 
         XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading requests before the view is loaded")
 
-        sut.loadViewIfNeeded()
+        sut.loadAndDisplayViewIfNeeded()
         XCTAssertEqual(loader.loadCallCount, 1, "Expected a loading request once the view is loaded")
 
         sut.simulateUserInitiatedReload()
@@ -45,9 +45,17 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
-        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            let keyWindow = windowScene.windows.first { $0.isKeyWindow }
+            keyWindow?.layoutIfNeeded()
+        }
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once view is loaded")
+        
+        sut.beginAppearanceTransition(true, animated: false)
+        sut.endAppearanceTransition()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is appearing")
 
-        loader.completeListLoading(with: list ,at: 0)
+        loader.completeListLoading(with: list, at: 0)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
 
         sut.simulateUserInitiatedReload()
@@ -67,7 +75,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         
         let (sut, loader) = makeSUT()
 
-        sut.loadViewIfNeeded()
+        sut.loadAndDisplayViewIfNeeded()
         assertThat(sut, isRendering: [])
 
         loader.completeListLoading(with: list1, at: 0)
@@ -83,7 +91,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let list = makeList(count: 1, next: "http://pokemon-url.com", previous: nil, results: [item0])
         let (sut, loader) = makeSUT()
 
-        sut.loadViewIfNeeded()
+        sut.loadAndDisplayViewIfNeeded()
         loader.completeListLoading(with: list, at: 0)
         assertThat(sut, isRendering: [item0])
 
@@ -97,7 +105,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let list = makeList(count: 20, next: "http://pokemon-url.com", previous: nil, results: items)
         let (sut, loader) = makeSUT()
 
-        sut.loadViewIfNeeded()
+        sut.loadAndDisplayViewIfNeeded()
         loader.completeListLoading(with: list)
         XCTAssertEqual(loader.loadCallCount, 1, "Expected no additional requests until last model item is near visible")
 
@@ -115,7 +123,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         let list2 = makeList(count: 20, next: "http://pokemon-url.com", previous: "previous page", results: secondPageItems)
 
         let (sut, loader) = makeSUT()
-        sut.loadViewIfNeeded()
+        sut.loadAndDisplayViewIfNeeded()
 
         loader.completeListLoading(with: list1, at: 0)
         assertThat(sut, isRendering: firstPageItems)
@@ -133,7 +141,7 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         
         var receivedPokemonURL = String()
         let (sut, loader) = makeSUT { receivedPokemonURL = $0 }
-        sut.loadViewIfNeeded()
+        sut.loadAndDisplayViewIfNeeded()
 
         loader.completeListLoading(with: list)
 
@@ -142,14 +150,14 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(receivedPokemonURL, "http://pokemon.com")
     }
     
-    func test_loadActionFailure_displaysErrorAlertOnMainThread() {
+    @MainActor func test_loadActionFailure_displaysErrorAlertOnMainThread() {
         let (sut, loader) = makeSUT()
         let alertVerifier = AlertVerifier()
         
         let exp = expectation(description: "Wait for alert presentation")
         alertVerifier.testCompletion = { exp.fulfill() }
         
-        sut.loadViewIfNeeded()
+        sut.loadAndDisplayViewIfNeeded()
         loader.completeListLoadingWithError(at: 0)
         
         waitForExpectations(timeout: 0.0001)
@@ -169,7 +177,12 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
     private func makeSUT(file: StaticString = #file, line: UInt = #line, selection: @escaping (String) -> Void = { _ in })  -> (sut: ResourceListCollectionViewController, loader: RemoteListLoaderSpy) {
         let client = HTTPClientSpy()
         let loader = RemoteListLoaderSpy(client: client)
-        let sut = ResourceListUIComposer.resourceListComposedWith(listLoader: loader, selection: selection)
+        let sut = ResourceListUIComposer.resourceListComposedWith(
+            listLoader: loader,
+            refreshController: { viewModel in
+                RefreshViewController(viewModel: viewModel, loadingIndicator: FakeRefreshControl())
+            },
+            selection: selection)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
@@ -206,5 +219,34 @@ class ResourceListCollectionViewControllerTests: XCTestCase {
             array.append(makeResourceItem(name: "Pokemon\(i)"))
         }
         return array
+    }
+}
+
+private extension ResourceListCollectionViewController {
+    
+    func replaceRefreshControlWithFakeForiOS17Support() {
+        let fake = FakeRefreshControl()
+        
+        collectionView.refreshControl?.allTargets.forEach { target in
+            collectionView.refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                fake.addTarget(target, action: Selector(action), for: .valueChanged)
+            }
+        }
+        
+        collectionView.refreshControl = fake
+    }
+}
+
+private final class FakeRefreshControl: UIRefreshControl {
+    private var _isRefreshing = false
+    
+    override var isRefreshing: Bool { _isRefreshing }
+    
+    override func beginRefreshing() {
+        _isRefreshing = true
+    }
+    
+    override func endRefreshing() {
+        _isRefreshing = false
     }
 }
