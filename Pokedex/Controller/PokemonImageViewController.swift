@@ -29,7 +29,7 @@ class PokemonImageViewController: UIViewController {
         view.addSubview(photoImageView)
         photoImageView.fillSuperview()
         
-        photoImageView.loadImage(urlString: imageURLString)
+        photoImageView.loadImage(url: URL(string: imageURLString))
     }
 }
 

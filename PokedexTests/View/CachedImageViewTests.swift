@@ -28,7 +28,7 @@ class CachedImageViewTests: XCTestCase {
         let placeholderImage = makePlaceholderImage()
         let (sut, _) = makeSUT(placeholderImageName: placeholderImage.name)
         
-        sut.loadImage(urlString: invalidURLString, urlFactory: invalidURLFactory)
+        sut.loadImage(url: invalidURL)
         
         XCTAssertEqual(sut.image?.pngData()!, placeholderImage.image.pngData()!)
     }
@@ -36,7 +36,7 @@ class CachedImageViewTests: XCTestCase {
     func test_loadImage_withoutPlaceholder_doesNotShowImageOnURLCreationFailure() {
         let (sut, client) = makeSUT()
         
-        sut.loadImage(urlString: invalidURLString, urlFactory: invalidURLFactory)
+        sut.loadImage(url: invalidURL)
         
         XCTAssertTrue(client.requestedURLs.isEmpty)
         XCTAssertNil(sut.image)
@@ -46,7 +46,7 @@ class CachedImageViewTests: XCTestCase {
         let (sut, client) = makeSUT()
         let data = UIImage.makeImageData()
         
-        sut.loadImage(urlString: validURLString)
+        sut.loadImage(url: anyURL())
         client.complete(withStatusCode: 200, data: data)
         
         XCTAssertEqual(sut.image?.pngData(), UIImage(data: data)?.pngData())
@@ -56,7 +56,7 @@ class CachedImageViewTests: XCTestCase {
         let placeholderImage = makePlaceholderImage()
         let (sut, client) = makeSUT(placeholderImageName: placeholderImage.name)
         
-        sut.loadImage(urlString: validURLString)
+        sut.loadImage(url: anyURL())
         client.complete(with: anyNSError())
         
         XCTAssertEqual(sut.image?.pngData()!, placeholderImage.image.pngData()!)
@@ -65,7 +65,7 @@ class CachedImageViewTests: XCTestCase {
     func test_loadImage_withoutPlaceholder_deliversNoImageOnClientFailure() {
         let (sut, client) = makeSUT()
         
-        sut.loadImage(urlString: validURLString)
+        sut.loadImage(url: anyURL())
         client.complete(with: anyNSError())
         
         XCTAssertNil(sut.image)
@@ -74,25 +74,27 @@ class CachedImageViewTests: XCTestCase {
     func test_loadImage_withSuccess_savesImageToCache() {
         let (sut, client) = makeSUT()
         let data = UIImage.makeImageData()
+        let url = anyURL()
         
-        sut.loadImage(urlString: validURLString)
+        sut.loadImage(url: url)
         client.complete(withStatusCode: 200, data: data)
         
-        let cachedImage = CachedImageView.imageCache.object(forKey: validURLString as NSString)?.image
+        let cachedImage = CachedImageView.imageCache.object(forKey: url.absoluteString as NSString)?.image
         XCTAssertEqual(cachedImage?.pngData(), UIImage(data: data)?.pngData())
     }
     
     func test_loadImage_withPreviouslyCachedImage_doesNotLoadImageAgain() {
         let (sut, client) = makeSUT()
         let data = UIImage.makeImageData()
+        let url = anyURL()
         
-        sut.loadImage(urlString: validURLString)
+        sut.loadImage(url: url)
         client.complete(withStatusCode: 200, data: data)
         
-        let cachedImage = CachedImageView.imageCache.object(forKey: validURLString as NSString)?.image
+        let cachedImage = CachedImageView.imageCache.object(forKey: url.absoluteString as NSString)?.image
         XCTAssertEqual(cachedImage?.pngData(), UIImage(data: data)?.pngData())
         
-        sut.loadImage(urlString: validURLString)
+        sut.loadImage(url: anyURL())
         XCTAssertEqual(client.requestedURLs.count, 1)
         XCTAssertEqual(sut.image?.pngData(), UIImage(data: data)?.pngData())
     }
@@ -103,7 +105,7 @@ class CachedImageViewTests: XCTestCase {
         var sut: CachedImageView? = CachedImageView(loader: loader)
         let imageData = UIImage.makeImageData()
         
-        sut?.loadImage(urlString: validURLString)
+        sut?.loadImage(url: anyURL())
         sut = nil
         
         client.complete(withStatusCode: 200, data: imageData)
@@ -126,15 +128,7 @@ class CachedImageViewTests: XCTestCase {
         ("placeholder", MockImage(imageName: "placeholder")!)
     }
     
-    private var validURLString: String {
-        anyURL().absoluteString
-    }
-    
-    private var invalidURLString: String {
-        "" // Empty strings are invalid URLs
-    }
-    
-    private var invalidURLFactory: (String) -> URL? = { _ in
+    private var invalidURL: URL? {
         nil
     }
     
