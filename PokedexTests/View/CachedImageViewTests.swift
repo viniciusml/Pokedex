@@ -30,7 +30,7 @@ class CachedImageViewTests: XCTestCase {
         
         sut.loadImage(url: invalidURL)
         
-        XCTAssertEqual(sut.image?.pngData()!, placeholderImage.image.pngData()!)
+        assertImageDataEqual(sut.image, placeholderImage.image)
     }
     
     func test_loadImage_withoutPlaceholder_doesNotShowImageOnURLCreationFailure() {
@@ -49,7 +49,7 @@ class CachedImageViewTests: XCTestCase {
         sut.loadImage(url: anyURL())
         client.complete(withStatusCode: 200, data: data)
         
-        XCTAssertEqual(sut.image?.pngData(), UIImage(data: data)?.pngData())
+        assertImageDataEqual(sut.image, UIImage(data: data))
     }
     
     func test_loadImage_withPlaceholder_showsPlaceholderOnClientFailure() {
@@ -59,7 +59,7 @@ class CachedImageViewTests: XCTestCase {
         sut.loadImage(url: anyURL())
         client.complete(with: anyNSError())
         
-        XCTAssertEqual(sut.image?.pngData()!, placeholderImage.image.pngData()!)
+        assertImageDataEqual(sut.image, placeholderImage.image)
     }
     
     func test_loadImage_withoutPlaceholder_deliversNoImageOnClientFailure() {
@@ -80,7 +80,7 @@ class CachedImageViewTests: XCTestCase {
         client.complete(withStatusCode: 200, data: data)
         
         let cachedImage = CachedImageView.imageCache.object(forKey: url.absoluteString as NSString)?.image
-        XCTAssertEqual(cachedImage?.pngData(), UIImage(data: data)?.pngData())
+        assertImageDataEqual(cachedImage, UIImage(data: data))
     }
     
     func test_loadImage_withPreviouslyCachedImage_doesNotLoadImageAgain() {
@@ -92,11 +92,11 @@ class CachedImageViewTests: XCTestCase {
         client.complete(withStatusCode: 200, data: data)
         
         let cachedImage = CachedImageView.imageCache.object(forKey: url.absoluteString as NSString)?.image
-        XCTAssertEqual(cachedImage?.pngData(), UIImage(data: data)?.pngData())
+        assertImageDataEqual(cachedImage, UIImage(data: data))
         
         sut.loadImage(url: anyURL())
         XCTAssertEqual(client.requestedURLs.count, 1)
-        XCTAssertEqual(sut.image?.pngData(), UIImage(data: data)?.pngData())
+        assertImageDataEqual(sut.image, UIImage(data: data))
     }
     
     func test_loadImage_doesNotCompleteAfterSUTHasBeenDeallocated() {
@@ -122,6 +122,10 @@ class CachedImageViewTests: XCTestCase {
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(loader)
         return (sut, client)
+    }
+    
+    private func assertImageDataEqual(_ image1: UIImage?, _ image2: UIImage?, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertEqual(image1?.pngData(), image2?.pngData(), file: file, line: line)
     }
     
     private func makePlaceholderImage() -> (name: String, image: UIImage) {
