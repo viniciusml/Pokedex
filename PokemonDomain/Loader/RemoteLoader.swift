@@ -31,7 +31,7 @@ open class RemoteLoader<Resource> {
             guard let self = self else { return }
             switch result {
             case .success((let data, let response)) where response.isOK:
-                completion(self.map(data))
+                self.map(data, completion: completion)
                 
             case .success:
                 completion(.failure(.invalidData))
@@ -42,11 +42,21 @@ open class RemoteLoader<Resource> {
         }
     }
     
-    private func map(_ data: Data) -> Result {
-        do {
-            return .success(try mapper(data))
-        } catch {
-            return .failure(.invalidData)
+    private func map(_ data: Data, completion: @escaping (Result) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            do {
+                let mapped = try mapper(data)
+                
+                DispatchQueue.main.async {
+                    completion(.success(mapped))
+                }
+            } catch {
+                
+                DispatchQueue.main.async {
+                    completion(.failure(.invalidData))
+                }
+            }
         }
     }
 }
