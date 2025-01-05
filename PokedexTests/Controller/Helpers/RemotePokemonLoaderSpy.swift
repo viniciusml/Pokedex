@@ -9,7 +9,7 @@
 import Foundation
 @testable import PokemonDomain
 
-class RemotePokemonLoaderSpy: RemotePokemonLoader {
+final class RemotePokemonLoaderSpy: RemotePokemonLoader {
     private var messages = [(url: URL, completion: (RemoteLoader<PokemonItem>.Result) -> Void)]()
     
     var loadCallCount: Int {

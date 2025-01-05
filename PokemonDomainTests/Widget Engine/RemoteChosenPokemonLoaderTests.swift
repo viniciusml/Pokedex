@@ -9,7 +9,7 @@
 import PokemonDomain
 import XCTest
 
-class RemoteChosenPokemonLoaderTests: XCTestCase {
+final class RemoteChosenPokemonLoaderTests: XCTestCase {
     var client: HTTPClient!
     var listLoader: RemoteListLoaderSpy!
     var pokemonLoader: RemotePokemonLoaderSpy!
@@ -143,7 +143,7 @@ private extension Result {
     }
 }
 
-class RemoteImageDataLoaderSpy: RemoteImageDataLoader {
+final class RemoteImageDataLoaderSpy: RemoteImageDataLoader {
     private var messages = [(url: URL, completion: (RemoteLoader<Data>.Result) -> Void)]()
     
     var loadCallCount: Int {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ResourceListCollectionViewController: UICollectionViewController {
+public final class ResourceListCollectionViewController: UICollectionViewController {
 
     private var refreshController: RefreshViewController?
     var collectionModel = [ResourceListCellController]() {

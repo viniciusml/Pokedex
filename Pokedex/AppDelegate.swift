@@ -9,7 +9,7 @@
 import PokemonDomain
 import UIKit
 
-private class EmptyClient: HTTPClient {
+private final class EmptyClient: HTTPClient {
     
     func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
         fatalError("unimplemented")
@@ -17,7 +17,7 @@ private class EmptyClient: HTTPClient {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     

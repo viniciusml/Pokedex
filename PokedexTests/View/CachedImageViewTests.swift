@@ -10,7 +10,7 @@ import Pokedex
 import PokemonDomain
 import XCTest
 
-class CachedImageViewTests: XCTestCase {
+final class CachedImageViewTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -141,7 +141,7 @@ class CachedImageViewTests: XCTestCase {
     }
 }
 
-private class MockImage: UIImage, @unchecked Sendable {
+private final class MockImage: UIImage, @unchecked Sendable {
     convenience init?(imageName: String) {
         self.init(cgImage: UIImage(named: imageName)!.cgImage!)
     }

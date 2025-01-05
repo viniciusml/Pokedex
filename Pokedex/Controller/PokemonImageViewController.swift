@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PokemonImageViewController: UIViewController {
+final class PokemonImageViewController: UIViewController {
     
     private let photoImageView: CachedImageView
     let imageURLString: String

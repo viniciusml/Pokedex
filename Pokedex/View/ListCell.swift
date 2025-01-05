@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ListCell: BaseCell {
+public final class ListCell: BaseCell {
 
     //    MARK: - Properties
 

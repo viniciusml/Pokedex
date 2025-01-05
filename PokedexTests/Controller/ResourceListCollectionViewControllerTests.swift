@@ -11,7 +11,7 @@ import Pokedex
 import PokemonDomain
 import ViewControllerPresentationSpy
 
-class ResourceListCollectionViewControllerTests: XCTestCase {
+final class ResourceListCollectionViewControllerTests: XCTestCase {
 
     func test_resourceListView_hasTitle() {
         let (sut, _) = makeSUT()
@@ -237,7 +237,7 @@ private extension ResourceListCollectionViewController {
     }
 }
 
-private class FakeRefreshControl: UIRefreshControl {
+private final class FakeRefreshControl: UIRefreshControl {
     private var _isRefreshing = false
     
     override var isRefreshing: Bool { _isRefreshing }

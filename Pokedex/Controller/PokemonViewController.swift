@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class PokemonViewController: UIViewController {
+public final class PokemonViewController: UIViewController {
 
     // MARK: - Properties
 

@@ -10,7 +10,7 @@
 import PokemonDomain
 import XCTest
 
-class AppDelegateTests: XCTestCase {
+final class AppDelegateTests: XCTestCase {
     
     func test_appDidFinishLaunching_configuresRootViewController() throws {
         let client = HTTPClientStub(.online([.listData]))

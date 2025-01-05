@@ -9,7 +9,7 @@
 import PokemonDomain
 import XCTest
 
-class RemoteLoaderTests: XCTestCase {
+final class RemoteLoaderTests: XCTestCase {
     
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()

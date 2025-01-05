@@ -9,7 +9,7 @@
 import Foundation
 import PokemonDomain
 
-class HTTPClientSpy: HTTPClient {
+final class HTTPClientSpy: HTTPClient {
     private var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
     
     var requestedURLs: [URL] {

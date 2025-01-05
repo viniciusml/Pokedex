@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PokemonMainView: UIView {
+final class PokemonMainView: UIView {
 
     //    MARK: - Properties
 

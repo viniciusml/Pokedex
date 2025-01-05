@@ -11,7 +11,7 @@ import PokemonDomain
 import ViewControllerPresentationSpy
 import XCTest
 
-class PokemonViewControllerTests: XCTestCase {
+final class PokemonViewControllerTests: XCTestCase {
     
     func test_loadActions_requestsItemFromLoader() {
         let expectedURL = URL(string: "https://pokeapi.co/api/v2/pokemon/1")

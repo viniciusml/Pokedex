@@ -10,7 +10,7 @@ import UIKit
 @testable import PokemonDomain
 import Pokedex
 
-class RemoteImageLoaderSpy: RemoteImageLoader {
+final class RemoteImageLoaderSpy: RemoteImageLoader {
     private var messages = [(url: URL, completion: (RemoteLoader<UIImage>.Result) -> Void)]()
     
     var loadCallCount: Int {

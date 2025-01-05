@@ -61,7 +61,7 @@ final class HTTPClientWithStubbedCompositeTests: XCTestCase {
         return (sut, prodClient, stubbedClient)
     }
     
-    private class HTTPClientTypeProviderStub: TypeProviding {
+    private final class HTTPClientTypeProviderStub: TypeProviding {
         enum Default: ConditionRepresentable {
             case condition
         }

@@ -9,7 +9,7 @@
 import XCTest
 import Pokedex
 
-class ImageMapperTests: XCTestCase {
+final class ImageMapperTests: XCTestCase {
     
     func test_map_throwsErrorOn200HTTPResponseWithInvalidData() {
         XCTAssertThrowsError(

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HTTPClientMainQueueDecorator: HTTPClient {
+public final class HTTPClientMainQueueDecorator: HTTPClient {
     private let decoratee: HTTPClient
     
     public init(_ decoratee: HTTPClient) {

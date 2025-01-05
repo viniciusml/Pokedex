@@ -144,7 +144,7 @@ extension Notification.Name {
 }
 
 /// Vertical stack View.
-class VerticalStackView: UIStackView {
+final class VerticalStackView: UIStackView {
 
     init(arrangedSubviews: [UIView], spacing: CGFloat = 0) {
         super.init(frame: .zero)
